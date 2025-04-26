@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--==================== UNICONS ====================-->
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+
+    <!--==================== SWIPER CSS ====================-->
+    <link rel="stylesheet" href="./packages/css/swiper-bundle.min.css" />
+
+    <!--==================== CSS ====================-->
+    <link rel="stylesheet" href="./packages/css/styles.css" />
+
+    <title>Ayush</title>
+  </head>
+  <body>
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+      <nav class="nav container">
+        <a href="#" class="nav__logo">Ayush</a>
+        <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list grid">
+            <li class="nav__item">
+              <a href="#home" class="nav__link"
+                ><i class="uil uil-estate nav__icon"></i>Home</a
+              >
+            </li>
+            <li class="nav__item">
+              <a href="#about" class="nav__link"
+                ><i class="uil uil-user nav__icon"></i>About</a
+              >
+            </li>
+            <li class="nav__item">
+              <a href="#skills" class="nav__link"
+                ><i class="uil uil-file-alt nav__icon"></i>Skills</a
+              >
+            </li>
+            <li class="nav__item">
+              <a href="#experience" class="nav__link"
+                ><i class="uil uil-briefcase-alt nav__icon"></i>Experience</a
+              >
+            </li>
+            <li class="nav__item">
+              <a href="#education" class="nav__link"
+                ><i class="uil uil-scenery nav__icon"></i>Education</a
+              >
+            </li>
+          </ul>
+          <i class="uil uil-times nav__close" id="nav-close"></i>
+        </div>
+        <div class="nav__btns">
+          <!-- Theme change button -->
+          <i class="uil uil-moon change-theme" id="theme-button"></i>
+
+          <div class="nav__toggle" id="nav-toggle">
+            <i class="uil uil-apps"></i>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!--==================== MAIN ====================-->
+    <main class="main">
+      <!--==================== HOME ====================-->
+      <section class="home section" id="home">
+        <div class="home__container container grid">
+          <div class="home__content grid">
+            <div class="home__social">
+              <a
+                href="https://www.linkedin.com/in/ayush-ghosh/"
+                target="_blank"
+                class="home__social-icon"
+                ><i class="uil uil-linkedin-alt"></i
+              ></a>
+              <a
+                href="https://scholar.google.com/citations?user=6cbn8bkAAAAJ&hl=en" 
+                target="_blank"
+                class="home__social-icon"
+                ><i class="uil uil-graduation-cap"></i
+              ></a>
+              <a
+                href="https://github.com/ghosh-ayush"
+                target="_blank"
+                class="home__social-icon"
+                ><i class="uil uil-github-alt"></i
+              ></a>
+            </div>
+
+            <div class="home__img">
+              <svg
+                class="home__blob"
+                viewBox="0 0 200 187"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <mask id="mask0" mask-type="alpha">
+                  <path
+                    d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 165.547 
+                                    130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 129.362C2.45775 
+                                    97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 -0.149132 97.9666 
+                                    0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z"
+                  />
+                </mask>
+                <g mask="url(#mask0)">
+                  <path
+                    d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 
+                                    165.547 130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 
+                                    129.362C2.45775 97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 
+                                    -0.149132 97.9666 0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z"
+                  />
+                  <image
+                    class="home__blob-img"
+                    x=""
+                    xlink:href="packages/images/headshot.jpg"
+                  />
+                </g>
+              </svg>
+            </div>
+
+            <div class="home__data">
+              <h1 class="home__title">Hi, I'm Ayush</h1>
+              <h3 class="home__subtitle">Data / AI Software Engineer</h3>
+              <p class="home__description">
+                Data/ML Engineer with <strong>3 + years</strong> building AWS data
+                pipelines, production-grade XGBoost/TensorFlow models, and
+                real-time analytics dashboards. Proficient in Python, Spark,
+                SQL, C#, Docker and MLOps. Skilled at translating clinical and
+                commercial requirements into scalable AI solutions that boost
+                reliability, insight and revenue. <strong>Available immediately</strong>.
+              </p>
+            </div>
+          </div>
+
+          <div class="home__scroll">
+            <a href="#about" class="home__scroll-button button--flex">
+              <i class="uil uil-mouse-alt home__scroll-mouse"></i>
+              <span class="home__scroll-name">Scroll Down</span>
+              <i class="uil uil-arrow-down home__scroll-arrow"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!--==================== ABOUT ====================-->
+        <section class="qualification__section" id="about">
+            <h2 class="section__title">About Me</h2>
+            <span class="section__subtitle">Milestones so far</span>
+        
+            <div class="qualification__container container">
+            <div class="qualification__sections">
+        
+                <!-- 1) Software Engineer II (left) -->
+                <div class="qualification__data" style="margin-bottom: -3rem;">
+                <div>
+                    <h3 class="qualification__title">Software Engineer II</h3>
+                    <span class="qualification__subtitle">Humannity Medtec – Los Angeles</span>
+                    <div class="qualification__calendar">
+                    <i class="uil uil-calendar-alt"></i> Sep 2023 – Present
+                    </div>
+                </div>
+                <div>
+                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
+                    <span class="qualification__line" style="--line-height:60%; --line-color:#2E7D32;"></span>
+                </div>
+                </div>
+        
+                <!-- 2) MEng Management (right) -->
+                <div class="qualification__data" style="margin-bottom: -3rem;">
+                <div></div>
+                <div>
+                    <span class="qualification__rounder" style="--rounder-color:#C62828;"></span>
+                    <span class="qualification__line" style="--line-height:38%; --line-color:#C62828;"></span>
+                </div>
+                <div>
+                    <h3 class="qualification__title">MEng Management</h3>
+                    <span class="qualification__subtitle">St Cloud State University – GPA 3.9/4.0</span>
+                    <div class="qualification__calendar">
+                    <i class="uil uil-calendar-alt"></i> Aug 2022 – Aug 2024
+                    </div>
+                </div>
+                </div>
+        
+                <!-- 3) Data Science Research (left) -->
+                <div class="qualification__data" style="margin-bottom: 2rem;">
+                <div>
+                    <h3 class="qualification__title_small">Data Science Research</h3>
+                    <span class="qualification__subtitle_small">St Cloud State University</span>
+                    <div class="qualification__calendar_small">
+                    <i class="uil uil-calendar-alt"></i> Jan 2023 - Oct 2023
+                    </div>
+                </div>
+                <div>
+                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
+                    <span class="qualification__line" style="--line-height:128%; --line-color:#C62828;"></span>
+                </div>
+                </div>
+        
+                <!-- 4) Decision Analytics Associate (left) -->
+                <div class="qualification__data" style="margin-bottom: -1rem;">
+                
+                <div>
+                    <h3 class="qualification__title">Decision Analytics Associate</h3>
+                    <span class="qualification__subtitle">ZS Associates – Pune</span>
+                    <div class="qualification__calendar">
+                    <i class="uil uil-calendar-alt"></i> Jan 2021 – Jul 2022
+                    </div>
+                </div>
+
+                <div>
+                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
+                    <span class="qualification__line" style="--line-height:75%; --line-color:#28a745;;"></span>
+                </div>
+                </div>
+        
+                <!-- 5) BE Electronics & Communications (right) -->
+                <div class="qualification__data" style="margin-bottom: -5rem;">
+                <div></div>
+                <div>
+                    <span class="qualification__rounder" style="--rounder-color:#C62828;"></span>
+                    <span class="qualification__line" style="--line-height:26%; --line-color:#C62828;"></span>
+                </div>
+                <div>
+                    <h3 class="qualification__title">BE Electronics & Communications</h3>
+                    <span class="qualification__subtitle">Thapar Institute – GPA 3.5/4.0</span>
+                    <div class="qualification__calendar">
+                    <i class="uil uil-calendar-alt"></i> Jul 2017 – Jul 2021
+                    </div>
+                </div>
+                </div>
+        
+                <!-- 6) Program Manager – E-Cell (left) -->
+                <div class="qualification__data" style="margin-bottom: 0rem;">
+                <div>
+                    <h3 class="qualification__title_small">Program Manager – Entrepreneurship Cell</h3>
+                    <span class="qualification__subtitle_small">Thapar Institute</span>
+                    <div class="qualification__calendar_small">
+                    <i class="uil uil-calendar-alt"></i> Sep 2017 – May 2020
+                    </div>
+                </div>
+                <div>
+                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
+                    <span class="qualification__line" style="--line-height:88%; --line-color:#C62828;"></span>
+                </div>
+                </div>
+        
+                <!-- 7) Data Analytics Intern (UPRVUNL) (left) -->
+                <div class="qualification__data" style="margin-bottom: 0rem;">
+                
+                <div>
+                    <h3 class="qualification__title_small">Data Analytics Intern</h3>
+                    <span class="qualification__subtitle_small">UPRVUNL</span>
+                    <div class="qualification__calendar_small">
+                    <i class="uil uil-calendar-alt"></i> Jun 2019 - Jul 2019
+                    </div>
+                </div>
+                <div>
+                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
+                    <span class="qualification__line" style="--line-height:88%; --line-color:#C62828;"></span>
+                </div>
+                </div>
+        
+                <!-- 8) Data Analytics Intern (HINDALCO) (left) -->
+                <div class="qualification__data" style="margin-bottom: 0rem;">
+                <div>
+                    <h3 class="qualification__title_small">Data Analytics Intern</h3>
+                    <span class="qualification__subtitle_small">HINDALCO</span>
+                    <div class="qualification__calendar_small">
+                    <i class="uil uil-calendar-alt"></i> Dec 2018 - Jan 2019
+                    </div>
+                </div>
+                <div>
+                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
+                    <span class="qualification__line" style="--line-height:88%; --line-color:#C62828;"></span>
+                </div>
+                </div>
+        
+                <!-- 9) Global Supply Chain Intern (left) -->
+                <div class="qualification__data" style="margin-bottom: 0rem;">
+                <div>
+                    <h3 class="qualification__title_small">Global Supply Chain Data Analytics Intern</h3>
+                    <span class="qualification__subtitle_small">Asmara Group</span>
+                    <div class="qualification__calendar_small">
+                    <i class="uil uil-calendar-alt"></i> Jun 2018 - Jul 2018
+                    </div>
+                </div>
+                <div>
+                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
+                    <span class="qualification__line" style="--line-height:88%; --line-color:#C62828;"></span>
+                </div>
+                </div>
+        
+                <!-- 10) Social Media Data Analyst Intern (left) -->
+                <div class="qualification__data" style="margin-bottom: 0rem;">
+                <div>
+                    <h3 class="qualification__title_small">Social Media Data Analyst Intern</h3>
+                    <span class="qualification__subtitle_small">CoLinkers Events Management</span>
+                    <div class="qualification__calendar_small">
+                    <i class="uil uil-calendar-alt"></i> Sep 2017 – Feb 2018
+                    </div>
+                </div>
+                <div>
+                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
+                </div>
+                </div>
+        
+            </div>
+            </div>
+        </section>
+        
+      <!--==================== SKILLS ====================-->
+      <section class="skills section" id="skills">
+        <h2 class="section__title">Skills</h2>
+        <span class="section__subtitle">Technical & Non-Technical Expertise</span>
+
+        <div class="skills__container container">
+          <!-- Tabs -->
+          <div class="skills__tabs">
+            <div class="skills__button button--flex skills__active" data-target="#technical">
+              <i class="uil uil-cog skills__icon"></i> Technical
+            </div>
+            <div class="skills__button button--flex" data-target="#nontechnical">
+              <i class="uil uil-briefcase-alt skills__icon"></i> Non-Technical
+            </div>
+          </div>
+
+          <!-- Panels -->
+          <div class="skills__sections">
+            <!-- Technical Skills Panel -->
+            <div class="skills__content skills__active" data-content id="technical">
+              <div class="skills__group">
+                <div class="skills__category">
+                  <i class="uil uil-language category__icon"></i>
+                  <div class="category__text">
+                    <h4 class="category__title">Languages</h4>
+                    <p class="category__items">Python, SQL, Bash, C#, C++, XAML</p>
+                  </div>
+                </div>
+                <div class="skills__category">
+                  <i class="uil uil-brackets-curly category__icon"></i>
+                  <div class="category__text">
+                    <h4 class="category__title">ML & Frameworks</h4>
+                    <p class="category__items">TensorFlow, PyTorch, Keras, scikit-learn, XGBoost, LangChain</p>
+                  </div>
+                </div>
+                <div class="skills__category">
+                  <i class="uil uil-cloud category__icon"></i>
+                  <div class="category__text">
+                    <h4 class="category__title">Data & Cloud</h4>
+                    <p class="category__items">AWS (S3, EC2, Lambda), GCP (BigQuery), Spark, Hadoop, MongoDB</p>
+                  </div>
+                </div>
+                <div class="skills__category">
+                  <i class="uil uil-cog category__icon"></i>
+                  <div class="category__text">
+                    <h4 class="category__title">DevOps & MLOps</h4>
+                    <p class="category__items">Docker, MLflow, Kubernetes, CI/CD, Git/GitHub</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Non-Technical Skills Panel -->
+            <div class="skills__content" data-content id="nontechnical">
+              <div class="skills__group">
+                <div class="skills__category">
+                  <i class="uil uil-book-open category__icon"></i>
+                  <div class="category__text">
+                    <h4 class="category__title">Domain Knowledge</h4>
+                    <p class="category__items">Healthcare & Medical Devices, Big Data Analytics, Regulatory (FDA/ISO), AI Ethics, Cloud Architecture, MLOps Workflows, Data Engineering Best Practices</p>
+                  </div>
+                </div>
+                <div class="skills__category">
+                  <i class="uil uil-comment-dots category__icon"></i>
+                  <div class="category__text">
+                    <h4 class="category__title">Communication & Leadership</h4>
+                    <p class="category__items">Presentation, Reporting, Documentation, Team Building, Stakeholder Management</p>
+                  </div>
+                </div>
+                <div class="skills__category">
+                  <i class="uil uil-lightbulb category__icon"></i>
+                  <div class="category__text">
+                    <h4 class="category__title">Problem Solving</h4>
+                    <p class="category__items">Root Cause Analysis, Critical Thinking, Continuous Learning</p>
+                  </div>
+                </div>
+                <div class="skills__category">
+                  <i class="uil uil-clock category__icon"></i>
+                  <div class="category__text">
+                    <h4 class="category__title">Time Management</h4>
+                    <p class="category__items">Prioritization, Agile Planning</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--==================== EXPERIENCE ====================-->
+      <section class="experience section" id="experience">
+        <h2 class="section__title">Professional Experience</h2>
+        <span class="section__subtitle">Where I’ve worked</span>
+
+        <div class="experience__container container grid">
+          <div class="experience__card" style="position: relative;">
+            <div class="experience__logo">
+              <img src="packages/images/humannity-logo.jpeg" alt="Humannity MedTec logo">
+            </div>
+            <div class="experience__details">
+              <h3 class="experience__role">Software Engineer II</h3>
+              <a href="https://humannitymedtec.com" class="experience__company" target="_blank">
+                Humannity MedTec — Alfred Mann Foundation
+              </a>
+              <span class="experience__dates">Sep 2023 – Present | Los Angeles, CA</span>
+              <ul class="experience__list">
+                <li>Optimized implant-telemetry flow - cut sync delay 30% and achieved 99% uptime by writing the C# ingestion code, SQLite caching and AWS ETL (S3 + RDS + DynamoDB).</li>
+                <li>Built a log-manager dashboard (S3 events & DynamoDB) that improved remote debugging throughput by 40%.</li>
+                <li>Enabled 50% faster patient journey analysis by designing SQL views and Plotly graphs in the mobile app.</li>
+                <li>Designed Python EDA on 1 M+ respiratory / accelerometer signals, defining features for future sleep pattern models.</li>
+                <li>Increased test coverage to 85% unit / 90% UI with pytest and NUnit; served as Scrum Master, lifting sprint velocity 20%.</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="experience__card" style="position: relative;">
+            <div class="experience__logo">
+              <img src="packages/images/zs-logo.svg" alt="ZS logo">
+            </div>
+            <div class="experience__details">
+              <h3 class="experience__role">Decision Analytics Associate</h3>
+              <a href="https://zs.com" class="experience__company" target="_blank">
+                ZS Associates
+              </a>
+              <span class="experience__dates">Jan 2021 – Jul 2022 | Pune, India</span>
+              <ul class="experience__list">
+                <li>Ingested 10 M+ records / month via Spark-on-EMR, loading Redshift for near-real-time KPIs.</li>
+                <li>Containerized XGBoost & Random Forest workflows on EC2 to improve experiment reproducibility.</li>
+                <li>Boosted physician engagement 30\% by converting residual model signals into keyword strategy.</li>
+                <li>Mapped patient journeys using PLD & survey data, guiding precise outreach; data insights helped double market share in 18 months./li>
+              </ul>
+            </div>
+          </div> 
+
+          <div class="experience__card" style="position: relative;">
+            <div class="experience__logo">
+              <img src="packages/images/scsu-logo.png" alt="St. Cloud State University logo">
+            </div>
+            <div class="experience__details">
+              <h3 class="experience__role">Data Science Researcher</h3>
+              <a href="https://www.stcloudstate.edu" class="experience__company" target="_blank">
+                St. Cloud State University
+              </a>
+              <span class="experience__dates">Jan 2023 – Oct 2023 | St. Cloud, MN</span>
+              <ul class="experience__list">
+                <li>Optimized implant-telemetry flow—cut sync delay 30% and achieved 99% uptime by writing the C# ingestion code, SQLite caching and AWS ETL.</li>
+                <li>Built a log-manager dashboard (S3 events & DynamoDB) that improved remote debugging throughput by 40%.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="experience__card" style="position: relative;">
+            <div class="experience__logo">
+              <img src="packages/images/edc-logo.png" alt="EDC logo">
+            </div>
+            <div class="experience__details">
+              <h3 class="experience__role">Program Manager (Volunteer)</h3>
+              <a href="https://humannitymedtec.com" class="experience__company" target="_blank">
+                Enterpreneurship Development Cell
+              </a>
+              <span class="experience__dates">Sep 2017 – May 2020 | Patiala, India</span>
+              <ul class="experience__list">
+                <li>Managed a 150+ member team at the Entrepreneurship Development Cell, mentoring startups and securing $190K in funding.</li>
+                <li>Led digital content strategy and market research at CoLinkers Event Management, boosting event visibility and engagement by 20%.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="experience__card" style="position: relative;">
+            <div class="experience__logo">
+              <img src="packages/images/uprvunl-logo.png" alt="UPRVUNL logo">
+            </div>
+            <div class="experience__details">
+              <h3 class="experience__role">Data Analytics (Intern)</h3>
+              <a href="https://humannitymedtec.com" class="experience__company" target="_blank">
+                UPRVUNL
+              </a>
+              <span class="experience__dates">Jun 2019 – Jul 2019 | Sonebhadra, India</span>
+              <ul class="experience__list">
+                <li>Analyzed SCADA and DCS data, collaborated with the Control and Instrumentation department, achieved 15% downtime reduction through data-driven optimization of equipment and processes.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="experience__card" style="position: relative;">
+            <div class="experience__logo">
+              <img src="packages/images/hindalco-logo.png" alt="HINDALCO logo">
+            </div>
+            <div class="experience__details">
+              <h3 class="experience__role">Data Analytics (Intern)</h3>
+              <a href="https://humannitymedtec.com" class="experience__company" target="_blank">
+                HINDALCO
+              </a>
+              <span class="experience__dates">Dec 2018 – Jan 2019 | Sonebhadra, India</span>
+              <ul class="experience__list">
+                <li>Analyzed data produced by Supervisory Control and Data Acquisition (SCADA) systems to discover trends, patterns, and anomalies in temperature, pressure, and other important indicators in a power generating unit for an aluminum and copper manufacturing facility.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="experience__card" style="position: relative;">
+            <div class="experience__logo">
+              <img src="packages/images/asmara-logo.webp" alt="Asmara logo">
+            </div>
+            <div class="experience__details">
+              <h3 class="experience__role">Global Supply Chain Data Analytics (Intern)</h3>
+              <a href="https://humannitymedtec.com" class="experience__company" target="_blank">
+                Asmara Group
+              </a>
+              <span class="experience__dates">Jun 2018 – Jul 2018 | Gurugram, India</span>
+              <ul class="experience__list">
+                <li>Contributed to international supply chain operations by supporting the relationships with suppliers across 18 countries. Assisted in the development and implementation of a supplier scorecard that reduced defects by 3%.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="experience__card" style="position: relative;">
+            <div class="experience__logo">
+              <img src="packages/images/colinkers-logo.jpeg" alt="colinkers logo">
+            </div>
+            <div class="experience__details">
+              <h3 class="experience__role">Social Media Data Analytics (Intern)</h3>
+              <a href="https://humannitymedtec.com" class="experience__company" target="_blank">
+                CoLinkers Events Management
+              </a>
+              <span class="experience__dates">Sep 2017 – Feb 2018 | Patiala, India</span>
+              <ul class="experience__list">
+                <li>Combined data analysis and content marketing expertise to optimize digital content strategy for website, social media, and email newsletters. Conducted market research and used SEO techniques to increase online visibility and contributed to successful event outcomes.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--==================== EDUCATION ====================-->
+      <section class="education section" id="education">
+        <h2 class="section__title">Education</h2>
+        <span class="section__subtitle">Degrees & Certifications</span>
+      
+        <div class="education__cards container">
+          <!-- Example Card: Degree -->
+          <div class="education__card" style="position: relative;">
+            <div class="education__logo">
+              <img src="packages/images/uiuc-logo.jpg" alt="UIUC logo">
+            </div>
+            <div class="education__details">
+              <h3 class="education__title">Master of Computer Science (Part-time)</h3>
+              <a href="https://grainger.illinois.edu/" class="education__institution" target="_blank">
+                University of Illinois Urbana-Champaign
+              </a>
+              <span class="education__dates">Jan 2024 – Present | Champaign, IL</span>
+            </div>
+            <ul class="education__courses">
+              <li>Deep Learning</li>
+              <li>Cloud Computing</li>
+              <li>Database Systems</li>
+            </ul>
+          </div>
+
+          <div class="education__card" style="position: relative;">
+            <div class="education__logo">
+              <img src="packages/images/scsu-logo.png" alt="SCSU logo">
+            </div>
+            <div class="education__details">
+              <h3 class="education__title">Master of Engineering Management</h3>
+              <a href="https://thapar.edu" class="education__institution" target="_blank">
+                St. Cloud State University
+              </a>
+              <span class="education__dates">Aug 2022 – Aug 2024 | St. Cloud, MN</span>
+            </div>
+            <ul class="education__courses">
+              <li>Big Data</li>
+              <li>Quality Engineering</li>
+              <li>Project Management</li>
+            </ul>
+          </div>
+      
+          <div class="education__card" style="position: relative;">
+            <div class="education__logo">
+              <img src="packages/images/tiet-logo.png" alt="Thapar Institute logo">
+            </div>
+            <div class="education__details">
+              <h3 class="education__title">Bachelor in Engineering of Electronics & Communications</h3>
+              <a href="https://thapar.edu" class="education__institution" target="_blank">
+                Thapar Institute of Engineering & Technology
+              </a>
+              <span class="education__dates">Jul 2017 – Jul 2021 | Patiala, India</span>
+            </div>
+            <ul class="education__courses">
+              <li>Data Structures & Algorithms</li>
+              <li>Operating Systems</li>
+              <li>Object Oriented Programming</li>
+              <li>Machine Learning</li>
+              <li>Biomedical Signal Processing</li>
+            </ul>
+          </div>
+        </div>
+        <div class="education__cards container">
+          <div class="education__card education__card--cert" style="position: relative;">
+            <div class="education__logo">
+              <img src="packages/images/msu-logo.png" alt="ASEM logo">
+            </div>
+            <div class="education__details">
+              <h3 class="education__title">Certified Six Sigma Green Belt</h3>
+                Minnesota West Community and Technical College
+              </a>
+              <span class="education__dates">Sep 2023</span>
+            </div>
+          </div>
+      
+          <div class="education__card education__card--cert" style="position: relative;">
+            <div class="education__logo">
+              <img src="packages/images/asem-logo.png" alt="ASEM logo">
+            </div>
+            <div class="education__details">
+              <h3 class="education__title">Certified Associate in Engineering Management</h3>
+                American Society for Engineering Management
+              </a>
+              <span class="education__dates">Oct 2024</span>
+            </div>
+          </div>
+      
+          <div class="education__card education__card--cert" style="position: relative;">
+            <div class="education__logo">
+              <img src="packages/images/duke-logo.png" alt="DUKE logo">
+            </div>
+            <div class="education__details">
+              <h3 class="education__title">AI Product Management (Specialization)</h3>
+                Duke University (Coursera)
+              </a>
+              <span class="education__dates">Jun 2023</span>
+            </div>
+          </div>
+      
+          <div class="education__card education__card--cert" style="position: relative;">
+            <div class="education__logo">
+              <img src="packages/images/ibm-logo.webp" alt="IBM logo">
+            </div>
+            <div class="education__details">
+              <h3 class="education__title">Data Science (Specialization)</h3>
+                IBM (Coursera)
+              </a>
+              <span class="education__dates">Jun 2023</span>
+            </div>
+          </div>
+          
+          <div class="education__card education__card--cert" style="position: relative;">
+            <div class="education__logo">
+              <img src="packages/images/umn-logo.png" alt="UMN logo">
+            </div>
+            <div class="education__details">
+              <h3 class="education__title">Software Development Lifecycle (Specialization)</h3>
+                University of Minnesota (Coursera)
+              </a>
+              <span class="education__dates">Jun 2023</span>
+            </div>
+          </div>
+          
+          <div class="education__card education__card--cert" style="position: relative;">
+            <div class="education__logo">
+              <img src="packages/images/google-logo.png" alt="Google logo">
+            </div>
+            <div class="education__details">
+              <h3 class="education__title">Project Management (Specialization)</h3>
+                Google (Coursera)
+              </a>
+              <span class="education__dates">May 2023</span>
+            </div>
+          </div>
+
+          <div class="education__card education__card--cert" style="position: relative;">
+            <div class="education__logo">
+              <img src="packages/images/google-logo.png" alt="Google logo">
+            </div>
+            <div class="education__details">
+              <h3 class="education__title">Data Analytics (Specialization)</h3>
+                Google (Coursera)
+              </a>
+              <span class="education__dates">Jul 2022</span>
+            </div>
+          </div>
+
+          <div class="education__card education__card--cert" style="position: relative;">
+            <div class="education__logo">
+              <img src="packages/images/stanford-logo.webp" alt="Stanford logo">
+            </div>
+            <div class="education__details">
+              <h3 class="education__title">Machine Learning (Specialization)</h3>
+                Stanford University (Coursera)
+              </a>
+              <span class="education__dates">Feb 2023</span>
+            </div>
+          </div>
+
+          <div class="education__card education__card--cert" style="position: relative;">
+            <div class="education__logo">
+              <img src="packages/images/vanderbilt-logo.png" alt="Vanderbilt logo">
+            </div>
+            <div class="education__details">
+              <h3 class="education__title">Prompt Engineering</h3>
+                Vanderbilt University (Coursera)
+              </a>
+              <span class="education__dates">Jun 2023</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!--==================== PROJECTS & PUBLICATIONS ====================-->
+      <section class="Projects section" id="projects">
+        <h2 class="section__title">Projects & Publications</h2>
+        <span class="section__subtitle">Most recent works</span>
+
+        <div class="portfolio__container container swiper-container">
+          <div class="swiper-wrapper">
+
+            <!-- AI Resume Generator -->
+            <div class="portfolio__content grid swiper-slide">
+              <img
+                src="./packages/images/ai-resume-generator.png"
+                alt="AI Resume Generator"
+                class="portfolio__img"
+              />
+              <div class="portfolio__data">
+                <h3 class="portfolio__title">AI Resume Generator</h3>
+                <p class="portfolio__description">LangChain, FAISS, GPT-4</p>
+                <ul class="portfolio__list">
+                  <li>Built a RAG pipeline using LangChain and FAISS for vector similarity search, achieving 92% relevance on test queries.</li>
+                  <li>Implemented GPT-4 integration to generate ATS-optimized resumes and cover letters from job descriptions, reducing manual drafting time by 80%.</li>
+                </ul>
+                <a href="#" class="button button--flex button--small portfolio__button">
+                  Demo<i class="uil uil-arrow-right button__icon"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Academic World Dashboard -->
+            <div class="portfolio__content grid swiper-slide">
+              <img
+                src="./packages/images/awd.png"
+                alt="Academic World Dashboard"
+                class="portfolio__img"
+              />
+              <div class="portfolio__data">
+                <h3 class="portfolio__title">Academic World Dashboard</h3>
+                <p class="portfolio__description">FastAPI, Dash/Plotly, MySQL / MongoDB / Neo4j</p>
+                <ul class="portfolio__list">
+                  <li>Designed and deployed full-stack Dash dashboard, handling 100k+ daily requests with containerized microservices.</li>
+                  <li>Implemented advanced graph queries in Neo4j to uncover research collaborations, increasing stakeholder insight by 60%.</li>
+                </ul>
+                <a href="https://mediaspace.illinois.edu/media/t/1_sqdt7fqv" class="button button--flex button--small portfolio__button" target="_blank" >
+                View Demo<i class="uil uil-arrow-right button__icon"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Personalised Loyalty Model -->
+            <div class="portfolio__content grid swiper-slide">
+              <img
+                src="./packages/images/loyalty.png"
+                alt="Personalised Loyalty Model"
+                class="portfolio__img"
+              />
+              <div class="portfolio__data">
+                <h3 class="portfolio__title">Personalised Loyalty Model</h3>
+                <p class="portfolio__description">
+                  XGBoost on AWS EC2 – ASEM 2023 Paper
+                  </a>
+                </p>
+                <ul class="portfolio__list">
+                  <li>Developed and tuned the XGBoost recommendation engine, achieving 98.8% accuracy on customer retention predictions.</li>
+                  <li>Visualized model output with interactive dashboards in Tableau to guide marketing strategy, increasing campaign ROI by 25%.</li>
+                </ul>
+                <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=6cbn8bkAAAAJ&citation_for_view=6cbn8bkAAAAJ:u5HHmVD_uO8C" class="button button--flex button--small portfolio__button" target="_blank" >
+                Read Paper<i class="uil uil-arrow-right button__icon"></i>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- navigation arrows -->
+          <div class="swiper-button-next">
+            <i class="uil uil-angle-right-b swiper-portfolio-icon"></i>
+          </div>
+          <div class="swiper-button-prev">
+            <i class="uil uil-angle-left-b swiper-portfolio-icon"></i>
+          </div>
+
+          <!-- pagination bullets -->
+          <div class="swiper-pagination"></div>
+        </div>
+      </section>
+
+      <!--==================== TESTIMONIALS ====================-->
+      <section class="testimonial section" id="testimonial">
+        <h2 class="section__title">Testimonials</h2>
+        <div class="testimonial__container container swiper-container">
+          <div class="swiper-wrapper">
+            <!-- Combined Slide (formerly Slide 1 + Slide 2) -->
+            <div class="testimonial__content swiper-slide">
+              <div class="testimonial__pair">
+                <img
+                  src="packages/images/recomm1.png"
+                  alt="Recommendation screenshot 1"
+                  class="testimonial__img2"
+                />
+                <img
+                  src="packages/images/recomm2.png"
+                  alt="Recommendation screenshot 2"
+                  class="testimonial__img3"
+                />
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="testimonial__content swiper-slide">
+              <img
+                src="packages/images/recomm3.png"
+                alt="Recommendation screenshot 3"
+                class="testimonial__img"
+              />
+            </div>
+            <!-- Slide 4 -->
+            <div class="testimonial__content swiper-slide">
+              <img
+                src="packages/images/recomm4.png"
+                alt="Recommendation screenshot 4"
+                class="testimonial__img"
+              />
+            </div>
+          </div>
+          <!-- pagination bullets -->
+          <div class="swiper-pagination"></div>
+        </div>
+      </section>      
+
+    </main>
+
+      <!--==================== FOOTER ====================-->
+      <footer class="footer">
+        <div class="footer__bg">
+          <div class="footer__container container">
+            <!-- Left column: name + title -->
+            <div class="footer__about">
+              <h1 class="footer__title">Ayush Ghosh</h1>
+              <span class="footer__subtitle">Data / AI Software Engineer</span>
+            </div>
+
+            <!-- Middle column: contact info -->
+            <div class="footer__contact-info">
+              <div class="contact__information">
+                <i class="uil uil-phone-alt contact__icon"></i>
+                <div>
+                  <h3 class="contact__title">Call me</h3>
+                  <span class="contact__subtitle">(+1) 612 999 4142</span>
+                </div>
+              </div>
+              <div class="contact__information">
+                <i class="uil uil-envelope contact__icon"></i>
+                <div>
+                  <h3 class="contact__title">E-mail</h3>
+                  <span class="contact__subtitle">
+                    <a href="mailto:ayush.ghosh@outlook.com">ayush.ghosh@outlook.com</a>
+                  </span>
+                </div>
+              </div>
+              <div class="contact__information">
+                <i class="uil uil-map-marker contact__icon"></i>
+                <div>
+                  <h3 class="contact__title">Location</h3>
+                  <span class="contact__subtitle">Los Angeles, CA</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right column: LinkedIn, Google Scholar, GitHub -->
+            <div class="footer__socials footer__profiles">
+              <a
+                href="https://www.linkedin.com/in/ayush-ghosh/"
+                target="_blank"
+                class="footer__social"
+                ><i class="uil uil-linkedin-alt"></i
+              ></a>
+              <a
+                href="https://scholar.google.com/citations?user=6cbn8bkAAAAJ&hl=en" 
+                target="_blank"
+                class="footer__social"
+                ><i class="uil uil-graduation-cap"></i
+              ></a>
+              <a
+                href="https://github.com/ghosh-ayush"
+                target="_blank"
+                class="footer__social"
+                ><i class="uil uil-github-alt"></i
+              ></a>
+            </div>
+          </div>
+
+          <p class="footer__copy">© 2025 Ayush Ghosh.</p>
+        </div>
+      </footer>
+
+    <!--==================== SCROLL TOP ====================-->
+    <a href="#" class="scrollup" id="scroll-up">
+      <i class="uil uil-arrow-up scrollup__icon"></i>
+    </a>
+
+    <!--==================== SWIPER JS ====================-->
+    <script src="./packages/js/swiper-bundle.min.js"></script>
+
+    <!--==================== MAIN JS ====================-->
+    <script src="./packages/js/main.js"></script>
+  </body>
+</html>
+ghosh-ayush/ghosh-ayush.github.io
