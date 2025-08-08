@@ -10,6 +10,9 @@
       href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
     />
 
+  <!--==================== LEAFLET MAP CSS ====================-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+
     <!--==================== SWIPER CSS ====================-->
     <link rel="stylesheet" href="./packages/css/swiper-bundle.min.css" />
 
@@ -64,6 +67,7 @@
 
     <!--==================== MAIN ====================-->
     <main class="main">
+
       <!--==================== HOME ====================-->
       <section class="home section" id="home">
         <div class="home__container container grid">
@@ -149,12 +153,17 @@
         <section class="qualification__section" id="about">
             <h2 class="section__title">About Me</h2>
             <span class="section__subtitle">Milestones so far</span>
-        
+
+            <!-- Milestone Map moved here -->
+            <section class="section" id="milestone-map-section" style="padding: 0; margin-bottom: 2.5rem;">
+              <div id="milestone-map" style="width: 100%; max-width: 900px; height: 400px; margin: 0 auto; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08);"></div>
+            </section>
+
             <div class="qualification__container container">
             <div class="qualification__sections">
         
                 <!-- 0) Master of Computer Science (Data Science) (right) -->
-                <div class="qualification__data" style="margin-bottom: 2.5rem;">
+                <div class="qualification__data" id="edu-uiuc" style="margin-bottom: 2.5rem;">
                 <div></div>
                 <div>
                     <span class="qualification__rounder" style="--rounder-color:#C62828;"></span>
@@ -170,7 +179,7 @@
                 </div>
 
                 <!-- 1.5) Data Scientist/AI Engineer (left) -->
-                <div class="qualification__data" style="margin-bottom: 2.5rem;">
+                <div class="qualification__data" id="exp-sculptor" style="margin-bottom: 2.5rem;" data-link-exp="card-sculptor">
                 <div>
                   <h3 class="qualification__title">Data Scientist/ AI Engineer</h3>
                   <span class="qualification__subtitle">Sculptor Capital Management – New York</span>
@@ -185,7 +194,7 @@
                 </div>
                 <!-- 1) Software Engineer II (left) -->
                 <!-- 1a) Software Engineer II (Data & Cloud) (left) -->
-                <div class="qualification__data" style="margin-bottom: 2.5rem;">
+                <div class="qualification__data" id="exp-humannity-2" style="margin-bottom: 2.5rem;">
                   <div>
                     <h3 class="qualification__title">Software Engineer II (Data & Cloud)</h3>
                     <span class="qualification__subtitle">Humannity Medtec – Los Angeles</span>
@@ -200,7 +209,7 @@
                 </div>
 
                 <!-- 1b) Software Engineer I (Mobile Application) (left) -->
-                <div class="qualification__data" style="margin-bottom: 2.5rem;">
+                <div class="qualification__data" id="exp-humannity-1" style="margin-bottom: 2.5rem;">
                   <div>
                     <h3 class="qualification__title">Software Engineer I (Mobile Application)</h3>
                     <span class="qualification__subtitle">Humannity Medtec – Los Angeles</span>
@@ -214,7 +223,7 @@
                   </div>
                 </div>
                 <!-- 2) Master of Engineering Management (right) -->
-                <div class="qualification__data" style="margin-bottom: 2.5rem;">
+                <div class="qualification__data" id="edu-scsu" style="margin-bottom: 2.5rem;">
                 <div></div>
                 <div>
                     <span class="qualification__rounder" style="--rounder-color:#C62828;"></span>
@@ -230,7 +239,7 @@
                 </div>
         
                 <!-- 3) Data Science Research (left) -->
-                <div class="qualification__data" style="margin-bottom: 2.5rem;">
+                <div class="qualification__data" id="exp-scsu-research" style="margin-bottom: 2.5rem;">
                 <div>
                     <h3 class="qualification__title_small">Data Science Research</h3>
                     <span class="qualification__subtitle_small">St Cloud State University</span>
@@ -245,7 +254,7 @@
                 </div>
         
                 <!-- 4) Decision Analytics Associate (left) -->
-                <div class="qualification__data" style="margin-bottom: 2.5rem;">
+                <div class="qualification__data" id="exp-zs" style="margin-bottom: 2.5rem;">
                 
                 <div>
                     <h3 class="qualification__title">Decision Analytics Associate</h3>
@@ -262,7 +271,7 @@
                 </div>
         
                 <!-- 5) BE Electronics & Communications (right) -->
-                <div class="qualification__data" style="margin-bottom: 0;">
+                <div class="qualification__data" id="edu-thapar" style="margin-bottom: 0;">
                 <div></div>
                 <div>
                     <span class="qualification__rounder" style="--rounder-color:#C62828;"></span>
@@ -278,7 +287,7 @@
                 </div>
         
                 <!-- 6) Program Manager – E-Cell (left) -->
-                <div class="qualification__data" style="margin-bottom: 0rem;">
+                <div class="qualification__data" id="exp-ecell" style="margin-bottom: 0rem;">
                 <div>
                     <h3 class="qualification__title_small">Program Manager – Entrepreneurship Cell</h3>
                     <span class="qualification__subtitle_small">Thapar Institute</span>
@@ -293,7 +302,7 @@
                 </div>
         
                 <!-- 7) Data Scientist Intern (UPRVUNL) (left) -->
-                <div class="qualification__data" style="margin-bottom: 0rem;">
+                <div class="qualification__data" id="exp-uprvunl" style="margin-bottom: 0rem;">
                 
                 <div>
                     <h3 class="qualification__title_small">Data Scientist Intern</h3>
@@ -309,7 +318,7 @@
                 </div>
         
                 <!-- 8) Data Scientist Intern (HINDALCO) (left) -->
-                <div class="qualification__data" style="margin-bottom: 0rem;">
+                <div class="qualification__data" id="exp-hindalco" style="margin-bottom: 0rem;">
                 <div>
                     <h3 class="qualification__title_small">Data Scientist Intern</h3>
                     <span class="qualification__subtitle_small">HINDALCO</span>
@@ -324,7 +333,7 @@
                 </div>
 
                 <!-- 9) Data Scientist Intern (Global Supply Chain) (left) -->
-                <div class="qualification__data" style="margin-bottom: 0rem;">
+                <div class="qualification__data" id="exp-asmara" style="margin-bottom: 0rem;">
                 <div>
                     <h3 class="qualification__title_small">Global Supply Chain Data Scientist Intern</h3>
                     <span class="qualification__subtitle_small">Asmara Group</span>
@@ -465,16 +474,36 @@
         <span class="section__subtitle">Where I’ve worked</span>
 
         <div class="experience__container container grid">
+          <div class="experience__card" id="card-sculptor" style="position: relative;">
+            <div class="experience__logo">
+              <img src="packages/images/sculptor-logo.png" alt="Sculptor Capital Management logo" loading="lazy">
+            </div>
+            <div class="experience__details">
+              <h3 class="experience__role">Data Scientist / AI Engineer</h3>
+              <span class="experience__dates">June 2025 – Present | New York, NY</span>
+              <a href="https://www.sculptor.com" class="experience__company" target="_blank">
+                Sculptor Capital Management
+              </a>
+              <ul class="experience__list">
+                <li>Built RAG-based AI solutions using LangChain and GPT-4o in Azure Foundry, automating Q&A and executive summaries, reducing report prep time by ~25%.</li>
+                <li>Engineered end-to-end data pipelines with Azure Data Factory and Databricks, leveraging Git-driven CI/CD to automate ETL and model deployment, cutting processing time by ~30%.</li>
+                <li>Designed time-series forecasting models with Python/Pandas and SQL to predict True-Up and cash-on-cash metrics, improving projection accuracy by ~12%.</li>
+                <li>Developed interactive Power BI dashboards consolidating financial and operational data, adopted by 4 teams for real-time reporting and accelerating insights by ~20%.</li>
+              </ul>
+            </div>
+          </div>
           <div class="experience__card" style="position: relative;">
             <div class="experience__logo">
               <img src="packages/images/humannity-logo.jpeg" alt="Humannity MedTec logo" loading="lazy">
             </div>
             <div class="experience__details">
-              <h3 class="experience__role">Software Engineer II</h3>
+              <h3 class="experience__role">Software Engineer II (Data & Cloud)</h3>
+              <span class="experience__dates">Jul 2024 – May 2025 | Los Angeles, CA</span>
+              <h3 class="experience__role">Software Engineer I (Mobile Application)</h3>
+              <span class="experience__dates">Sep 2023 – Jul 2024 | Los Angeles, CA</span>
               <a href="https://humannitymedtec.com" class="experience__company" target="_blank">
                 Humannity MedTec — Alfred Mann Foundation
               </a>
-              <span class="experience__dates">Sep 2023 – May 2025 | Los Angeles, CA</span>
               <ul class="experience__list">
                 <li>Optimized implant-telemetry flow - cut sync delay 30% and achieved 99% uptime by writing the C# ingestion code, SQLite caching and AWS ETL (S3 + RDS + DynamoDB).</li>
                 <li>Built a log-manager dashboard (S3 events & DynamoDB) that improved remote debugging throughput by 40%.</li>
@@ -491,10 +520,10 @@
             </div>
             <div class="experience__details">
               <h3 class="experience__role">Decision Analytics Associate (Data Science)</h3>
-              <a href="https://zs.com" class="experience__company" target="_blank">
-                ZS Associates
-              </a>
               <span class="experience__dates">Jan 2021 – Jul 2022 | Pune, India</span>
+             <a href="https://zs.com" class="experience__company" target="_blank">
+                ZS Associates
+              </a> 
               <ul class="experience__list">
                 <li>Ingested 10 M+ records / month via Spark-on-EMR, loading Redshift for near-real-time KPIs.</li>
                 <li>Containerized XGBoost & Random Forest workflows on EC2 to improve experiment reproducibility.</li>
@@ -510,10 +539,10 @@
             </div>
             <div class="experience__details">
               <h3 class="experience__role">Data Science Researcher</h3>
+              <span class="experience__dates">Jan 2023 – Oct 2023 | St. Cloud, MN</span>
               <a href="https://www.stcloudstate.edu" class="experience__company" target="_blank">
                 St. Cloud State University
               </a>
-              <span class="experience__dates">Jan 2023 – Oct 2023 | St. Cloud, MN</span>
               <ul class="experience__list">
                 <li>Optimized implant-telemetry flow—cut sync delay 30% and achieved 99% uptime by writing the C# ingestion code, SQLite caching and AWS ETL.</li>
                 <li>Built a log-manager dashboard (S3 events & DynamoDB) that improved remote debugging throughput by 40%.</li>
@@ -527,10 +556,10 @@
             </div>
             <div class="experience__details">
               <h3 class="experience__role">Program Manager (Volunteer)</h3>
-              <a href="https://humannitymedtec.com" class="experience__company" target="_blank">
+              <span class="experience__dates">Sep 2017 – May 2020 | Patiala, India</span>
+              <a href="https://www.linkedin.com/school/thaparventureclub/posts/?feedView=all" class="experience__company" target="_blank">
                 Enterpreneurship Development Cell
               </a>
-              <span class="experience__dates">Sep 2017 – May 2020 | Patiala, India</span>
               <ul class="experience__list">
                 <li>Managed a 150+ member team at the Entrepreneurship Development Cell, mentoring startups and securing $190K in funding.</li>
                 <li>Led digital content strategy and market research at CoLinkers Event Management, boosting event visibility and engagement by 20%.</li>
@@ -543,11 +572,11 @@
               <img src="packages/images/uprvunl-logo.png" alt="UPRVUNL logo" loading="lazy">
             </div>
             <div class="experience__details">
-              <h3 class="experience__role">Data Scientist (Intern)</h3>
-              <a href="https://humannitymedtec.com" class="experience__company" target="_blank">
+              <h3 class="experience__role">Data Scientist (Intern)</h3>              
+              <span class="experience__dates">Jun 2019 – Jul 2019 | Sonebhadra, India</span>
+              <a href="https://uprvunl.org/" class="experience__company" target="_blank">
                 UPRVUNL
               </a>
-              <span class="experience__dates">Jun 2019 – Jul 2019 | Sonebhadra, India</span>
               <ul class="experience__list">
                 <li>Analyzed SCADA and DCS data, collaborated with the Control and Instrumentation department, achieved 15% downtime reduction through data-driven optimization of equipment and processes.</li>
               </ul>
@@ -560,10 +589,10 @@
             </div>
             <div class="experience__details">
               <h3 class="experience__role">Data Scientist (Intern)</h3>
-              <a href="https://humannitymedtec.com" class="experience__company" target="_blank">
+              <span class="experience__dates">Dec 2018 – Jan 2019 | Sonebhadra, India</span>
+              <a href="https://www.hindalco.com/" class="experience__company" target="_blank">
                 HINDALCO
               </a>
-              <span class="experience__dates">Dec 2018 – Jan 2019 | Sonebhadra, India</span>
               <ul class="experience__list">
                 <li>Analyzed data produced by Supervisory Control and Data Acquisition (SCADA) systems to discover trends, patterns, and anomalies in temperature, pressure, and other important indicators in a power generating unit for an aluminum and copper manufacturing facility.</li>
               </ul>
@@ -576,10 +605,10 @@
             </div>
             <div class="experience__details">
               <h3 class="experience__role">Global Supply Chain Data Scientist (Intern)</h3>
-              <a href="https://humannitymedtec.com" class="experience__company" target="_blank">
+              <span class="experience__dates">Jun 2018 – Jul 2018 | Gurugram, India</span>
+              <a href="https://asmaragroup.com/" class="experience__company" target="_blank">
                 Asmara Group
               </a>
-              <span class="experience__dates">Jun 2018 – Jul 2018 | Gurugram, India</span>
               <ul class="experience__list">
                 <li>Contributed to international supply chain operations by supporting the relationships with suppliers across 18 countries. Assisted in the development and implementation of a supplier scorecard that reduced defects by 3%.</li>
               </ul>
@@ -592,10 +621,10 @@
             </div>
             <div class="experience__details">
               <h3 class="experience__role">Social Media Data Scientist (Intern)</h3>
-              <a href="https://humannitymedtec.com" class="experience__company" target="_blank">
+              <span class="experience__dates">Sep 2017 – Feb 2018 | Patiala, India</span>
+              <a href="https://www.facebook.com/CoLinkers.em/" class="experience__company" target="_blank">
                 CoLinkers Events Management
               </a>
-              <span class="experience__dates">Sep 2017 – Feb 2018 | Patiala, India</span>
               <ul class="experience__list">
                 <li>Combined data analysis and content marketing expertise to optimize digital content strategy for website, social media, and email newsletters. Conducted market research and used SEO techniques to increase online visibility and contributed to successful event outcomes.</li>
               </ul>
@@ -611,7 +640,7 @@
       
         <div class="education__cards container">
           <!-- Example Card: Degree -->
-          <div class="education__card" style="position: relative;">
+          <div class="education__card" id="card-uiuc" style="position: relative;">
             <div class="education__logo">
               <img src="packages/images/uiuc-logo.jpg" alt="UIUC logo" loading="lazy">
             </div>
@@ -631,7 +660,7 @@
             </ul>
           </div>
 
-          <div class="education__card" style="position: relative;">
+          <div class="education__card" id="card-scsu" style="position: relative;">
             <div class="education__logo">
               <img src="packages/images/scsu-logo.png" alt="SCSU logo" loading="lazy">
             </div>
@@ -649,7 +678,7 @@
             </ul>
           </div>
       
-          <div class="education__card" style="position: relative;">
+          <div class="education__card" id="card-thapar" style="position: relative;">
             <div class="education__logo">
               <img src="packages/images/tiet-logo.png" alt="Thapar Institute logo" loading="lazy">
             </div>
@@ -1002,6 +1031,9 @@
       </footer>
 
     <!--==================== SCROLL TOP ====================-->
+  <!--==================== LEAFLET MAP JS ====================-->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="./packages/js/milestone-map.js"></script>
     <a href="#" class="scrollup" id="scroll-up">
       <i class="uil uil-arrow-up scrollup__icon"></i>
     </a>
@@ -1011,5 +1043,76 @@
 
     <!--==================== MAIN JS ====================-->
     <script src="./packages/js/main.js"></script>
+    <script>
+    // Experience timeline linking for Sculptor
+    (function() {
+      const timelineEl = document.getElementById('exp-sculptor');
+      const cardEl = document.getElementById('card-sculptor');
+      if (timelineEl && cardEl) {
+        timelineEl.addEventListener('mouseenter', () => {
+          cardEl.classList.add('highlight-map-exp');
+        });
+        timelineEl.addEventListener('mouseleave', () => {
+          cardEl.classList.remove('highlight-map-exp');
+        });
+        timelineEl.addEventListener('click', () => {
+          cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          cardEl.classList.add('highlight-map-exp');
+          setTimeout(() => cardEl.classList.remove('highlight-map-exp'), 2000);
+        });
+        cardEl.addEventListener('mouseenter', () => {
+          timelineEl.classList.add('highlight-map-exp');
+        });
+        cardEl.addEventListener('mouseleave', () => {
+          timelineEl.classList.remove('highlight-map-exp');
+        });
+        cardEl.addEventListener('click', () => {
+          timelineEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          timelineEl.classList.add('highlight-map-exp');
+          setTimeout(() => timelineEl.classList.remove('highlight-map-exp'), 2000);
+        });
+      }
+    })();
+    </script>
+    <script>
+    // Education timeline linking
+    const eduTimelineToCard = {
+      'edu-uiuc': 'card-uiuc',
+      'edu-scsu': 'card-scsu',
+      'edu-thapar': 'card-thapar',
+    };
+    Object.entries(eduTimelineToCard).forEach(([timelineId, cardId]) => {
+      const timelineEl = document.getElementById(timelineId);
+      const cardEl = document.getElementById(cardId);
+      if (timelineEl && cardEl) {
+        // Highlight card on hover
+        timelineEl.addEventListener('mouseenter', () => {
+          cardEl.classList.add('highlight-map-exp');
+        });
+        timelineEl.addEventListener('mouseleave', () => {
+          cardEl.classList.remove('highlight-map-exp');
+        });
+        // Scroll to card on click
+        timelineEl.addEventListener('click', () => {
+          cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          cardEl.classList.add('highlight-map-exp');
+          setTimeout(() => cardEl.classList.remove('highlight-map-exp'), 2000);
+        });
+        // Highlight timeline on card hover
+        cardEl.addEventListener('mouseenter', () => {
+          timelineEl.classList.add('highlight-map-exp');
+        });
+        cardEl.addEventListener('mouseleave', () => {
+          timelineEl.classList.remove('highlight-map-exp');
+        });
+        // Scroll to timeline on card click
+        cardEl.addEventListener('click', () => {
+          timelineEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          timelineEl.classList.add('highlight-map-exp');
+          setTimeout(() => timelineEl.classList.remove('highlight-map-exp'), 2000);
+        });
+      }
+    });
+    </script>
   </body>
 </html>

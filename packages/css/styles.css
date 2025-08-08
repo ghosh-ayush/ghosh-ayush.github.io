@@ -1,3 +1,24 @@
+/* Highlight timeline entry on hover */
+.qualification__data:hover {
+  box-shadow: 0 0 0 4px #fff7d1, 0 2px 12px rgba(0,0,0,0.08);
+  background: #fffde7;
+}
+body.dark-theme .qualification__data:hover {
+  box-shadow: 0 0 0 4px #37474f, 0 2px 12px rgba(0,0,0,0.28);
+  background: #23272b;
+  cursor: pointer;
+  transition: box-shadow 0.3s, background 0.3s;
+}
+/* Highlight experience box when navigated from map */
+.highlight-map-exp {
+  box-shadow: 0 0 0 4px #fff7d1, 0 2px 12px rgba(0,0,0,0.08);
+  background: #fffde7;
+}
+body.dark-theme .highlight-map-exp {
+  box-shadow: 0 0 0 4px #37474f, 0 2px 12px rgba(0,0,0,0.28);
+  background: #23272b;
+  transition: box-shadow 0.3s, background 0.3s;
+}
 /* ==================== GOOGLE FONTS ====================*/
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
