@@ -2,6 +2,7 @@
 .qualification__data:hover {
   box-shadow: 0 0 0 4px #fff7d1, 0 2px 12px rgba(0,0,0,0.08);
   background: #fffde7;
+}
 body.dark-theme .qualification__data:hover {
   box-shadow: 0 0 0 4px #37474f, 0 2px 12px rgba(0,0,0,0.28);
   background: #23272b;
