@@ -1,17 +1,17 @@
-// Map timeline IDs to experience card selectors
+// Map timeline IDs to experience card ID selectors (use explicit IDs to avoid brittle nth-of-type)
 const timelineToExperience = {
-  'exp-scsu-research': '.experience__card:nth-of-type(3)',
-  'exp-uiuc': null, // Add selector if exists
-  'exp-sculptor': null, // Add selector if exists
-  'exp-humannity-2': '.experience__card:nth-of-type(1)',
-  'exp-humannity-1': '.experience__card:nth-of-type(1)',
-  'exp-scsu': null, // Add selector if exists
-  'exp-zs': '.experience__card:nth-of-type(2)',
-  'exp-thapar': null, // Add selector if exists
-  'exp-ecell': '.experience__card:nth-of-type(4)',
-  'exp-uprvunl': '.experience__card:nth-of-type(5)',
-  'exp-hindalco': '.experience__card:nth-of-type(6)',
-  'exp-asmara': '.experience__card:nth-of-type(8)'
+  'exp-scsu-research': '#card-scsu-research',
+  'exp-uiuc': '#card-uiuc',
+  'exp-sculptor': '#card-sculptor',
+  'exp-humannity-2': '#card-humannity',
+  'exp-humannity-1': '#card-humannity',
+  'exp-scsu': '#card-scsu',
+  'exp-zs': '#card-zs',
+  'exp-thapar': '#card-thapar',
+  'exp-ecell': '#card-ecell',
+  'exp-uprvunl': '#card-uprvunl',
+  'exp-hindalco': '#card-hindalco',
+  'exp-asmara': '#card-asmara'
 };
 
 // Add click event to all .qualification__data

@@ -111,26 +111,7 @@ let swiperPortfolio = new Swiper(".portfolio__container", {
 });
 
 /*==================== TESTIMONIAL ====================*/
-let swiperTestimonial = new Swiper(".testimonial__container", {
-  loop: true,
-  grabCursor: true,
-  spaceBetween: 48,
-
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-    dynamicBullets: true,
-  },
-
-  breakpoints: {
-    568: {
-      slidesPerView: 2,
-    },
-  },
-
-  /* mousewheel: true,
-  keyboard: true, */
-});
+// Testimonial Swiper is initialized later as `testimonialSwiper` (consolidated)
 
 /*==================== SCROLL SECTIONS ACTIVE LINK ====================*/
 const sections = document.querySelectorAll("section[id]");
@@ -187,22 +168,29 @@ const selectedIcon = localStorage.getItem("selected-icon");
 // We obtain the current theme that the interface has by validating the dark-theme class
 const getCurrentTheme = () =>
   document.body.classList.contains(darkTheme) ? "dark" : "light";
-const getCurrentIcon = () =>
+  const getCurrentIcon = () =>
   themeButton.classList.contains(iconTheme) ? "uil-moon" : "uil-sun";
 
 // We validate if the user previously chose a topic
 if (selectedTheme) {
-  // If the validation is fulfilled, we ask what the issue was to know if we activated or deactivated the dark
+  // Apply the user's previously selected theme
   document.body.classList[selectedTheme === "dark" ? "add" : "remove"](
     darkTheme
   );
-  themeButton.classList[selectedIcon === "uil-moon" ? "add" : "remove"](
-    iconTheme
-  );
+  if (themeButton)
+    themeButton.classList[selectedIcon === "uil-moon" ? "add" : "remove"](
+      iconTheme
+    );
+} else {
+  // If no explicit preference stored, respect the OS-level color scheme
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.body.classList.add(darkTheme);
+    if (themeButton) themeButton.classList.add(iconTheme);
+  }
 }
 
 // Activate / deactivate the theme manually with the button
-themeButton.addEventListener("click", () => {
+if (themeButton) themeButton.addEventListener("click", () => {
   // Add or remove the dark / icon theme
   document.body.classList.toggle(darkTheme);
   themeButton.classList.toggle(iconTheme);
@@ -215,7 +203,7 @@ themeButton.addEventListener("click", () => {
   3) helper to build each .qualification__data
 --------------------------------------------------*/
 function makeEntry(item) {
-  const isLeft = leftCats.has(item.category);
+  const isLeft = (typeof leftCats !== 'undefined' && leftCats && typeof leftCats.has === 'function') ? leftCats.has(item.category) : false;
 
   // choose dot-colour class
   const rounderClass =
@@ -296,12 +284,13 @@ skillTabs.forEach(tab => {
 });
 
 // 1) Initialize your testimonial Swiper instance
-const testimonialSwiper = new Swiper('.testimonial__container', {
+  const testimonialSwiper = new Swiper('.testimonial__container', {
   loop: true,
   grabCursor: true,
   spaceBetween: 48,
   pagination: {
-    el: '.swiper-pagination-testimonial',
+    // use the pagination element that exists inside the testimonial container
+    el: '.testimonial__container .swiper-pagination',
     clickable: true,
     dynamicBullets: true,
   },
@@ -310,62 +299,8 @@ const testimonialSwiper = new Swiper('.testimonial__container', {
   },
 });
 
-// 2) Fetch LinkedIn recommendations and inject slides
-async function loadLinkedInTestimonials() {
-  const ACCESS_TOKEN = 'YOUR_LINKEDIN_ACCESS_TOKEN';
-  // Replace {MEMBER_ID} with your LinkedIn member id
-  const url = `https://api.linkedin.com/v2/recommendationsReceived?q=receivingMember&receivingMember=urn:li:person:{MEMBER_ID}&projection=(elements*(recommendationText,recommendationType,recommendedByMember~(firstName,lastName,profilePicture(displayImage~:playableStreams))))`;
-
-  try {
-    const res = await fetch(url, {
-      headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}` }
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const json = await res.json();
-
-    const container = document.getElementById('linkedin-testimonials');
-    json.elements.forEach(rec => {
-      const person = rec['recommendedByMember~'];
-      const name = `${person.firstName.localized.en_US} ${person.lastName.localized.en_US}`;
-      // pick the first available image stream
-      const imgUrl = person.profilePicture['displayImage~'].elements.slice(-1)[0].identifiers[0].identifier;
-      const text = rec.recommendationText;
-
-      // build slide
-      const slide = document.createElement('div');
-      slide.className = 'testimonial__content swiper-slide';
-      slide.innerHTML = `
-        <div class="testimonial__data">
-          <div class="testimonial__header">
-            <img src="${imgUrl}" alt="${name}" class="testimonial__img" />
-            <div>
-              <h3 class="testimonial__name">${name}</h3>
-              <span class="testimonial__client">LinkedIn Recommendation</span>
-            </div>
-          </div>
-          <div class="testimonial__stars">
-            ${'<i class="uil uil-star testimonial__icon-star"></i>'.repeat(5)}
-          </div>
-        </div>
-        <p class="testimonial__description">${text}</p>
-      `;
-      container.appendChild(slide);
-
-      // let Swiper know about the new slide
-      testimonialSwiper.appendSlide(slide);
-    });
-
-    // once all are loaded, update Swiper
-    testimonialSwiper.update();
-  } catch (err) {
-    console.error('Failed to load LinkedIn testimonials:', err);
-  }
-}
-
-// 3) Kick it off on DOM ready
-document.addEventListener('DOMContentLoaded', loadLinkedInTestimonials);
-
-const stored = localStorage.getItem('theme');    // 'light' or 'dark' or null
-const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-const theme = stored || system;
-document.body.classList.toggle('dark-theme', theme === 'dark');
+// LinkedIn API fetch removed
+// The site uses static screenshot testimonials included in `index.html` (packages/images/recomm*.png).
+// Keeping the function would require server-side auth and secure tokens; avoid client-side tokens.
+// If you want dynamic LinkedIn recommendations in future, implement a server-side proxy that
+// exchanges OAuth tokens and returns sanitized recommendation data to the client.
