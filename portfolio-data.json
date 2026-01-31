@@ -1,7 +1,7 @@
 {
   "personal": {
     "name": "Ayush Ghosh",
-    "title": "AI Product Manager & Software Engineer",
+    "title": "AI Product Manager & Engineer",
     "subtitle": "AI PM | Advanced Analytics",
     "description": "AI product leader with 5+ years delivering production AI and analytics products. I define roadmaps, prioritize ML features with stakeholders, and coordinate engineering, data, and design teams to ship measurable outcomes. Technical fluency includes Python, LangChain, TensorFlow, AWS, and MLOps.",
     "email": "ayush.ghosh@outlook.com",
@@ -142,7 +142,7 @@
       "id": "socai",
       "company": "SOCAi Labs",
       "logo": "/assets/images/socai-logo.png",
-      "position": "Product Manager",
+      "position": "Founding Product Lead",
       "location": "Sunnyvale, CA",
       "startDate": "Dec 2025",
       "endDate": "Present",
