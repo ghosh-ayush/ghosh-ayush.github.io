@@ -1,0 +1,460 @@
+{
+  "personal": {
+    "name": "Ayush Ghosh",
+    "title": "AI Product Manager & Software Engineer",
+    "subtitle": "AI PM | Advanced Analytics",
+    "description": "AI product leader with 5+ years delivering production AI and analytics products. I define roadmaps, prioritize ML features with stakeholders, and coordinate engineering, data, and design teams to ship measurable outcomes. Technical fluency includes Python, LangChain, TensorFlow, AWS, and MLOps.",
+    "email": "ayush.ghosh@outlook.com",
+    "phone": "+1-612-999-4142",
+    "image": "/assets/images/headshot.jpg"
+  },
+  "social": [
+    {
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com/in/ayush-ghosh/",
+      "icon": "linkedin"
+    },
+    {
+      "name": "GitHub",
+      "url": "https://github.com/ghosh-ayush",
+      "icon": "github"
+    },
+    {
+      "name": "Google Scholar",
+      "url": "https://scholar.google.com/citations?user=6cbn8bkAAAAJ&hl=en",
+      "icon": "graduation-cap"
+    }
+  ],
+  "skills": {
+    "nontechnical": [
+      {
+        "category": "Product Strategy & Vision",
+        "icon": "chart-line",
+        "items": "Roadmapping, Prioritization & OKRs, Market Analysis, Stakeholder Management, Product Analytics, A/B testing, User Research, User Stories"
+      },
+      {
+        "category": "AI Governance & MLOps Strategy",
+        "icon": "book-open",
+        "items": "Model Ethics, Evaluation, Regulatory (FDA/ISO), AI Ethics, Cloud Architecture, MLOps Workflows, Data Engineering Best Practices, Healthcare & Medical Devices, Big Data Analytics"
+      },
+      {
+        "category": "Execution & Growth",
+        "icon": "chart-line",
+        "items": "KPIs, Reporting, Documentation, Team Building, Presentation, Root Cause Analysis, Critical Thinking, Continuous Learning, Prioritization, Agile Planning"
+      }
+    ],
+    "technical": [
+      {
+        "category": "AI/ML Ecosystem",
+        "icon": "brain",
+        "items": "LLMs, RAG, TensorFlow, PyTorch, Keras, scikit-learn, XGBoost, LangChain, Hugging Face"
+      },
+      {
+        "category": "Data & Cloud Architecture",
+        "icon": "cloud",
+        "items": "AWS (S3, EC2, Lambda, DynamoDB, Redshift), GCP (BigQuery), Databricks, Spark, Hadoop, MongoDB, SQL"
+      },
+      {
+        "category": "Development & Deployment",
+        "icon": "code",
+        "items": "Python, Bash, C#, R, Java, C++, XAML, HTML, CSS, MATLAB, .NET (Xamarin, MAUI), NUnit, Fast/FlaskAPI, pytest, Selenium, Docker, MLflow, Kubernetes, CI/CD, Git/GitHub, Postman, Plotly/Dash, Tableau, PowerBI, matplotlib, seaborn, Excel"
+      }
+    ]
+  },
+  "experience": [
+    {
+      "id": "socai",
+      "company": "SOCAi Labs",
+      "logo": "/assets/images/socai-logo.png",
+      "position": "Product Manager",
+      "location": "Sunnyvale, CA",
+      "startDate": "Dec 2025",
+      "endDate": "Present",
+      "url": "https://socailabs.com",
+      "description": [
+        "<strong>0→1 Product Strategy:</strong> Spearheading the product vision and roadmap for an AI-driven visual diagnostic platform; translating clinical research into a scalable MVP to standardize global dermatology workflows.",
+        "<strong>Market Validation & Growth:</strong> Leading end-to-end customer discovery and success for early enterprise partners, defining the core product-market fit and instrumentation metrics that drive a category-defining health-tech platform."
+      ]
+    },
+    {
+      "id": "sculptor",
+      "company": "Sculptor Capital Management",
+      "logo": "/assets/images/sculptor-logo.png",
+      "position": "AI PM (Data Science)",
+      "location": "New York, NY",
+      "startDate": "June 2025",
+      "endDate": "Dec 2025",
+      "url": "https://www.sculptor.com",
+      "description": [
+        "<strong>AI Strategy & Delivery:</strong> Spearheaded the roadmap for a RAG-based executive intelligence tool, reducing analyst prep time by <strong>25%</strong> through automated synthesis of complex financial data.",
+        "<strong>Operational Transformation:</strong> Modernized data infrastructure using Databricks to accelerate model iteration by <strong>30%</strong>, while deploying interactive BI dashboards that shortened executive decision cycles by <strong>20%</strong>."
+      ]
+    },
+    {
+      "id": "humannity",
+      "company": "Humannity MedTec — Alfred Mann Foundation",
+      "logo": "/assets/images/humannity-logo.jpeg",
+      "position": "Software Engineer II (Data & Cloud)",
+      "location": "Los Angeles, CA",
+      "startDate": "Sep 2023",
+      "endDate": "May 2025",
+      "url": "https://humannitymedtec.com",
+      "description": [
+        "<strong>Product Lifecycle Management:</strong> Led the telemetry sync roadmap to achieve <strong>99% uptime</strong> and launched a centralized clinical dashboard that slashed support resolution time (MTTR) by <strong>40%</strong>.",
+        "<strong>Cross-Functional Leadership:</strong> Optimized the patient journey analytics pipeline by <strong>50%</strong> while leading Agile ceremonies that improved team sprint velocity by <strong>20%</strong>."
+      ]
+    },
+    {
+      "id": "scsu-research",
+      "company": "St. Cloud State University",
+      "logo": "/assets/images/scsu-logo.png",
+      "position": "Business Intelligence Researcher",
+      "location": "St. Cloud, MN",
+      "startDate": "Jan 2023",
+      "endDate": "Oct 2023",
+      "url": "https://www.stcloudstate.edu",
+      "description": [
+        "Optimized implant-telemetry flow—cut sync delay 30% and achieved 99% uptime by writing the C# ingestion code, SQLite caching and AWS ETL.",
+        "Built a log-manager dashboard (S3 events & DynamoDB) that improved remote debugging throughput by 40%."
+      ]
+    },
+    {
+      "id": "zs",
+      "company": "ZS Associates",
+      "logo": "/assets/images/zs-logo.svg",
+      "position": "Decision Analytics Associate (Data Science)",
+      "location": "Pune, India",
+      "startDate": "Jan 2021",
+      "endDate": "Jul 2022",
+      "url": "https://zs.com",
+      "description": [
+        "<strong>Data-Driven Growth:</strong> Developed KPI frameworks and physician engagement models for the Ozempic program, resulting in a <strong>30% increase</strong> in engagement and measurable market share uplift.",
+        "<strong>Scalable Insights:</strong> Engineered real-time analytics dashboards processing <strong>10M+ records</strong> monthly, accelerating the insight-to-action cycle for global commercial teams."
+      ]
+    },
+    {
+      "id": "ecell",
+      "company": "Entrepreneurship Development Cell",
+      "logo": "/assets/images/edc-logo.png",
+      "position": "Program Manager (Volunteer)",
+      "location": "Patiala, India",
+      "startDate": "Sep 2017",
+      "endDate": "May 2020",
+      "url": "https://www.linkedin.com/school/thaparventureclub/posts/?feedView=all",
+      "description": [
+        "Managed a 150+ member team at the Entrepreneurship Development Cell, mentoring startups and securing $190K in funding.",
+        "Led digital content strategy and market research at CoLinkers Event Management, boosting event visibility and engagement by 20%."
+      ]
+    },
+    {
+      "id": "uprvunl",
+      "company": "UPRVUNL",
+      "logo": "/assets/images/uprvunl-logo.png",
+      "position": "Process Engineer (Intern)",
+      "location": "Sonebhadra, India",
+      "startDate": "Jun 2019",
+      "endDate": "Jul 2019",
+      "url": "https://uprvunl.org/",
+      "description": [
+        "Analyzed SCADA and DCS data, collaborated with the Control and Instrumentation department, achieved 15% downtime reduction through data-driven optimization of equipment and processes."
+      ]
+    },
+    {
+      "id": "hindalco",
+      "company": "HINDALCO",
+      "logo": "/assets/images/hindalco-logo.png",
+      "position": "Process Engineer (Intern)",
+      "location": "Sonebhadra, India",
+      "startDate": "Dec 2018",
+      "endDate": "Jan 2019",
+      "url": "https://www.hindalco.com/",
+      "description": [
+        "Analyzed data produced by Supervisory Control and Data Acquisition (SCADA) systems to discover trends, patterns, and anomalies in temperature, pressure, and other important indicators in a power generating unit for an aluminum and copper manufacturing facility."
+      ]
+    },
+    {
+      "id": "asmara",
+      "company": "Asmara Group",
+      "logo": "/assets/images/asmara-logo.webp",
+      "position": "Global Supply Chain Data Scientist (Intern)",
+      "location": "Gurugram, India",
+      "startDate": "Jun 2018",
+      "endDate": "Jul 2018",
+      "url": "https://asmaragroup.com/",
+      "description": [
+        "Contributed to international supply chain operations by supporting the relationships with suppliers across 18 countries. Assisted in the development and implementation of a supplier scorecard that reduced defects by 3%."
+      ]
+    },
+    {
+      "id": "colinkers",
+      "company": "CoLinkers Events Management",
+      "logo": "/assets/images/colinkers-logo.jpeg",
+      "position": "Social Media Data Scientist (Intern)",
+      "location": "Patiala, India",
+      "startDate": "Sep 2017",
+      "endDate": "Feb 2018",
+      "url": "https://www.facebook.com/CoLinkers.em/",
+      "description": [
+        "Combined data analysis and content marketing expertise to optimize digital content strategy for website, social media, and email newsletters. Conducted market research and used SEO techniques to increase online visibility and contributed to successful event outcomes."
+      ]
+    }
+  ],
+  "education": {
+    "degrees": [
+      {
+        "id": "uiuc",
+        "degree": "Master of Computer Science (Data Science)",
+        "institution": "University of Illinois Urbana-Champaign",
+        "logo": "/assets/images/uiuc-logo.jpg",
+        "url": "https://grainger.illinois.edu/",
+        "location": "Champaign, IL",
+        "startDate": "Jan 2024",
+        "endDate": "Dec 2025",
+        "courses": [
+          "Deep Learning",
+          "Machine Learning",
+          "Natural Language Processing",
+          "Cloud Computing",
+          "Database Systems"
+        ]
+      },
+      {
+        "id": "scsu",
+        "degree": "Master of Engineering Management",
+        "institution": "St. Cloud State University",
+        "logo": "/assets/images/scsu-logo.png",
+        "url": "https://www.stcloudstate.edu",
+        "location": "St. Cloud, MN",
+        "startDate": "Aug 2022",
+        "endDate": "Aug 2024",
+        "courses": [
+          "Big Data",
+          "Quality Engineering",
+          "Project Management"
+        ]
+      },
+      {
+        "id": "thapar",
+        "degree": "Bachelor in Engineering of Electronics & Communications",
+        "institution": "Thapar Institute of Engineering & Technology",
+        "logo": "/assets/images/tiet-logo.png",
+        "url": "https://thapar.edu",
+        "location": "Patiala, India",
+        "startDate": "Jul 2017",
+        "endDate": "Jul 2021",
+        "courses": [
+          "Data Structures & Algorithms",
+          "Operating Systems",
+          "Object Oriented Programming",
+          "Machine Learning",
+          "Biomedical Signal Processing"
+        ]
+      }
+    ],
+    "certifications": [
+      {
+        "id": "ssb",
+        "title": "Certified Six Sigma Green Belt",
+        "issuer": "Minnesota West Community and Technical College",
+        "logo": "/assets/images/msu-logo.png",
+        "date": "Sep 2023"
+      },
+      {
+        "id": "asem",
+        "title": "Certified Associate in Engineering Management",
+        "issuer": "American Society for Engineering Management",
+        "logo": "/assets/images/asem-logo.png",
+        "date": "Oct 2024"
+      },
+      {
+        "id": "duke",
+        "title": "AI Product Management (Specialization)",
+        "issuer": "Duke University (Coursera)",
+        "logo": "/assets/images/duke-logo.png",
+        "date": "Jun 2023"
+      },
+      {
+        "id": "ibm",
+        "title": "Data Science (Specialization)",
+        "issuer": "IBM (Coursera)",
+        "logo": "/assets/images/ibm-logo.webp",
+        "date": "Jun 2023"
+      },
+      {
+        "id": "umn",
+        "title": "Software Development Lifecycle (Specialization)",
+        "issuer": "University of Minnesota (Coursera)",
+        "logo": "/assets/images/umn-logo.png",
+        "date": "Jun 2023"
+      },
+      {
+        "id": "google-pm",
+        "title": "Project Management (Specialization)",
+        "issuer": "Google (Coursera)",
+        "logo": "/assets/images/google-logo.png",
+        "date": "May 2023"
+      },
+      {
+        "id": "google-da",
+        "title": "Data Analytics (Specialization)",
+        "issuer": "Google (Coursera)",
+        "logo": "/assets/images/google-logo.png",
+        "date": "Jul 2022"
+      },
+      {
+        "id": "stanford",
+        "title": "Machine Learning (Specialization)",
+        "issuer": "Stanford University (Coursera)",
+        "logo": "/assets/images/stanford-logo.webp",
+        "date": "Feb 2023"
+      },
+      {
+        "id": "vanderbilt",
+        "title": "Prompt Engineering",
+        "issuer": "Vanderbilt University (Coursera)",
+        "logo": "/assets/images/vanderbilt-logo.png",
+        "date": "Jun 2023"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "mobile-ui",
+      "title": "Mobile App UI/UX",
+      "description": "Designed 15+ Figma/Balsamiq Mobile app screens based on user research; validated UX through stakeholder walkthroughs, reducing rework by 30%.",
+      "image": "/assets/images/mobile-ui.png",
+      "tags": ["Figma", "Balsamiq", "User research"],
+      "link": "#"
+    },
+    {
+      "id": "awd",
+      "title": "Academic World Dashboard",
+      "description": "Designed and deployed full-stack Dash dashboard, handling 100k+ daily requests with containerized microservices. Implemented advanced graph queries in Neo4j to uncover research collaborations, increasing stakeholder insight by 60%.",
+      "image": "/assets/images/awd.png",
+      "tags": ["FastAPI", "Dash/Plotly", "MySQL / MongoDB / Neo4j"],
+      "link": "https://mediaspace.illinois.edu/media/t/1_sqdt7fqv"
+    },
+    {
+      "id": "loyalty",
+      "title": "Personalised Loyalty Model",
+      "description": "Developed and tuned the XGBoost recommendation engine, achieving 98.8% accuracy on customer retention predictions. Visualized model output with interactive dashboards in Tableau to guide marketing strategy, increasing campaign ROI by 25%.",
+      "image": "/assets/images/loyalty.png",
+      "tags": ["XGBoost on AWS EC2", "ASEM 2023 Paper"],
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=6cbn8bkAAAAJ&citation_for_view=6cbn8bkAAAAJ:u5HHmVD_uO8C"
+    },
+    {
+      "id": "ai-resume",
+      "title": "AI Resume Generator",
+      "description": "Built a RAG pipeline using LangChain and FAISS for vector similarity search, achieving 92% relevance on test queries. Implemented GPT-4 integration to generate ATS-optimized resumes and cover letters from job descriptions, reducing manual drafting time by 80%.",
+      "image": "/assets/images/ai-resume.png",
+      "tags": ["LangChain", "FAISS", "GPT-4"],
+      "link": "#"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": 1,
+      "quote": "Ayush is a super smart guy with keen intuition. Very strong on both technical and soft skills. Good at his job, good at communicating, good at reasoning and seeing underlying patterns and importance.",
+      "name": "Daniel Kohler",
+      "title": "Sr. Firmware Engineer",
+      "company": "Alfred Mann Foundation"
+    },
+    {
+      "id": 2,
+      "quote": "Ayush is the kind of engineer everyone wants to work with: He's inquisitive and quick to learn new material and concepts; he's passionate about the medical device industry service to our patients; he's innovative and knowledgeable about his field and beyond; he's a good teacher -- I learned a lot from him; and he's very personable, even under pressure. Ayush has a shining career ahead of him.",
+      "name": "John Osmand",
+      "title": "Embedded Software and Signal Processing Engineer",
+      "company": "Alfred Mann Foundation"
+    },
+    {
+      "id": 3,
+      "quote": "I'm happy to recommend Ayush Ghosh, a talented engineer in our R&D department. He enhanced our clinical mobile app by merging diverse datasets, creating custom visualizations, and delivering data-science insights that shaped our development decisions. Ayush is skilled in cloud APIs, Python-driven workflows, and dashboard design, communicates clearly, and consistently supports his teammates.",
+      "name": "Rod Faris",
+      "title": "Senior Principal Software Engineer",
+      "company": "huMannity Medtec"
+    },
+    {
+      "id": 4,
+      "quote": "I had the privilege of studying alongside Ayush during our Master's in Engineering Management, and I can confidently say that his analytical prowess and leadership abilities are truly exceptional. Ayush consistently demonstrated a keen insight into complex problems and a proactive approach to collaborative learning. His ability to balance rigorous academic demands with innovative thinking made him an invaluable teammate.",
+      "name": "Faizan Q. Warraich",
+      "title": "Field Engineer",
+      "company": "Blattner Energy"
+    },
+    {
+      "id": 5,
+      "quote": "My overlap with Ayush was just a couple of months, however, during that time what I have noticed is that Ayush has a great analytical thought process and he is always ready to take up new challenges. His curiosity to learn new things and evolve is something that helps him in doing that as well. Based on what I have seen and heard, he is going to excel wherever he goes.",
+      "name": "Nitin Gupta",
+      "title": "Manager",
+      "company": "ZS Associates"
+    },
+    {
+      "id": 6,
+      "quote": "Ayush has shown immense competitiveness and analytical skills in his tenure of 1.5 years at ZS. He has good work ethics and a learning attitude which will help him take his career to a height.",
+      "name": "Rishabh Choubey",
+      "title": "Data Science and Analytics Professional",
+      "company": "EVERSANA | Ex-ZS"
+    },
+    {
+      "id": 7,
+      "quote": "Having worked with many professionals throughout my journey, Ayush was a unique one to work with. He has critical thinking ability and always ready to take up challenges and explore new avenues. His work ethics are pristine and his ability to tackle any problem is remarkable with a warm smile. Ayush would become appreciated member of any team.",
+      "name": "Poulomee Roy",
+      "title": "Data Scientist | PhD Candidate",
+      "company": "SUNY Buffalo | Ex-ZS"
+    },
+    {
+      "id": 8,
+      "quote": "I've worked with Ayush since he joined ZS, and it has been a pleasure to watch him grow as a team member. He has shown great coordination with other team members and was always flexible to take up the different tasks. Ayush's strength is his command of complex data analytics, allowing him to undertake large projects easily. He has also drawn insightful summaries which helped the team to take important decisions.",
+      "name": "Sidhant Chetal",
+      "title": "Decision Analytics Consultant",
+      "company": "ZS Associates"
+    },
+    {
+      "id": 9,
+      "quote": "I worked with Ayush on a Final-Year entrepreneurship project, his dedication towards work is unmatched and he thrives under pressure. He is dependable and efficient in carrying out the tasks in hand.",
+      "name": "Aseem Verma",
+      "title": "Strategy Consultant",
+      "company": "Accenture | ISB Co'25"
+    },
+    {
+      "id": 10,
+      "quote": "Ayush is a very hard-working individual and a great team player. He is a quick learner and knows the correct way to implement his learning. He has a very positive aura which motivates the complete team.",
+      "name": "Rajnish Jha",
+      "title": "R&D HVDC Engineer",
+      "company": "Hitachi Energy Sweden"
+    },
+    {
+      "id": 11,
+      "quote": "Ayush is a motivated, forward-thinking and intelligent person who has lots of knowledge in his field. It was wonderful to work with him. He leads by example and I find his enthusiasm and dedication both inspiring and motivating.",
+      "name": "Maganjot Singh",
+      "title": "Product Manager",
+      "company": "Noise"
+    },
+    {
+      "id": 12,
+      "quote": "Ayush is an eager learner with a sharp mind. He has displayed enhanced resourcefulness in all his engagements. I had the opportunity to mentor him for communication skills and he excelled in the programme through his innovative and creative participation. Ayush's organisational skills and interpersonal relationship skills were pleasantly displayed during an event he had managed for his university.",
+      "name": "Sudeiti Jindal",
+      "title": "Founder & CEO | Soft Skills Mentor",
+      "company": "Published Author"
+    }
+  ],
+  "highlights": [
+    {
+      "icon": "brain",
+      "title": "AI/ML Expertise",
+      "description": "Generative AI, LLMs, RAG, Deep Learning, LangChain, and PyTorch",
+      "color": "#4a90e2"
+    },
+    {
+      "icon": "users",
+      "title": "Product Leadership",
+      "description": "Agile, Roadmapping, Stakeholder Management, Cross-functional Teams, Market Research, User Stories",
+      "color": "#9b59b6"
+    },
+    {
+      "icon": "code",
+      "title": "Full-Stack Development",
+      "description": "Cloud, Data Engineering, Web Development, Mobile (Android) Development, CI/CD",
+      "color": "#2ecc71"
+    }
+  ]
+}

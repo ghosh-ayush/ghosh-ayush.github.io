@@ -1,1110 +1,2561 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="./packages/img/favicon.ico" />
-    <!--==================== UNICONS ====================-->
-    <link
-      rel="stylesheet"
-      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
-    />
+    
+    <!-- Primary Meta Tags -->
+    <title>Ayush Ghosh | AI Product Manager & Software Engineer</title>
+    <meta name="title" content="Ayush Ghosh | AI Product Manager & Software Engineer" />
+    <meta name="description" content="Ayush Ghosh is an AI Product Manager and Software Engineer with 5+ years delivering production AI and analytics products. Expertise in generative AI, LLMs, MLOps, and full-stack development." />
+    <meta name="author" content="Ayush Ghosh" />
+    <meta name="keywords" content="AI Product Manager, Software Engineer, Machine Learning, Generative AI, LangChain, AWS, Python, Data Science" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://ghosh-ayush.github.io" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ghosh-ayush.github.io" />
+    <meta property="og:title" content="Ayush Ghosh | AI Product Manager & Software Engineer" />
+    <meta property="og:description" content="AI product leader with 5+ years delivering production AI and analytics products. Expertise in generative AI, machine learning, and full-stack development." />
+    <meta property="og:image" content="https://ghosh-ayush.github.io/favicon.svg" />
+    <meta property="og:site_name" content="Ayush Ghosh Portfolio" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://ghosh-ayush.github.io" />
+    <meta property="twitter:title" content="Ayush Ghosh | AI Product Manager & Software Engineer" />
+    <meta property="twitter:description" content="AI product leader with 5+ years delivering production AI and analytics products." />
+    <meta property="twitter:image" content="https://ghosh-ayush.github.io/favicon.svg" />
+    <meta name="twitter:creator" content="@ayushghosh" />
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#4a90e2" />
+    <meta name="msapplication-TileColor" content="#4a90e2" />
+    
+    <!-- Preconnect to External Resources -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="preconnect" href="https://unpkg.com" />
+    
+    <!-- Structured Data - JSON-LD (Person Schema) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ayush Ghosh",
+      "url": "https://ghosh-ayush.github.io",
+      "jobTitle": "AI Product Manager & Software Engineer",
+      "description": "AI product leader with expertise in generative AI, machine learning, and full-stack development",
+      "email": "ayush.ghosh@outlook.com",
+      "telephone": "+1-612-999-4142",
+      "image": "https://ghosh-ayush.github.io/favicon.svg",
+      "sameAs": [
+        "https://www.linkedin.com/in/ayush-ghosh/",
+        "https://github.com/ghosh-ayush",
+        "https://scholar.google.com/citations?user=6cbn8bkAAAAJ&hl=en"
+      ],
+      "knowsAbout": [
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Generative AI",
+        "Product Management",
+        "Software Engineering",
+        "Data Science",
+        "Cloud Computing",
+        "LangChain",
+        "Python",
+        "AWS",
+        "MLOps"
+      ]
+    }
+    </script>
+    
+    <!-- Structured Data - WebSite Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Ayush Ghosh Portfolio",
+      "url": "https://ghosh-ayush.github.io",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://ghosh-ayush.github.io#search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V4F5XVFQY8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  <!--==================== LEAFLET MAP CSS ====================-->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+      gtag('config', 'G-V4F5XVFQY8');
+    </script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="apple-touch-icon" href="./favicon.svg" />
+    
+    <!-- React and Babel (for JSX transform) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    
+    <!-- Global Styles -->
+    <style>
+      :root {
+        /* Light mode (default) */
+        --bg-primary: #ffffff;
+        --bg-secondary: #f5f5f5;
+        --bg-tertiary: #efefef;
+        --text-primary: #1a1a1a;
+        --text-secondary: #666666;
+        --text-tertiary: #999999;
+        --border-color: #e0e0e0;
+        --card-shadow: rgba(0, 0, 0, 0.08);
+        --card-shadow-hover: rgba(0, 0, 0, 0.12);
+        --accent-light: rgba(74, 144, 226, 0.1);
+        --hero-bg: linear-gradient(135deg, #ffffff 0%, #f5f5f5 50%, #ffffff 100%);
+        --dark-hero-bg: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+      }
 
-    <!--==================== SWIPER CSS ====================-->
-    <link rel="stylesheet" href="./packages/css/swiper-bundle.min.css" />
+      body.dark-mode {
+        --bg-primary: #1a1a1a;
+        --bg-secondary: #2d2d2d;
+        --bg-tertiary: #3d3d3d;
+        --text-primary: #ffffff;
+        --text-secondary: #cccccc;
+        --text-tertiary: #999999;
+        --border-color: #404040;
+        --card-shadow: rgba(0, 0, 0, 0.3);
+        --card-shadow-hover: rgba(0, 0, 0, 0.5);
+        --accent-light: rgba(74, 144, 226, 0.2);
+        --hero-bg: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+      }
 
-    <!--==================== CSS ====================-->
-    <link rel="stylesheet" href="./packages/css/styles.css" />
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    <title>Ayush</title>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+          'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        line-height: 1.6;
+        overflow-x: hidden;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      #root {
+        min-height: 100vh;
+      }
+
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--bg-secondary);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #4a90e2, #9b59b6);
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, #357abd, #7d3c98);
+      }
+
+      /* Gradient text utility */
+      .text-gradient {
+        background: linear-gradient(135deg, #4a90e2, #9b59b6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes fadeInRight {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes pulse {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .animate-fadeInUp {
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+
+      .animate-fadeInLeft {
+        animation: fadeInLeft 0.8s ease-out forwards;
+      }
+
+      .animate-fadeInRight {
+        animation: fadeInRight 0.8s ease-out forwards;
+      }
+
+      /* Scroll fade-in */
+      .fade-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+        will-change: opacity, transform;
+      }
+
+      .fade-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .fade-on-scroll {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+
+      /* Card shadows */
+      .card-shadow {
+        box-shadow: 0 4px 20px var(--card-shadow);
+        transition: all 0.3s ease;
+      }
+
+      .card-shadow:hover {
+        box-shadow: 0 8px 30px var(--card-shadow-hover);
+        transform: translateY(-4px);
+      }
+
+      /* Glassmorphism */
+      .glass {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+    </style>
   </head>
   <body>
-    <!--==================== HEADER ====================-->
-    <header class="header" id="header">
-      <nav class="nav container">
-        <a href="#" class="nav__logo">Ayush</a>
-        <div class="nav__menu" id="nav-menu">
-          <ul class="nav__list grid">
-            <li class="nav__item">
-              <a href="#home" class="nav__link"
-                ><i class="uil uil-estate nav__icon"></i>Home</a
-              >
-            </li>
-            <li class="nav__item">
-              <a href="#about" class="nav__link"
-                ><i class="uil uil-user nav__icon"></i>About</a
-              >
-            </li>
-            <li class="nav__item">
-              <a href="#skills" class="nav__link"
-                ><i class="uil uil-file-alt nav__icon"></i>Skills</a
-              >
-            </li>
-            <li class="nav__item">
-              <a href="#experience" class="nav__link"
-                ><i class="uil uil-briefcase-alt nav__icon"></i>Experience</a
-              >
-            </li>
-            <li class="nav__item">
-              <a href="#education" class="nav__link"
-                ><i class="uil uil-scenery nav__icon"></i>Education</a
-              >
-            </li>
-          </ul>
-          <button id="nav-close" aria-label="Close menu"><i class="uil uil-times"></i></button>
-        </div>
-        <div class="nav__btns">
-          <!-- Theme change button -->
-          <i class="uil uil-moon change-theme" id="theme-button"></i>
+    <div id="root"></div>
+    
+    <!-- React App (inline JSX with Babel transform) -->
+    <script type="text/babel">
+      const { useState, useEffect } = React;
 
-          <button id="nav-toggle" aria-label="Open menu"><i class="uil uil-apps"></i></button>
-        </div>
-      </nav>
-    </header>
+      // ============================================
+      // ANALYTICS UTILITY
+      // ============================================
+      const Analytics = {
+        // Track page view
+        pageView: (path, title) => {
+          if (window.gtag) {
+            window.gtag('event', 'page_view', {
+              page_path: path,
+              page_title: title
+            });
+          }
+        },
 
-    <!--==================== MAIN ====================-->
-    <main class="main">
+        // Track custom event
+        trackEvent: (category, action, label, value) => {
+          if (window.gtag) {
+            window.gtag('event', action, {
+              event_category: category,
+              event_label: label,
+              value: value
+            });
+          }
+        },
 
-      <!--==================== HOME ====================-->
-      <section class="home section" id="home">
-        <div class="home__container container grid">
-          <div class="home__content grid">
-            <div class="home__social">
-              <a
-                href="https://www.linkedin.com/in/ayush-ghosh/"
-                target="_blank"
-                class="home__social-icon"
-                ><i class="uil uil-linkedin-alt"></i
-              ></a>
-              <a
-                href="https://scholar.google.com/citations?user=6cbn8bkAAAAJ&hl=en" 
-                target="_blank"
-                class="home__social-icon"
-                ><i class="uil uil-graduation-cap"></i
-              ></a>
-              <a
-                href="https://github.com/ghosh-ayush"
-                target="_blank"
-                class="home__social-icon"
-                ><i class="uil uil-github-alt"></i
-              ></a>
-            </div>
+        // Track button click
+        trackClick: (buttonName, buttonType = 'button') => {
+          if (window.gtag) {
+            window.gtag('event', 'click', {
+              event_category: 'engagement',
+              event_label: buttonName,
+              button_type: buttonType
+            });
+          }
+        },
 
-            <div class="home__img">
-              <svg
-                class="home__blob"
-                viewBox="0 0 200 187"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-              >
-                <title>Ayush Ghosh headshot</title>
-                <mask id="mask0" mask-type="alpha">
-                  <path
-                    d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 165.547 
-                                    130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 129.362C2.45775 
-                                    97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 -0.149132 97.9666 
-                                    0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z"
-                  />
-                </mask>
-                <g mask="url(#mask0)">
-                  <path
-                    d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 
-                                    165.547 130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 
-                                    129.362C2.45775 97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 
-                                    -0.149132 97.9666 0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z"
-                  />
-                  <image
-                    class="home__blob-img"
-                    x=""
-                    xlink:href="packages/images/headshot.jpg"
-                  />
-                </g>
-              </svg>
-            </div>
+        // Track scroll depth
+        trackScrollDepth: (percentVisible) => {
+          if (window.gtag) {
+            window.gtag('event', 'scroll', {
+              event_category: 'engagement',
+              percent_scrolled: percentVisible
+            });
+          }
+        },
 
-            <div class="home__data">
-              <h1 class="home__title">Hi, I'm Ayush</h1>
-              <h3 class="home__subtitle">AI PM | Advanced Analytics</h3>
-              <p class="home__description">
-                AI product leader with <strong>5+ years</strong> delivering production AI and analytics products. I define roadmaps, prioritize ML features with stakeholders, and coordinate engineering, data, and design teams to ship measurable outcomes. Technical fluency includes Python, LangChain, TensorFlow, AWS, and MLOps.
+        // Track section view
+        trackSectionView: (sectionName) => {
+          if (window.gtag) {
+            window.gtag('event', 'view_section', {
+              event_category: 'engagement',
+              section_name: sectionName
+            });
+          }
+        },
+
+        // Track external link clicks
+        trackExternalLink: (url, linkText) => {
+          if (window.gtag) {
+            window.gtag('event', 'click', {
+              event_category: 'outbound',
+              event_label: url,
+              link_text: linkText
+            });
+          }
+        }
+      };
+
+      // Expose analytics globally
+      window.Analytics = Analytics;
+
+      // ============================================
+      // REUSABLE COMPONENTS
+      // ============================================
+      
+      // SectionHeader Component
+      function SectionHeader({ title, highlight, subtitle, centered = true }) {
+        return (
+          <div style={{ 
+            textAlign: centered ? 'center' : 'left', 
+            marginBottom: '4rem'
+          }}>
+            <h2 style={{ 
+              fontSize: 'clamp(2rem, 4vw, 3rem)', 
+              marginBottom: '1rem',
+              color: 'var(--text-primary)',
+              fontWeight: 800
+            }}>
+              {title} {highlight && (
+                <span className="text-gradient" style={{
+                  background: 'linear-gradient(135deg, #5a67d8, #2c5282)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}>
+                  {highlight}
+                </span>
+              )}
+            </h2>
+            {subtitle && (
+              <p style={{ 
+                fontSize: '1.1rem', 
+                color: 'var(--text-secondary)',
+                maxWidth: '600px',
+                margin: '0 auto'
+              }}>
+                {subtitle}
               </p>
+            )}
+          </div>
+        );
+      }
+
+      // IconBadge Component
+      function IconBadge({ icon, label, iconMap }) {
+        return (
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '0.75rem',
+            padding: '0.75rem 1.25rem',
+            background: 'linear-gradient(135deg, rgba(74, 144, 226, 0.1), rgba(155, 89, 182, 0.05))',
+            borderRadius: '20px',
+            border: '1px solid rgba(74, 144, 226, 0.2)',
+            fontSize: '1rem',
+            color: 'var(--text-primary)',
+            transition: 'all 0.3s'
+          }}>
+            {icon && (
+              <i className={`fas ${iconMap?.[icon] || 'fa-star'}`} style={{
+                color: '#4a90e2',
+                fontSize: '1.1rem'
+              }}></i>
+            )}
+            {label}
+          </div>
+        );
+      }
+
+      // Card Component
+      function Card({ children, hoverable = true, animated = true, onClick }) {
+        return (
+          <div 
+            onClick={onClick}
+            style={{
+              background: 'var(--bg-primary)',
+              borderRadius: '16px',
+              overflow: 'hidden',
+              boxShadow: '0 4px 20px var(--card-shadow)',
+              transition: 'all 0.3s',
+              border: `1px solid var(--border-color)`,
+              position: 'relative',
+              cursor: onClick ? 'pointer' : 'default'
+            }}
+            className={animated ? 'card-shadow fade-on-scroll' : 'card-shadow'}
+            onMouseEnter={hoverable ? (e) => {
+              e.currentTarget.style.transform = 'translateY(-4px)';
+              e.currentTarget.style.boxShadow = `0 8px 30px var(--card-shadow-hover)`;
+            } : undefined}
+            onMouseLeave={hoverable ? (e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = `0 4px 20px var(--card-shadow)`;
+            } : undefined}
+          >
+            {children}
+          </div>
+        );
+      }
+
+      // TimelineItem Component
+      function TimelineItem({ job, index }) {
+        const isLeft = index % 2 === 0;
+        
+        return (
+          <div style={{ 
+            display: 'flex',
+            justifyContent: window.innerWidth >= 768 ? (isLeft ? 'flex-start' : 'flex-end') : 'center',
+            marginBottom: '3rem',
+            position: 'relative'
+          }}>
+            {/* Timeline dot */}
+            <div style={{
+              position: 'absolute',
+              left: '50%',
+              top: '2rem',
+              width: '20px',
+              height: '20px',
+              borderRadius: '50%',
+              background: 'linear-gradient(135deg, #4a90e2, #9b59b6)',
+              border: '4px solid var(--bg-primary)',
+              transform: 'translateX(-50%)',
+              zIndex: 10,
+              boxShadow: '0 0 0 4px rgba(74, 144, 226, 0.1)',
+              display: window.innerWidth >= 768 ? 'block' : 'none'
+            }} />
+
+            <div style={{
+              width: window.innerWidth >= 768 ? '45%' : '100%',
+              position: 'relative'
+            }}>
+              {/* Arrow pointing to timeline */}
+              {window.innerWidth >= 768 && (
+                <div style={{
+                  position: 'absolute',
+                  top: '2rem',
+                  [isLeft ? 'right' : 'left']: '-10px',
+                  width: 0,
+                  height: 0,
+                  borderTop: '10px solid transparent',
+                  borderBottom: '10px solid transparent',
+                  [isLeft ? 'borderRight' : 'borderLeft']: `10px solid var(--bg-primary)`,
+                }} />
+              )}
+              
+              <Card animated={true}>
+                <div style={{ padding: '2rem' }}>
+                  <div style={{
+                    display: 'flex',
+                    gap: '1.5rem',
+                    alignItems: 'flex-start',
+                    marginBottom: '1rem'
+                  }}>
+                    {job.logo && (
+                      <div style={{
+                        width: '80px',
+                        height: '80px',
+                        borderRadius: '12px',
+                        background: 'var(--accent-light)',
+                        padding: '8px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0
+                      }}>
+                        <img 
+                          loading="lazy"
+                          src={job.logo} 
+                          alt={job.company}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'contain'
+                          }}
+                        />
+                      </div>
+                    )}
+                    <div style={{ flex: 1 }}>
+                      <h3 style={{ 
+                        fontSize: '1.3rem', 
+                        marginBottom: '0.5rem',
+                        color: 'var(--text-primary)',
+                        fontWeight: 700
+                      }}>
+                        {job.position}
+                      </h3>
+                      <p style={{ 
+                        margin: '0.25rem 0', 
+                        color: '#2c5282',
+                        fontWeight: 600,
+                        fontSize: '1.1rem'
+                      }}>
+                        {job.url ? (
+                          <a
+                            href={job.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              color: '#2c5282',
+                              textDecoration: 'none'
+                            }}
+                          >
+                            {job.company}
+                          </a>
+                        ) : (
+                          job.company
+                        )}
+                      </p>
+                      <div style={{ 
+                        display: 'flex', 
+                        gap: '1rem', 
+                        marginTop: '0.5rem',
+                        fontSize: '0.9rem',
+                        color: 'var(--text-secondary)',
+                        flexWrap: 'wrap'
+                      }}>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                          📍 {job.location}
+                        </span>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                          📅 {job.startDate} - {job.endDate}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  {(job.description && job.description.length > 0) && (
+                    <ul style={{ 
+                      marginTop: '1.5rem',
+                      paddingLeft: '0',
+                      listStyle: 'none',
+                      color: 'var(--text-secondary)',
+                      lineHeight: '1.8'
+                    }}>
+                      {job.description.map((bullet, i) => (
+                        <li key={i} style={{ 
+                          marginBottom: '0.75rem',
+                          paddingLeft: '1.5rem',
+                          position: 'relative'
+                        }}>
+                          <span style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: '0.5rem',
+                            width: '6px',
+                            height: '6px',
+                            borderRadius: '50%',
+                            background: 'linear-gradient(135deg, #2c5282, #5a67d8)'
+                          }} />
+                          <span dangerouslySetInnerHTML={{ __html: bullet }} />
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </Card>
             </div>
           </div>
+        );
+      }
 
-          <div class="home__scroll">
-            <a href="#about" class="home__scroll-button button--flex">
-              <i class="uil uil-mouse-alt home__scroll-mouse"></i>
-              <span class="home__scroll-name">Scroll Down</span>
-              <i class="uil uil-arrow-down home__scroll-arrow"></i>
-            </a>
-          </div>
-        </div>
-      </section>
+      // ============================================
+      // DATA VALIDATION & ERROR HANDLING UTILITIES
+      // ============================================
+      const DataValidator = {
+        // Validate portfolio data structure
+        validate: function(data) {
+          const errors = [];
+          const warnings = [];
+          
+          if (!data) {
+            errors.push('Portfolio data is null or undefined');
+            return { valid: false, errors, warnings, data: {} };
+          }
+          
+          // Check required fields
+          if (!data.personal) {
+            warnings.push('Missing personal information section');
+            data.personal = { name: 'Portfolio' };
+          }
+          if (!data.personal.name) {
+            warnings.push('Missing personal name');
+            data.personal.name = 'Portfolio';
+          }
+          
+          // Validate arrays
+          if (!Array.isArray(data.experience)) {
+            warnings.push('Experience should be an array');
+            data.experience = [];
+          }
+          if (!Array.isArray(data.projects)) {
+            warnings.push('Projects should be an array');
+            data.projects = [];
+          }
+          if (!Array.isArray(data.skills)) {
+            warnings.push('Skills should be an array');
+            data.skills = [];
+          }
+          if (!Array.isArray(data.social)) {
+            warnings.push('Social links should be an array');
+            data.social = [];
+          }
+          
+          // Validate skills structure
+          if (data.skills && !data.skills.nontechnical && !data.skills.technical) {
+            warnings.push('Skills missing nontechnical and technical categories');
+            data.skills = { nontechnical: [], technical: [] };
+          }
+          
+          // Validate education
+          if (data.education) {
+            if (!Array.isArray(data.education.degrees)) {
+              warnings.push('Education degrees should be an array');
+              if (!data.education.degrees) data.education.degrees = [];
+            }
+            if (!Array.isArray(data.education.certifications)) {
+              warnings.push('Education certifications should be an array');
+              if (!data.education.certifications) data.education.certifications = [];
+            }
+          }
+          
+          // Log warnings
+          if (warnings.length > 0) {
+            console.warn('⚠️ Data validation warnings:', warnings);
+          }
+          
+          return { 
+            valid: errors.length === 0, 
+            errors, 
+            warnings, 
+            data 
+          };
+        },
 
-      <!--==================== ABOUT ====================-->
-        <section class="qualification__section" id="about">
-            <h2 class="section__title">About Me</h2>
-            <span class="section__subtitle">Milestones so far</span>
+        // Create fallback data structure
+        getFallbackData: function() {
+          return {
+            personal: {
+              name: 'Portfolio',
+              title: 'Professional Portfolio',
+              bio: 'Portfolio data could not be loaded',
+              email: 'contact@example.com'
+            },
+            experience: [],
+            projects: [],
+            skills: { nontechnical: [], technical: [] },
+            education: { degrees: [], certifications: [] },
+            social: [],
+            highlights: []
+          };
+        }
+      };
 
-            <!-- Milestone Map moved here -->
-            <section class="section" id="milestone-map-section" style="padding: 0; margin-bottom: 2.5rem;">
-              <div id="milestone-map" style="width: 100%; max-width: 900px; height: 400px; margin: 0 auto; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08);"></div>
-            </section>
+      // Error Boundary Component
+      class ErrorBoundary extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = { 
+            hasError: false, 
+            error: null,
+            errorCount: 0
+          };
+        }
 
-            <div class="qualification__container container">
-            <div class="qualification__sections">
-        
-                <!-- 0) Master of Computer Science (Data Science) (right) -->
-                <div class="qualification__data" id="edu-uiuc" style="margin-bottom: 2.5rem;">
-                <div></div>
-                <div>
-                    <span class="qualification__rounder" style="--rounder-color:#C62828;"></span>
-                    <span class="qualification__line" style="--line-height:38%; --line-color:#C62828;"></span>
-                </div>
-                <div>
-                    <h3 class="qualification__title">Master of Computer Science & Data Science</h3>
-                    <span class="qualification__subtitle">University of Illinois - Urbana-Champaign</span>
-                    <div class="qualification__calendar">
-                    <i class="uil uil-calendar-alt"></i> Jan 2024 – Dec 2025
-                    </div>
-                </div>
-                </div>
+        static getDerivedStateFromError(error) {
+          return { hasError: true, error };
+        }
 
-                <!-- 1.5) Data Scientist/AI Engineer (left) -->
-                <div class="qualification__data" id="exp-sculptor" style="margin-bottom: 2.5rem;" data-link-exp="card-sculptor">
-                <div>
-                  <h3 class="qualification__title">AI PM (Data Science)</h3>
-                  <span class="qualification__subtitle">Sculptor Capital Management – New York</span>
-                  <div class="qualification__calendar">
-                  <i class="uil uil-calendar-alt"></i> June 2025 – Dec 2025
-                  </div>
-                </div>
-                <div>
-                  <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
-                  <span class="qualification__line" style="--line-height:60%; --line-color:#2E7D32;"></span>
-                </div>
-                </div>
-                <!-- 1) Software Engineer II (left) -->
-                <!-- 1a) Software Engineer II (Data & Cloud) (left) -->
-                <div class="qualification__data" id="exp-humannity-2" style="margin-bottom: 2.5rem;">
-                  <div>
-                    <h3 class="qualification__title">Software Engineer II (Data & Cloud)</h3>
-                    <span class="qualification__subtitle">Humannity Medtec – Los Angeles</span>
-                    <div class="qualification__calendar">
-                      <i class="uil uil-calendar-alt"></i> Aug 2024 – May 2025
-                    </div>
-                  </div>
-                  <div>
-                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
-                    <span class="qualification__line" style="--line-height:60%; --line-color:#2E7D32;"></span>
-                  </div>
-                </div>
+        componentDidCatch(error, errorInfo) {
+          // Log error
+          console.error('🚨 Error caught by boundary:', error, errorInfo);
+          
+          // Track error analytics
+          if (window.gtag) {
+            window.gtag('event', 'exception', {
+              description: error.toString(),
+              fatal: false
+            });
+          }
+          
+          // Increment error count
+          this.setState(prev => ({ errorCount: prev.errorCount + 1 }));
+          
+          // If too many errors, suggest page reload
+          if (this.state.errorCount > 2) {
+            console.error('Too many errors detected. Please refresh the page.');
+          }
+        }
 
-                <!-- 1b) Software Engineer I (Mobile Application) (left) -->
-                <div class="qualification__data" id="exp-humannity-1" style="margin-bottom: 2.5rem;">
-                  <div>
-                    <h3 class="qualification__title">Software Engineer I (Mobile Application)</h3>
-                    <span class="qualification__subtitle">Humannity Medtec – Los Angeles</span>
-                    <div class="qualification__calendar">
-                      <i class="uil uil-calendar-alt"></i> Sep 2023 – July 2024
-                    </div>
-                  </div>
-                  <div>
-                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
-                    <span class="qualification__line" style="--line-height:60%; --line-color:#2E7D32;"></span>
-                  </div>
-                </div>
-                <!-- 2) Master of Engineering Management (right) -->
-                <div class="qualification__data" id="edu-scsu" style="margin-bottom: 2.5rem;">
-                <div></div>
-                <div>
-                    <span class="qualification__rounder" style="--rounder-color:#C62828;"></span>
-                    <span class="qualification__line" style="--line-height:38%; --line-color:#C62828;"></span>
-                </div>
-                <div>
-                    <h3 class="qualification__title">Master of Engineering Management</h3>
-                    <span class="qualification__subtitle">St Cloud State University</span>
-                    <div class="qualification__calendar">
-                    <i class="uil uil-calendar-alt"></i> Aug 2022 – Aug 2024
-                    </div>
-                </div>
-                </div>
-        
-                <!-- 3) Data Science Research (left) -->
-                <div class="qualification__data" id="exp-scsu-research" style="margin-bottom: 2.5rem;">
-                <div>
-                    <h3 class="qualification__title_small">Business Intelligence Research</h3>
-                    <span class="qualification__subtitle_small">St Cloud State University</span>
-                    <div class="qualification__calendar_small">
-                    <i class="uil uil-calendar-alt"></i> Jan 2023 - Oct 2023
-                    </div>
-                </div>
-                <div>
-                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
-                    <span class="qualification__line" style="--line-height:128%; --line-color:#C62828;"></span>
-                </div>
-                </div>
-        
-                <!-- 4) Decision Analytics Associate (left) -->
-                <div class="qualification__data" id="exp-zs" style="margin-bottom: 2.5rem;">
-                
-                <div>
-                    <h3 class="qualification__title">Decision Analytics Associate</h3>
-                    <span class="qualification__subtitle">ZS Associates – Pune</span>
-                    <div class="qualification__calendar">
-                    <i class="uil uil-calendar-alt"></i> Jan 2021 – Jul 2022
-                    </div>
-                </div>
-
-                <div>
-                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
-                    <span class="qualification__line" style="--line-height:75%; --line-color:#28a745;;"></span>
-                </div>
-                </div>
-        
-                <!-- 5) BE Electronics & Communications (right) -->
-                <div class="qualification__data" id="edu-thapar" style="margin-bottom: 0;">
-                <div></div>
-                <div>
-                    <span class="qualification__rounder" style="--rounder-color:#C62828;"></span>
-                    <span class="qualification__line" style="--line-height:26%; --line-color:#C62828;"></span>
-                </div>
-                <div>
-                    <h3 class="qualification__title">Bachelor of Electronics & Communications Engineering</h3>
-                    <span class="qualification__subtitle">Thapar Institute of Engineering and Technology</span>
-                    <div class="qualification__calendar">
-                    <i class="uil uil-calendar-alt"></i> Jul 2017 – Jul 2021
-                    </div>
-                </div>
-                </div>
-        
-                <!-- 6) Program Manager – E-Cell (left) -->
-                <div class="qualification__data" id="exp-ecell" style="margin-bottom: 0rem;">
-                <div>
-                    <h3 class="qualification__title_small">Program Manager – Entrepreneurship Cell</h3>
-                    <span class="qualification__subtitle_small">Thapar Institute</span>
-                    <div class="qualification__calendar_small">
-                    <i class="uil uil-calendar-alt"></i> Sep 2017 – May 2020
-                    </div>
-                </div>
-                <div>
-                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
-                    <span class="qualification__line" style="--line-height:88%; --line-color:#C62828;"></span>
-                </div>
-                </div>
-        
-                <!-- 7) Data Scientist Intern (UPRVUNL) (left) -->
-                <div class="qualification__data" id="exp-uprvunl" style="margin-bottom: 0rem;">
-                
-                <div>
-                    <h3 class="qualification__title_small">Process Engineer Intern</h3>
-                    <span class="qualification__subtitle_small">UPRVUNL</span>
-                    <div class="qualification__calendar_small">
-                    <i class="uil uil-calendar-alt"></i> Jun 2019 - Jul 2019
-                    </div>
-                </div>
-                <div>
-                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
-                    <span class="qualification__line" style="--line-height:88%; --line-color:#C62828;"></span>
-                </div>
-                </div>
-        
-                <!-- 8) Data Scientist Intern (HINDALCO) (left) -->
-                <div class="qualification__data" id="exp-hindalco" style="margin-bottom: 0rem;">
-                <div>
-                    <h3 class="qualification__title_small">Process Engineer Intern</h3>
-                    <span class="qualification__subtitle_small">HINDALCO</span>
-                    <div class="qualification__calendar_small">
-                    <i class="uil uil-calendar-alt"></i> Dec 2018 - Jan 2019
-                    </div>
-                </div>
-                <div>
-                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
-                    <span class="qualification__line" style="--line-height:88%; --line-color:#C62828;"></span>
-                </div>
-                </div>
-
-                <!-- 9) Data Scientist Intern (Global Supply Chain) (left) -->
-                <div class="qualification__data" id="exp-asmara" style="margin-bottom: 0rem;">
-                <div>
-                    <h3 class="qualification__title_small">Global Supply Chain Data Scientist Intern</h3>
-                    <span class="qualification__subtitle_small">Asmara Group</span>
-                    <div class="qualification__calendar_small">
-                    <i class="uil uil-calendar-alt"></i> Jun 2018 - Jul 2018
-                    </div>
-                </div>
-                <div>
-                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
-                    <span class="qualification__line" style="--line-height:88%; --line-color:#C62828;"></span>
-                </div>
-                </div>
-
-                <!-- 10) Data Scientist Intern (Social Media) (left) -->
-                <div class="qualification__data" style="margin-bottom: 0rem;">
-                <div>
-                    <h3 class="qualification__title_small">Social Media Data Scientist Intern</h3>
-                    <span class="qualification__subtitle_small">CoLinkers Events Management</span>
-                    <div class="qualification__calendar_small">
-                    <i class="uil uil-calendar-alt"></i> Sep 2017 – Feb 2018
-                    </div>
-                </div>
-                <div>
-                    <span class="qualification__rounder" style="--rounder-color:#28a745;"></span>
-                </div>
-                </div>
-        
-            </div>
-            </div>
-        </section>
-        
-      <!--==================== SKILLS ====================-->
-      <section class="skills section" id="skills">
-        <h2 class="section__title">Skills</h2>
-        <span class="section__subtitle">Technical & Non-Technical Expertise</span>
-
-        <div class="skills__container container">
-          <!-- Tabs -->
-          <div class="skills__tabs">
-            <div class="skills__button button--flex skills__active" data-target="#technical">
-              <i class="uil uil-cog skills__icon"></i> Technical
-            </div>
-            <div class="skills__button button--flex" data-target="#nontechnical">
-              <i class="uil uil-briefcase-alt skills__icon"></i> Non-Technical
-            </div>
-          </div>
-
-          <!-- Panels -->
-          <div class="skills__sections">
-            <!-- Technical Skills Panel -->
-            <div class="skills__content skills__active" data-content id="technical">
-              <div class="skills__group">
-                <div class="skills__category">
-                  <i class="uil uil-language category__icon"></i>
-                  <div class="category__text">
-                    <h4 class="category__title">Languages</h4>
-                    <p class="category__items">Python, SQL, Bash, C#, R, Java, C++, XAML, HTML, CSS, MATLAB</p>
-                  </div>
-                </div>
-                <div class="skills__category">
-                  <i class="uil uil-brackets-curly category__icon"></i>
-                  <div class="category__text">
-                    <h4 class="category__title">Machine Learning</h4>
-                    <p class="category__items">TensorFlow, PyTorch, Keras, scikit-learn, XGBoost, LangChain, Hugging Face</p>
-                  </div>
-                </div>
-                <div class="skills__category">
-                  <i class="uil uil-channel category__icon"></i>
-                  <div class="category__text">
-                    <h4 class="category__title">Frameworks</h4>
-                    <p class="category__items">.NET (Xamarin, MAUI), NUnit, Fast/FlaskAPI, pytest, Selenium</p>
-                  </div>
-                </div>
-                <div class="skills__category">
-                  <i class="uil uil-cloud category__icon"></i>
-                  <div class="category__text">
-                    <h4 class="category__title">Data & Cloud</h4>
-                    <p class="category__items">AWS (S3, EC2, Lambda, DynamoDB, Redshift), GCP (BigQuery), Spark, Hadoop, MongoDB</p>
-                  </div>
-                </div>
-                <div class="skills__category">
-                  <i class="uil uil-cog category__icon"></i>
-                  <div class="category__text">
-                    <h4 class="category__title">DevOps & MLOps</h4>
-                    <p class="category__items">Docker, MLflow, Kubernetes, CI/CD, Git/GitHub, Postman</p>
-                  </div>
-                </div>
-                <div class="skills__category">
-                  <i class="uil uil-airplay category__icon"></i>
-                  <div class="category__text">
-                    <h4 class="category__title">Visualization & BI</h4>
-                    <p class="category__items">Plotly/Dash, Tableau, PowerBI, matplotlib, seaborn, Excel</p>
-                  </div>
+        render() {
+          if (this.state.hasError) {
+            return (
+              <div style={{
+                padding: '4rem 2rem',
+                textAlign: 'center',
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                background: 'var(--bg-primary)',
+                color: 'var(--text-primary)'
+              }}>
+                <div style={{
+                  maxWidth: '500px',
+                  padding: '2rem',
+                  background: 'var(--card-bg)',
+                  borderRadius: '12px',
+                  boxShadow: 'var(--card-shadow)',
+                  textAlign: 'center'
+                }}>
+                  <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem', color: '#e74c3c' }}>
+                    ⚠️ Oops!
+                  </h1>
+                  <p style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--text-secondary)' }}>
+                    Something went wrong while rendering this page.
+                  </p>
+                  <details style={{
+                    textAlign: 'left',
+                    marginBottom: '2rem',
+                    padding: '1rem',
+                    background: 'rgba(231, 76, 60, 0.1)',
+                    borderRadius: '8px',
+                    border: '1px solid rgba(231, 76, 60, 0.3)',
+                    cursor: 'pointer'
+                  }}>
+                    <summary style={{ fontWeight: 600, marginBottom: '0.5rem' }}>
+                      Error Details
+                    </summary>
+                    <pre style={{
+                      whiteSpace: 'pre-wrap',
+                      wordBreak: 'break-word',
+                      fontSize: '0.85rem',
+                      marginTop: '0.5rem',
+                      color: '#c0392b'
+                    }}>
+                      {this.state.error?.toString()}
+                    </pre>
+                  </details>
+                  <button
+                    onClick={() => window.location.reload()}
+                    style={{
+                      padding: '0.75rem 2rem',
+                      background: 'linear-gradient(135deg, #4a90e2, #9b59b6)',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      transition: 'all 0.3s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'scale(1.05)';
+                      e.target.style.boxShadow = '0 4px 12px rgba(74, 144, 226, 0.3)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'scale(1)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  >
+                    🔄 Reload Page
+                  </button>
                 </div>
               </div>
-            </div>
+            );
+          }
 
-            <!-- Non-Technical Skills Panel -->
-            <div class="skills__content" data-content id="nontechnical">
-              <div class="skills__group">
-                <div class="skills__category">
-                  <i class="uil uil-chart-line category__icon"></i>
-                  <div class="category__text">
-                    <h4 class="category__title">Product & Strategy</h4>
-                    <p class="category__items">Roadmapping, Prioritization & OKRs, Stakeholder Management, Product Analytics, A/B testing, User Research</p>
-                  </div>
-                </div>
-                <div class="skills__category">
-                  <i class="uil uil-book-open category__icon"></i>
-                  <div class="category__text">
-                    <h4 class="category__title">Domain Knowledge</h4>
-                    <p class="category__items">Healthcare & Medical Devices, Big Data Analytics, Regulatory (FDA/ISO), AI Ethics, Cloud Architecture, MLOps Workflows, Data Engineering Best Practices</p>
-                  </div>
-                </div>
-                <div class="skills__category">
-                  <i class="uil uil-comment-dots category__icon"></i>
-                  <div class="category__text">
-                    <h4 class="category__title">Communication & Leadership</h4>
-                    <p class="category__items">Presentation, Reporting, Documentation, Team Building, Stakeholder Management</p>
-                  </div>
-                </div>
-                <div class="skills__category">
-                  <i class="uil uil-lightbulb category__icon"></i>
-                  <div class="category__text">
-                    <h4 class="category__title">Problem Solving</h4>
-                    <p class="category__items">Root Cause Analysis, Critical Thinking, Continuous Learning</p>
-                  </div>
-                </div>
-                <div class="skills__category">
-                  <i class="uil uil-clock category__icon"></i>
-                  <div class="category__text">
-                    <h4 class="category__title">Time Management</h4>
-                    <p class="category__items">Prioritization, Agile Planning</p>
-                  </div>
-                </div>
+          return this.props.children;
+        }
+      }
+
+      // ============================================
+      function PortfolioApp() {
+        const [data, setData] = useState(null);
+        const [loading, setLoading] = useState(true);
+        const [darkMode, setDarkMode] = useState(() => {
+          // Check localStorage first
+          const saved = localStorage.getItem('darkMode');
+          if (saved !== null) {
+            return saved === 'true';
+          }
+          // Fall back to system preference
+          return window.matchMedia('(prefers-color-scheme: dark)').matches;
+        });
+
+        // Apply dark mode class to body
+        useEffect(() => {
+          if (darkMode) {
+            document.body.classList.add('dark-mode');
+          } else {
+            document.body.classList.remove('dark-mode');
+          }
+          localStorage.setItem('darkMode', darkMode);
+        }, [darkMode]);
+
+        useEffect(() => {
+          fetch(`./portfolio-data.json?t=${Date.now()}`)
+            .then(res => res.json())
+            .then(portfolioData => {
+              // Validate data
+              const validation = DataValidator.validate(portfolioData);
+              
+              if (!validation.valid) {
+                console.error('❌ Data validation failed:', validation.errors);
+                // Use fallback data if validation fails
+                setData(DataValidator.getFallbackData());
+              } else {
+                setData(validation.data);
+              }
+              
+              setLoading(false);
+              window.portfolioData = validation.data;
+            })
+            .catch(err => {
+              console.error('❌ Error loading portfolio data:', err);
+              // Use fallback data on fetch error
+              const fallbackData = DataValidator.getFallbackData();
+              setData(fallbackData);
+              setLoading(false);
+              window.portfolioData = fallbackData;
+              
+              // Track error in analytics
+              if (window.gtag) {
+                window.gtag('event', 'data_load_error', {
+                  error: err.message
+                });
+              }
+            });
+        }, []);
+
+        // Track page view on load
+        useEffect(() => {
+          Analytics.pageView(window.location.pathname, 'Portfolio - Ayush Ghosh');
+        }, []);
+
+        // Track scroll depth
+        useEffect(() => {
+          let lastScrollDepth = 0;
+          
+          const handleScroll = () => {
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.scrollY / scrollHeight) * 100;
+            
+            // Track at 25%, 50%, 75%, 100%
+            if (scrolled >= 25 && lastScrollDepth < 25) {
+              Analytics.trackScrollDepth(25);
+              lastScrollDepth = 25;
+            } else if (scrolled >= 50 && lastScrollDepth < 50) {
+              Analytics.trackScrollDepth(50);
+              lastScrollDepth = 50;
+            } else if (scrolled >= 75 && lastScrollDepth < 75) {
+              Analytics.trackScrollDepth(75);
+              lastScrollDepth = 75;
+            } else if (scrolled >= 90 && lastScrollDepth < 90) {
+              Analytics.trackScrollDepth(90);
+              lastScrollDepth = 90;
+            }
+          };
+
+          window.addEventListener('scroll', handleScroll);
+          return () => window.removeEventListener('scroll', handleScroll);
+        }, []);
+
+        useEffect(() => {
+          if (!data) return;
+
+          const elements = document.querySelectorAll('.fade-on-scroll');
+          if (!elements.length) return;
+
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('is-visible');
+                  
+                  // Track section views
+                  const sectionId = entry.target.closest('section')?.id;
+                  if (sectionId) {
+                    Analytics.trackSectionView(sectionId);
+                  }
+                  
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
+          );
+
+          elements.forEach((el) => observer.observe(el));
+
+          return () => observer.disconnect();
+        }, [data]);
+
+        if (loading) {
+          return (
+            <div style={{ 
+              minHeight: '100vh', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              background: 'var(--bg-primary)',
+              color: 'var(--text-primary)',
+              fontSize: '1.5rem'
+            }}>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{
+                  width: '50px',
+                  height: '50px',
+                  border: '4px solid rgba(74, 144, 226, 0.2)',
+                  borderTop: '4px solid #4a90e2',
+                  borderRadius: '50%',
+                  margin: '0 auto 1rem',
+                  animation: 'spin 0.8s linear infinite'
+                }} />
+                <p>Loading portfolio...</p>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
+          );
+        }
 
-      <!--==================== EXPERIENCE ====================-->
-      <section class="experience section" id="experience">
-        <h2 class="section__title">Professional Experience</h2>
-        <span class="section__subtitle">Where I’ve worked</span>
-
-        <div class="experience__container container grid">
-          <div class="experience__card" id="card-sculptor" style="position: relative;">
-            <div class="experience__logo">
-              <img src="packages/images/sculptor-logo.png" alt="Sculptor Capital Management logo" loading="lazy">
-            </div>
-            <div class="experience__details">
-              <h3 class="experience__role">AI PM (Data Science)</h3>
-              <span class="experience__dates">June 2025 – Dec 2025 | New York, NY</span>
-              <a href="https://www.sculptor.com" class="experience__company" target="_blank">
-                Sculptor Capital Management
-              </a>
-              <ul class="experience__list">
-                <li>Led product definition and roadmap for RAG-based executive summaries, coordinating analytics and engineering to deliver a feature that reduced analyst prep time ~25% and drove cross-team adoption.</li>
-                <li>Prioritized and launched data platform improvements (Azure Data Factory + Databricks) to shorten processing cycles and enable faster model iteration, reducing processing time ~30%.</li>
-                <li>Partnered with finance stakeholders to translate business requirements into forecasting features; these models improved projection accuracy by ~12% and informed planning decisions.</li>
-                <li>Drove adoption of interactive Power BI dashboards across 4 teams—defined success metrics and rollout plan, accelerating decision cycles by ~20%.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="experience__card" id="card-humannity" style="position: relative;">
-            <div class="experience__logo">
-              <img src="packages/images/humannity-logo.jpeg" alt="Humannity MedTec logo" loading="lazy">
-            </div>
-            <div class="experience__details">
-              <h3 class="experience__role">Software Engineer II (Data & Cloud)</h3>
-              <span class="experience__dates">Jul 2024 – May 2025 | Los Angeles, CA</span>
-              <h3 class="experience__role">Software Engineer I (Mobile Application)</h3>
-              <span class="experience__dates">Sep 2023 – Jul 2024 | Los Angeles, CA</span>
-              <a href="https://humannitymedtec.com" class="experience__company" target="_blank">
-                Humannity MedTec — Alfred Mann Foundation
-              </a>
-              <ul class="experience__list">
-                <li>Defined product requirements and roadmap for telemetry sync improvements, prioritizing work with engineering and clinical stakeholders to reduce sync delay 30% and achieve 99% uptime.</li>
-                <li>Launched a centralized log-manager dashboard used by support and clinical teams, decreasing mean time to resolution by ~40% through targeted feature delivery.</li>
-                <li>Scoped and led analytics initiatives to accelerate patient journey analysis by 50%, partnering with product and data teams to surface prioritized insights for product decisions.</li>
-                <li>As Scrum Master, aligned cross-functional teams, increased test coverage to 85%, and improved sprint velocity by 20% to speed feature delivery.</li>
-              </ul>
-            </div>
-          </div>
-          
-          <div class="experience__card" id="card-zs" style="position: relative;">
-            <div class="experience__logo">
-              <img src="packages/images/zs-logo.svg" alt="ZS logo" loading="lazy">
-            </div>
-            <div class="experience__details">
-              <h3 class="experience__role">Decision Analytics Associate (Data Science)</h3>
-              <span class="experience__dates">Jan 2021 – Jul 2022 | Pune, India</span>
-             <a href="https://zs.com" class="experience__company" target="_blank">
-                ZS Associates
-              </a> 
-              <ul class="experience__list">
-                <li>Contributed to analytics and modeling work for the Ozempic engagement program — helped define KPIs, supported feature prioritization, and collaborated with client stakeholders and analytics teams.</li>
-                <li>Supported the rollout of near-real-time KPI dashboards (processing 10M+ records/month), enabling stakeholders to act on insights more quickly and shortening the insight-to-action cycle.</li>
-                <li>Translated model signals into actionable physician engagement recommendations that were used in targeted outreach and helped increase engagement ~30%.</li>
-                <li>Presented findings and adoption recommendations to commercial teams; the work supported a measurable uplift in market share over an 18-month engagement window.
-                </li>
-              </ul>
-            </div>
-          </div> 
-
-          <div class="experience__card" id="card-scsu-research" style="position: relative;">
-            <div class="experience__logo">
-              <img src="packages/images/scsu-logo.png" alt="St. Cloud State University logo" loading="lazy">
-            </div>
-            <div class="experience__details">
-              <h3 class="experience__role">Business Intelligence Researcher</h3>
-              <span class="experience__dates">Jan 2023 – Oct 2023 | St. Cloud, MN</span>
-              <a href="https://www.stcloudstate.edu" class="experience__company" target="_blank">
-                St. Cloud State University
-              </a>
-              <ul class="experience__list">
-                <li>Optimized implant-telemetry flow—cut sync delay 30% and achieved 99% uptime by writing the C# ingestion code, SQLite caching and AWS ETL.</li>
-                <li>Built a log-manager dashboard (S3 events & DynamoDB) that improved remote debugging throughput by 40%.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="experience__card" id="card-ecell" style="position: relative;">
-            <div class="experience__logo">
-              <img src="packages/images/edc-logo.png" alt="EDC logo" loading="lazy">
-            </div>
-            <div class="experience__details">
-              <h3 class="experience__role">Program Manager (Volunteer)</h3>
-              <span class="experience__dates">Sep 2017 – May 2020 | Patiala, India</span>
-              <a href="https://www.linkedin.com/school/thaparventureclub/posts/?feedView=all" class="experience__company" target="_blank">
-                Enterpreneurship Development Cell
-              </a>
-              <ul class="experience__list">
-                <li>Managed a 150+ member team at the Entrepreneurship Development Cell, mentoring startups and securing $190K in funding.</li>
-                <li>Led digital content strategy and market research at CoLinkers Event Management, boosting event visibility and engagement by 20%.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="experience__card" id="card-uprvunl" style="position: relative;">
-            <div class="experience__logo">
-              <img src="packages/images/uprvunl-logo.png" alt="UPRVUNL logo" loading="lazy">
-            </div>
-            <div class="experience__details">
-              <h3 class="experience__role">Process Engineer (Intern)</h3>
-              <span class="experience__dates">Jun 2019 – Jul 2019 | Sonebhadra, India</span>
-              <a href="https://uprvunl.org/" class="experience__company" target="_blank">
-                UPRVUNL
-              </a>
-              <ul class="experience__list">
-                <li>Analyzed SCADA and DCS data, collaborated with the Control and Instrumentation department, achieved 15% downtime reduction through data-driven optimization of equipment and processes.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="experience__card" id="card-hindalco" style="position: relative;">
-            <div class="experience__logo">
-              <img src="packages/images/hindalco-logo.png" alt="HINDALCO logo" loading="lazy">
-            </div>
-            <div class="experience__details">
-              <h3 class="experience__role">Process Engineer (Intern)</h3>
-              <span class="experience__dates">Dec 2018 – Jan 2019 | Sonebhadra, India</span>
-              <a href="https://www.hindalco.com/" class="experience__company" target="_blank">
-                HINDALCO
-              </a>
-              <ul class="experience__list">
-                <li>Analyzed data produced by Supervisory Control and Data Acquisition (SCADA) systems to discover trends, patterns, and anomalies in temperature, pressure, and other important indicators in a power generating unit for an aluminum and copper manufacturing facility.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="experience__card" id="card-asmara" style="position: relative;">
-            <div class="experience__logo">
-              <img src="packages/images/asmara-logo.webp" alt="Asmara logo" loading="lazy">
-            </div>
-            <div class="experience__details">
-              <h3 class="experience__role">Global Supply Chain Data Scientist (Intern)</h3>
-              <span class="experience__dates">Jun 2018 – Jul 2018 | Gurugram, India</span>
-              <a href="https://asmaragroup.com/" class="experience__company" target="_blank">
-                Asmara Group
-              </a>
-              <ul class="experience__list">
-                <li>Contributed to international supply chain operations by supporting the relationships with suppliers across 18 countries. Assisted in the development and implementation of a supplier scorecard that reduced defects by 3%.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="experience__card" id="card-colinkers" style="position: relative;">
-            <div class="experience__logo">
-              <img src="packages/images/colinkers-logo.jpeg" alt="colinkers logo" loading="lazy">
-            </div>
-            <div class="experience__details">
-              <h3 class="experience__role">Social Media Data Scientist (Intern)</h3>
-              <span class="experience__dates">Sep 2017 – Feb 2018 | Patiala, India</span>
-              <a href="https://www.facebook.com/CoLinkers.em/" class="experience__company" target="_blank">
-                CoLinkers Events Management
-              </a>
-              <ul class="experience__list">
-                <li>Combined data analysis and content marketing expertise to optimize digital content strategy for website, social media, and email newsletters. Conducted market research and used SEO techniques to increase online visibility and contributed to successful event outcomes.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!--==================== EDUCATION ====================-->
-      <section class="education section" id="education">
-        <h2 class="section__title">Education</h2>
-        <span class="section__subtitle">Degrees & Certifications</span>
-      
-        <div class="education__cards container">
-          <!-- Example Card: Degree -->
-          <div class="education__card" id="card-uiuc" style="position: relative;">
-            <div class="education__logo">
-              <img src="packages/images/uiuc-logo.jpg" alt="UIUC logo" loading="lazy">
-            </div>
-            <div class="education__details">
-              <h3 class="education__title">Master of Computer Science</h3>
-              <a href="https://grainger.illinois.edu/" class="education__institution" target="_blank">
-                University of Illinois Urbana-Champaign
-              </a>
-              <span class="education__dates">Jan 2024 – Dec 2025 | Champaign, IL</span>
-            </div>
-            <ul class="education__courses">
-              <li>Deep Learning</li>
-              <li>Machine Learning</li>
-              <li>Natural Language Processing</li>
-              <li>Cloud Computing</li>
-              <li>Database Systems</li>
-            </ul>
-          </div>
-
-          <div class="education__card" id="card-scsu" style="position: relative;">
-            <div class="education__logo">
-              <img src="packages/images/scsu-logo.png" alt="SCSU logo" loading="lazy">
-            </div>
-            <div class="education__details">
-              <h3 class="education__title">Master of Engineering Management</h3>
-              <a href="https://thapar.edu" class="education__institution" target="_blank">
-                St. Cloud State University
-              </a>
-              <span class="education__dates">Aug 2022 – Aug 2024 | St. Cloud, MN</span>
-            </div>
-            <ul class="education__courses">
-              <li>Big Data</li>
-              <li>Quality Engineering</li>
-              <li>Project Management</li>
-            </ul>
-          </div>
-      
-          <div class="education__card" id="card-thapar" style="position: relative;">
-            <div class="education__logo">
-              <img src="packages/images/tiet-logo.png" alt="Thapar Institute logo" loading="lazy">
-            </div>
-            <div class="education__details">
-              <h3 class="education__title">Bachelor in Engineering of Electronics & Communications</h3>
-              <a href="https://thapar.edu" class="education__institution" target="_blank">
-                Thapar Institute of Engineering & Technology
-              </a>
-              <span class="education__dates">Jul 2017 – Jul 2021 | Patiala, India</span>
-            </div>
-            <ul class="education__courses">
-              <li>Data Structures & Algorithms</li>
-              <li>Operating Systems</li>
-              <li>Object Oriented Programming</li>
-              <li>Machine Learning</li>
-              <li>Biomedical Signal Processing</li>
-            </ul>
-          </div>
-        </div>
-        <div class="education__cards container">
-          <div class="education__card education__card--cert" style="position: relative;">
-            <div class="education__logo">
-              <img src="packages/images/msu-logo.png" alt="ASEM logo" loading="lazy">
-            </div>
-            <div class="education__details">
-              <h3 class="education__title">Certified Six Sigma Green Belt</h3>
-              <p class="education__institution">Minnesota West Community and Technical College</p>
-              <span class="education__dates">Sep 2023</span>
-            </div>
-          </div>
-      
-          <div class="education__card education__card--cert" style="position: relative;">
-            <div class="education__logo">
-              <img src="packages/images/asem-logo.png" alt="ASEM logo" loading="lazy">
-            </div>
-            <div class="education__details">
-              <h3 class="education__title">Certified Associate in Engineering Management</h3>
-              <p class="education__institution">American Society for Engineering Management</p>
-              <span class="education__dates">Oct 2024</span>
-            </div>
-          </div>
-      
-          <div class="education__card education__card--cert" style="position: relative;">
-            <div class="education__logo">
-              <img src="packages/images/duke-logo.png" alt="DUKE logo" loading="lazy">
-            </div>
-            <div class="education__details">
-              <h3 class="education__title">AI Product Management (Specialization)</h3>
-              <p class="education__institution">Duke University (Coursera)</p>
-              <span class="education__dates">Jun 2023</span>
-            </div>
-          </div>
-      
-          <div class="education__card education__card--cert" style="position: relative;">
-            <div class="education__logo">
-              <img src="packages/images/ibm-logo.webp" alt="IBM logo" loading="lazy">
-            </div>
-            <div class="education__details">
-              <h3 class="education__title">Data Science (Specialization)</h3>
-              <p class="education__institution">IBM (Coursera)</p>
-              <span class="education__dates">Jun 2023</span>
-            </div>
-          </div>
-          
-          <div class="education__card education__card--cert" style="position: relative;">
-            <div class="education__logo">
-              <img src="packages/images/umn-logo.png" alt="UMN logo" loading="lazy">
-            </div>
-            <div class="education__details">
-              <h3 class="education__title">Software Development Lifecycle (Specialization)</h3>
-              <p class="education__institution">University of Minnesota (Coursera)</p>
-              <span class="education__dates">Jun 2023</span>
-            </div>
-          </div>
-          
-          <div class="education__card education__card--cert" style="position: relative;">
-            <div class="education__logo">
-              <img src="packages/images/google-logo.png" alt="Google logo" loading="lazy">
-            </div>
-            <div class="education__details">
-              <h3 class="education__title">Project Management (Specialization)</h3>
-              <p class="education__institution">Google (Coursera)</p>
-              <span class="education__dates">May 2023</span>
-            </div>
-          </div>
-
-          <div class="education__card education__card--cert" style="position: relative;">
-            <div class="education__logo">
-              <img src="packages/images/google-logo.png" alt="Google logo" loading="lazy">
-            </div>
-            <div class="education__details">
-              <h3 class="education__title">Data Analytics (Specialization)</h3>
-              <p class="education__institution">Google (Coursera)</p>
-              <span class="education__dates">Jul 2022</span>
-            </div>
-          </div>
-
-          <div class="education__card education__card--cert" style="position: relative;">
-            <div class="education__logo">
-              <img src="packages/images/stanford-logo.webp" alt="Stanford logo" loading="lazy">
-            </div>
-            <div class="education__details">
-              <h3 class="education__title">Machine Learning (Specialization)</h3>
-              <p class="education__institution">Stanford University (Coursera)</p>
-              <span class="education__dates">Feb 2023</span>
-            </div>
-          </div>
-
-          <div class="education__card education__card--cert" style="position: relative;">
-            <div class="education__logo">
-              <img src="packages/images/vanderbilt-logo.png" alt="Vanderbilt logo" loading="lazy">
-            </div>
-            <div class="education__details">
-              <h3 class="education__title">Prompt Engineering</h3>
-              <p class="education__institution">Vanderbilt University (Coursera)</p>
-              <span class="education__dates">Jun 2023</span>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!--==================== PROJECTS & PUBLICATIONS ====================-->
-      <section class="Projects section" id="projects">
-        <h2 class="section__title">Projects & Publications</h2>
-        <span class="section__subtitle">Most recent works</span>
-
-        <div class="portfolio__container container swiper-container">
-          <div class="swiper-wrapper">
-            <!-- Academic World Dashboard -->
-            <div class="portfolio__content grid swiper-slide">
-              <img
-                src="./packages/images/awd.png"
-                alt="Academic World Dashboard"
-                class="portfolio__img"
-                loading="lazy"
-              />
-              <div class="portfolio__data">
-                <h3 class="portfolio__title">Academic World Dashboard</h3>
-                <p class="portfolio__description">FastAPI, Dash/Plotly, MySQL / MongoDB / Neo4j</p>
-                <ul class="portfolio__list">
-                  <li>Designed and deployed full-stack Dash dashboard, handling 100k+ daily requests with containerized microservices.</li>
-                  <li>Implemented advanced graph queries in Neo4j to uncover research collaborations, increasing stakeholder insight by 60%.</li>
-                </ul>
-                <a href="https://mediaspace.illinois.edu/media/t/1_sqdt7fqv" class="button button--flex button--small portfolio__button" target="_blank" >
-                View Demo<i class="uil uil-arrow-right button__icon"></i>
-                </a>
-              </div>
-            </div>
-
-            <!-- Personalised Loyalty Model -->
-            <div class="portfolio__content grid swiper-slide">
-              <img
-                src="./packages/images/loyalty.png"
-                alt="Personalised Loyalty Model"
-                class="portfolio__img"
-                loading="lazy"
-              />
-              <div class="portfolio__data">
-                <h3 class="portfolio__title">Personalised Loyalty Model</h3>
-                <p class="portfolio__description">
-                  XGBoost on AWS EC2 – ASEM 2023 Paper
+        if (!data) {
+          return (
+            <div style={{ 
+              minHeight: '100vh',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'var(--bg-primary)',
+              padding: '2rem'
+            }}>
+              <div style={{
+                textAlign: 'center',
+                padding: '2rem',
+                background: 'var(--card-bg)',
+                borderRadius: '12px',
+                boxShadow: 'var(--card-shadow)',
+                maxWidth: '500px'
+              }}>
+                <h1 style={{ fontSize: '1.8rem', marginBottom: '1rem', color: '#e74c3c' }}>
+                  ⚠️ Unable to Load Portfolio
+                </h1>
+                <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
+                  Please ensure portfolio-data.json exists and contains valid JSON.
                 </p>
-                <ul class="portfolio__list">
-                  <li>Developed and tuned the XGBoost recommendation engine, achieving 98.8% accuracy on customer retention predictions.</li>
-                  <li>Visualized model output with interactive dashboards in Tableau to guide marketing strategy, increasing campaign ROI by 25%.</li>
-                </ul>
-                <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=6cbn8bkAAAAJ&citation_for_view=6cbn8bkAAAAJ:u5HHmVD_uO8C" class="button button--flex button--small portfolio__button" target="_blank" >
-                Read Paper<i class="uil uil-arrow-right button__icon"></i>
-                </a>
+                <button
+                  onClick={() => window.location.reload()}
+                  style={{
+                    padding: '0.75rem 2rem',
+                    background: 'linear-gradient(135deg, #4a90e2, #9b59b6)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontSize: '1rem',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'all 0.3s'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'scale(1.05)';
+                    e.target.style.boxShadow = '0 4px 12px rgba(74, 144, 226, 0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'scale(1)';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                >
+                  🔄 Retry
+                </button>
               </div>
             </div>
+          );
+        }
 
-            <!-- AI Resume Generator -->
-            <div class="portfolio__content grid swiper-slide">
-              <img
-                src="./packages/images/ai-resume-generator.png"
-                alt="AI Resume Generator"
-                class="portfolio__img"
-                loading="lazy"
-              />
-              <div class="portfolio__data">
-                <h3 class="portfolio__title">AI Resume Generator</h3>
-                <p class="portfolio__description">LangChain, FAISS, GPT-4</p>
-                <ul class="portfolio__list">
-                  <li>Built a RAG pipeline using LangChain and FAISS for vector similarity search, achieving 92% relevance on test queries.</li>
-                  <li>Implemented GPT-4 integration to generate ATS-optimized resumes and cover letters from job descriptions, reducing manual drafting time by 80%.</li>
-                </ul>
-                <a href="#" class="button button--flex button--small portfolio__button">
-                  Demo<i class="uil uil-arrow-right button__icon"></i>
-                </a>
-              </div>
+        return (
+          <ErrorBoundary>
+            <div className="portfolio-container">
+            <Navigation data={data} darkMode={darkMode} toggleDarkMode={() => setDarkMode(!darkMode)} />
+            <HeroSection data={data.personal} social={data.social} />
+            <AboutSection data={data.personal} highlights={data.highlights} />
+            <ExperienceSection experience={data.experience} />
+            <ProjectsSection projects={data.projects} />
+            <EducationSection education={data.education} />
+            <SkillsSection skills={data.skills} />
+            <TestimonialsSection testimonials={data.testimonials} />
+            {/* <PerspectivesSection /> */}
+            <ContactSection personal={data.personal} social={data.social} />
+            <Footer data={data.personal} social={data.social} />
             </div>
-
-            <!-- Mobile App UI -->
-            <div class="portfolio__content grid swiper-slide">
-              <img
-                src="./packages/images/mobile-ui.png"
-                alt="Mobile App UI"
-                class="portfolio__img"
-                loading="lazy"
-              />
-              <div class="portfolio__data">
-                <h3 class="portfolio__title">Mobile App UI/UX</h3>
-                <p class="portfolio__description">Figma, Balsamiq, User research</p>
-                <ul class="portfolio__list">
-                  <li>Designed 15+ Figma/Balsamiq Mobile app screens based on user research; validated UX through stakeholder walkthroughs, reducing rework by 30%.</li>
-                </ul>
-                <a href="#" class="button button--flex button--small portfolio__button">
-                  Demo<i class="uil uil-arrow-right button__icon"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- navigation arrows -->
-          <div class="swiper-button-next">
-            <i class="uil uil-angle-right-b swiper-portfolio-icon"></i>
-          </div>
-          <div class="swiper-button-prev">
-            <i class="uil uil-angle-left-b swiper-portfolio-icon"></i>
-          </div>
-
-          <!-- pagination bullets -->
-          <div class="swiper-pagination"></div>
-        </div>
-      </section>
-
-      <!--==================== TESTIMONIALS ====================-->
-      <section class="testimonial section" id="testimonial">
-        <h2 class="section__title">Testimonials</h2>
-        <div class="testimonial__container container swiper-container">
-          <div class="swiper-wrapper">
-            <!-- Combined Slide (formerly Slide 1 + Slide 2) -->
-            <div class="testimonial__content swiper-slide">
-              <div class="testimonial__pair">
-                <img
-                  src="packages/images/recomm1.png"
-                  alt="Recommendation screenshot 1"
-                  class="testimonial__img2"
-                  loading="lazy"
-                />
-                <img
-                  src="packages/images/recomm2.png"
-                  alt="Recommendation screenshot 2"
-                  class="testimonial__img3"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-
-            <!-- Slide 3 -->
-            <div class="testimonial__content swiper-slide">
-              <img
-                src="packages/images/recomm3.png"
-                alt="Recommendation screenshot 3"
-                class="testimonial__img"
-                loading="lazy"
-              />
-            </div>
-            <!-- Slide 4 -->
-            <div class="testimonial__content swiper-slide">
-              <img
-                src="packages/images/recomm4.png"
-                alt="Recommendation screenshot 4"
-                class="testimonial__img"
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <!-- pagination bullets -->
-          <div class="swiper-pagination"></div>
-        </div>
-      </section>      
-
-    </main>
-
-      <!--==================== FOOTER ====================-->
-      <footer class="footer">
-        <div class="footer__bg">
-          <div class="footer__container container">
-            <!-- Left column: name + title -->
-            <div class="footer__about">
-              <h1 class="footer__title">Ayush Ghosh</h1>
-              <span class="footer__subtitle">AI PM/ Advanced Analytics</span>
-            </div>
-
-            <!-- Middle column: contact info -->
-            <div class="footer__contact-info">
-              <div class="contact__information">
-                <i class="uil uil-phone-alt contact__icon"></i>
-                <div>
-                  <h3 class="contact__title">Call me</h3>
-                  <span class="contact__subtitle">(+1) 612 999 4142</span>
-                </div>
-              </div>
-              <div class="contact__information">
-                <i class="uil uil-envelope contact__icon"></i>
-                <div>
-                  <h3 class="contact__title">E-mail</h3>
-                  <span class="contact__subtitle">
-                    <a href="mailto:ayush.ghosh@outlook.com">ayush.ghosh@outlook.com</a>
-                  </span>
-                </div>
-              </div>
-              <div class="contact__information">
-                <i class="uil uil-map-marker contact__icon"></i>
-                <div>
-                  <h3 class="contact__title">Location</h3>
-                  <span class="contact__subtitle">United States</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Right column: LinkedIn, Google Scholar, GitHub -->
-            <div class="footer__socials footer__profiles">
-              <a
-                href="https://www.linkedin.com/in/ayush-ghosh/"
-                target="_blank"
-                class="footer__social"
-                ><i class="uil uil-linkedin-alt"></i
-              ></a>
-              <a
-                href="https://scholar.google.com/citations?user=6cbn8bkAAAAJ&hl=en" 
-                target="_blank"
-                class="footer__social"
-                ><i class="uil uil-graduation-cap"></i
-              ></a>
-              <a
-                href="https://github.com/ghosh-ayush"
-                target="_blank"
-                class="footer__social"
-                ><i class="uil uil-github-alt"></i
-              ></a>
-            </div>
-          </div>
-
-          <p class="footer__copy">© 2025 Ayush Ghosh.</p>
-        </div>
-      </footer>
-
-    <!--==================== SCROLL TOP ====================-->
-  <!--==================== LEAFLET MAP JS ====================-->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="./packages/js/milestone-map.js"></script>
-    <a href="#" class="scrollup" id="scroll-up">
-      <i class="uil uil-arrow-up scrollup__icon"></i>
-    </a>
-
-    <!--==================== SWIPER JS ====================-->
-    <script src="./packages/js/swiper-bundle.min.js"></script>
-
-    <!--==================== MAIN JS ====================-->
-    <script src="./packages/js/main.js"></script>
-    <script>
-    // Experience timeline linking for Sculptor
-    (function() {
-      const timelineEl = document.getElementById('exp-sculptor');
-      const cardEl = document.getElementById('card-sculptor');
-      if (timelineEl && cardEl) {
-        timelineEl.addEventListener('mouseenter', () => {
-          cardEl.classList.add('highlight-map-exp');
-        });
-        timelineEl.addEventListener('mouseleave', () => {
-          cardEl.classList.remove('highlight-map-exp');
-        });
-        timelineEl.addEventListener('click', () => {
-          cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          cardEl.classList.add('highlight-map-exp');
-          setTimeout(() => cardEl.classList.remove('highlight-map-exp'), 2000);
-        });
-        cardEl.addEventListener('mouseenter', () => {
-          timelineEl.classList.add('highlight-map-exp');
-        });
-        cardEl.addEventListener('mouseleave', () => {
-          timelineEl.classList.remove('highlight-map-exp');
-        });
-        cardEl.addEventListener('click', () => {
-          timelineEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          timelineEl.classList.add('highlight-map-exp');
-          setTimeout(() => timelineEl.classList.remove('highlight-map-exp'), 2000);
-        });
+          </ErrorBoundary>
+        );
       }
-    })();
-    </script>
-    <script>
-    // Education timeline linking
-    const eduTimelineToCard = {
-      'edu-uiuc': 'card-uiuc',
-      'edu-scsu': 'card-scsu',
-      'edu-thapar': 'card-thapar',
-    };
-    Object.entries(eduTimelineToCard).forEach(([timelineId, cardId]) => {
-      const timelineEl = document.getElementById(timelineId);
-      const cardEl = document.getElementById(cardId);
-      if (timelineEl && cardEl) {
-        // Highlight card on hover
-        timelineEl.addEventListener('mouseenter', () => {
-          cardEl.classList.add('highlight-map-exp');
-        });
-        timelineEl.addEventListener('mouseleave', () => {
-          cardEl.classList.remove('highlight-map-exp');
-        });
-        // Scroll to card on click
-        timelineEl.addEventListener('click', () => {
-          cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          cardEl.classList.add('highlight-map-exp');
-          setTimeout(() => cardEl.classList.remove('highlight-map-exp'), 2000);
-        });
-        // Highlight timeline on card hover
-        cardEl.addEventListener('mouseenter', () => {
-          timelineEl.classList.add('highlight-map-exp');
-        });
-        cardEl.addEventListener('mouseleave', () => {
-          timelineEl.classList.remove('highlight-map-exp');
-        });
-        // Scroll to timeline on card click
-        cardEl.addEventListener('click', () => {
-          timelineEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          timelineEl.classList.add('highlight-map-exp');
-          setTimeout(() => timelineEl.classList.remove('highlight-map-exp'), 2000);
-        });
+
+      // ============================================
+      // NAVIGATION
+      // ============================================
+      function Navigation({ data, darkMode, toggleDarkMode }) {
+        const [scrolled, setScrolled] = useState(false);
+
+        useEffect(() => {
+          const handleScroll = () => setScrolled(window.scrollY > 50);
+          window.addEventListener('scroll', handleScroll);
+          return () => window.removeEventListener('scroll', handleScroll);
+        }, []);
+
+        const scrollToSection = (id) => {
+          document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        };
+
+        return (
+          <nav style={{
+            position: 'fixed',
+            top: 0,
+            width: '100%',
+            zIndex: 1000,
+            background: scrolled ? (darkMode ? 'rgba(26, 26, 26, 0.95)' : 'rgba(255, 255, 255, 0.95)') : 'transparent',
+            backdropFilter: scrolled ? 'blur(10px)' : 'none',
+            padding: '1rem 2rem',
+            transition: 'all 0.3s ease',
+            borderBottom: scrolled ? `1px solid var(--border-color)` : 'none'
+          }}>
+            <div style={{ 
+              maxWidth: '1200px', 
+              margin: '0 auto', 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '1rem'
+            }}>
+              <h2 style={{ 
+                color: scrolled ? 'var(--text-primary)' : 'white', 
+                margin: 0, 
+                fontSize: '1.5rem',
+                fontWeight: 700,
+                transition: 'color 0.3s'
+              }}>
+                {data.personal?.name || 'Portfolio'}
+              </h2>
+              <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                {['about', 'experience', 'projects', 'contact'].map(section => (
+                  <button
+                    key={section}
+                    onClick={() => {
+                      Analytics.trackClick(`Navigate to ${section}`, 'nav-link');
+                      scrollToSection(section);
+                    }}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: scrolled ? 'var(--text-primary)' : 'white',
+                      cursor: 'pointer',
+                      fontSize: '1rem',
+                      textTransform: 'capitalize',
+                      transition: 'color 0.3s'
+                    }}
+                    onMouseEnter={(e) => e.target.style.color = '#4a90e2'}
+                    onMouseLeave={(e) => e.target.style.color = scrolled ? 'var(--text-primary)' : 'white'}
+                  >
+                    {section}
+                  </button>
+                ))}
+                <button
+                  onClick={() => {
+                    Analytics.trackClick('Dark Mode Toggle', 'button');
+                    toggleDarkMode();
+                  }}
+                  style={{
+                    background: 'rgba(74, 144, 226, 0.2)',
+                    border: '1px solid rgba(74, 144, 226, 0.3)',
+                    color: scrolled ? 'var(--text-primary)' : 'white',
+                    cursor: 'pointer',
+                    padding: '0.5rem 1rem',
+                    borderRadius: '20px',
+                    fontSize: '1rem',
+                    transition: 'all 0.3s',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = 'rgba(74, 144, 226, 0.3)';
+                    e.target.style.boxShadow = '0 0 10px rgba(74, 144, 226, 0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = 'rgba(74, 144, 226, 0.2)';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                  title={darkMode ? 'Light mode' : 'Dark mode'}
+                >
+                  {darkMode ? '☀️' : '🌙'}
+                </button>
+              </div>
+            </div>
+          </nav>
+        );
       }
-    });
+
+      // ============================================
+      // HERO SECTION
+      // ============================================
+      function HeroSection({ data, social }) {
+        const [visible, setVisible] = useState(false);
+
+        useEffect(() => {
+          setVisible(true);
+        }, []);
+
+        return (
+          <section style={{
+            minHeight: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'var(--dark-hero-bg)',
+            color: 'white',
+            padding: '2rem',
+            textAlign: 'center',
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            {/* Animated background circles */}
+            <div style={{
+              position: 'absolute',
+              width: '500px',
+              height: '500px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(74,144,226,0.1) 0%, transparent 70%)',
+              top: '-200px',
+              right: '-200px',
+              animation: 'float 6s ease-in-out infinite'
+            }} />
+            <div style={{
+              position: 'absolute',
+              width: '400px',
+              height: '400px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(155,89,182,0.1) 0%, transparent 70%)',
+              bottom: '-150px',
+              left: '-150px',
+              animation: 'float 8s ease-in-out infinite'
+            }} />
+
+            <div style={{ 
+              maxWidth: '900px', 
+              position: 'relative', 
+              zIndex: 1,
+              opacity: visible ? 1 : 0,
+              transform: visible ? 'translateY(0)' : 'translateY(30px)',
+              transition: 'all 1s ease-out'
+            }}>
+              {/* Headshot */}
+              {data.image && (
+                <div style={{
+                  marginBottom: '2rem',
+                  animation: 'fadeInUp 1s ease-out'
+                }}>
+                  <img 
+                    loading="lazy"
+                    src={data.image} 
+                    alt={data.name}
+                    style={{
+                      width: '180px',
+                      height: '180px',
+                      borderRadius: '50%',
+                      objectFit: 'cover',
+                      border: '5px solid rgba(74, 144, 226, 0.3)',
+                      boxShadow: '0 10px 40px rgba(74, 144, 226, 0.3)',
+                      transition: 'transform 0.3s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                  />
+                </div>
+              )}
+              
+              <div style={{
+                display: 'inline-block',
+                padding: '0.5rem 1.5rem',
+                background: 'rgba(74, 144, 226, 0.1)',
+                border: '1px solid rgba(74, 144, 226, 0.3)',
+                borderRadius: '50px',
+                marginBottom: '2rem',
+                fontSize: '0.9rem',
+                color: '#4a90e2',
+                fontWeight: 500
+              }}>
+                👋 Welcome to my portfolio
+              </div>
+
+              <h1 style={{ 
+                fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', 
+                marginBottom: '1rem',
+                fontWeight: 800,
+                letterSpacing: '-0.02em'
+              }}>
+                <span style={{
+                  background: 'linear-gradient(135deg, #4a90e2, #9b59b6, #e94b8f)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}>
+                  {data.name}
+                </span>
+              </h1>
+
+              <h2 style={{ 
+                fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)', 
+                fontWeight: 600, 
+                marginBottom: '1.5rem',
+                color: 'rgba(255,255,255,0.9)',
+                lineHeight: 1.4
+              }}>
+                Building High-Impact AI Products to Solve Complex Global Challenges
+              </h2>
+
+              <p style={{ 
+                fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', 
+                lineHeight: '1.8',
+                marginBottom: '3rem',
+                color: 'rgba(255,255,255,0.7)',
+                maxWidth: '800px',
+                margin: '0 auto 3rem'
+              }}>
+                Strategic AI Product Leader with 5+ years of experience bridging the gap between cutting-edge ML research and market-ready products. I specialize in aligning cross-functional teams—from engineering to executive leadership—to deliver AI solutions that drive measurable business growth and operational efficiency.
+              </p>
+
+              <div style={{ 
+                display: 'flex', 
+                gap: '1rem', 
+                justifyContent: 'center', 
+                flexWrap: 'wrap', 
+                marginBottom: '3rem' 
+              }}>
+                {social?.map((link, index) => (
+                  <a
+                    key={link.name}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => Analytics.trackExternalLink(link.url, `Hero: ${link.name}`)}
+                    style={{
+                      padding: '1rem 2rem',
+                      background: index === 0 
+                        ? 'linear-gradient(135deg, #2c5282, #5a67d8)'
+                        : 'rgba(44, 82, 130, 0.15)',
+                      border: index === 0 ? 'none' : '2px solid rgba(44, 82, 130, 0.3)',
+                      borderRadius: '12px',
+                      color: 'white',
+                      textDecoration: 'none',
+                      transition: 'all 0.3s',
+                      fontWeight: 600,
+                      fontSize: '1rem',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.5rem'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (index === 0) {
+                        e.target.style.transform = 'translateY(-2px) scale(1.05)';
+                        e.target.style.boxShadow = '0 10px 25px rgba(44, 82, 130, 0.4)';
+                      } else {
+                        e.target.style.background = 'rgba(44, 82, 130, 0.25)';
+                        e.target.style.transform = 'translateY(-2px)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0) scale(1)';
+                      e.target.style.boxShadow = 'none';
+                      if (index !== 0) {
+                        e.target.style.background = 'rgba(44, 82, 130, 0.15)';
+                      }
+                    }}
+                  >
+                    {link.name}
+                  </a>
+                ))}
+                <a
+                  href="./documents/resume.pdf"
+                  download="AyushGhosh_Resume.pdf"
+                  onClick={() => Analytics.trackClick('Download Resume', 'hero-button')}
+                  style={{
+                    padding: '1rem 2rem',
+                    background: 'linear-gradient(135deg, #f39c12, #e67e22)',
+                    border: 'none',
+                    borderRadius: '12px',
+                    color: 'white',
+                    textDecoration: 'none',
+                    transition: 'all 0.3s',
+                    fontWeight: 600,
+                    fontSize: '1rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    boxShadow: '0 6px 20px rgba(243, 156, 18, 0.3)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'translateY(-2px) scale(1.05)';
+                    e.target.style.boxShadow = '0 10px 30px rgba(243, 156, 18, 0.5)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'translateY(0) scale(1)';
+                    e.target.style.boxShadow = '0 6px 20px rgba(243, 156, 18, 0.3)';
+                  }}
+                  title="Download resume as PDF"
+                >
+                  📥 Download Resume
+                </a>
+                {/* <a
+                  href="#perspectives"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('perspectives')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  style={{
+                    padding: '1rem 2rem',
+                    background: 'rgba(44, 82, 130, 0.15)',
+                    border: '2px solid rgba(44, 82, 130, 0.3)',
+                    borderRadius: '12px',
+                    color: 'white',
+                    textDecoration: 'none',
+                    transition: 'all 0.3s',
+                    fontWeight: 600,
+                    fontSize: '1rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    cursor: 'pointer'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(44, 82, 130, 0.25)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(44, 82, 130, 0.15)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  📝 Read My Insights
+                </a> */}
+              </div>
+
+              <div style={{ 
+                fontSize: '0.9rem', 
+                color: 'rgba(255,255,255,0.5)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem'
+              }}>
+                {data.location && (
+                  <>
+                    <span>📍</span>
+                    <span>{data.location}</span>
+                  </>
+                )}
+              </div>
+            </div>
+          </section>
+        );
+      }
+
+      // ============================================
+      // ABOUT SECTION
+      // ============================================
+      function AboutSection({ data, highlights }) {
+        // Icon mapping to Font Awesome classes
+        const iconMap = {
+          'brain': 'fa-brain',
+          'users': 'fa-users',
+          'code': 'fa-code',
+          'heart': 'fa-heart',
+          'star': 'fa-star',
+          'rocket': 'fa-rocket',
+          'lightbulb': 'fa-lightbulb',
+          'target': 'fa-bullseye'
+        };
+        
+        return (
+          <section id="about" style={{ 
+            padding: '8rem 2rem', 
+            background: 'linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%)'
+          }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+              <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+                <h2 style={{ 
+                  fontSize: 'clamp(2rem, 4vw, 3rem)', 
+                  marginBottom: '1rem',
+                  color: '#1a1a1a',
+                  fontWeight: 800
+                }}>
+                  About <span className="text-gradient" style={{
+                    background: 'linear-gradient(135deg, #4a90e2, #9b59b6)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text'
+                  }}>Me</span>
+                </h2>
+                <p style={{ 
+                  fontSize: '1.1rem', 
+                  color: '#666',
+                  maxWidth: '600px',
+                  margin: '0 auto'
+                }}>
+                  Transforming ideas into impactful solutions
+                </p>
+              </div>
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+                gap: '2rem' 
+              }}>
+                {highlights?.map((highlight, index) => (
+                  <div key={index} style={{
+                    padding: '2.5rem',
+                    background: 'white',
+                    borderRadius: '20px',
+                    textAlign: 'center',
+                    transition: 'all 0.3s',
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                    border: '1px solid rgba(74, 144, 226, 0.1)',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}
+                  className="card-shadow fade-on-scroll"
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-8px)';
+                    e.currentTarget.style.boxShadow = '0 12px 35px rgba(74, 144, 226, 0.15)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
+                  }}
+                  >
+                    <div style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: '4px',
+                      background: 'linear-gradient(90deg, #4a90e2, #9b59b6)'
+                    }} />
+                    <div style={{
+                      width: '70px',
+                      height: '70px',
+                      margin: '0 auto 1.5rem',
+                      borderRadius: '20px',
+                      background: 'linear-gradient(135deg, rgba(74,144,226,0.1), rgba(155,89,182,0.1))',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      <i className={`fas ${iconMap[highlight.icon] || 'fa-sparkles'}`} style={{
+                        fontSize: '2rem',
+                        color: '#4a90e2'
+                      }}></i>
+                    </div>
+                    <h3 style={{ 
+                      fontSize: '1.5rem', 
+                      marginBottom: '1rem',
+                      color: '#1a1a1a',
+                      fontWeight: 700
+                    }}>
+                      {highlight.title}
+                    </h3>
+                    <p style={{ 
+                      color: '#666', 
+                      lineHeight: '1.7',
+                      fontSize: '1rem'
+                    }}>
+                      {highlight.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      }
+
+      // ============================================
+      // SKILLS SECTION
+      // ============================================
+      function SkillsSection({ skills }) {
+        return (
+          <section id="skills" style={{ 
+            padding: '8rem 2rem', 
+            background: 'white'
+          }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+              {/* Strategic & Leadership Skills Section */}
+              {skills?.nontechnical && (
+                <>
+                  <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+                    <h2 style={{ 
+                      fontSize: 'clamp(2rem, 4vw, 3rem)', 
+                      marginBottom: '1rem',
+                      color: '#1a1a1a',
+                      fontWeight: 800
+                    }}>
+                      Product <span className="text-gradient" style={{
+                        background: 'linear-gradient(135deg, #5a67d8, #2c5282)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text'
+                      }}>Leadership & Strategy</span>
+                    </h2>
+                    <p style={{ 
+                      fontSize: '1.1rem', 
+                      color: '#666',
+                      maxWidth: '600px',
+                      margin: '0 auto'
+                    }}>
+                      Core competencies in product management and team leadership
+                    </p>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '6rem' }}>
+                    {skills.nontechnical.map((category, index) => (
+                      <div key={index} style={{
+                        padding: '2rem',
+                        background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+                        borderRadius: '16px',
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                        transition: 'all 0.3s',
+                        border: '1px solid rgba(90, 103, 216, 0.1)',
+                        position: 'relative',
+                        overflow: 'hidden'
+                      }}
+                      className="card-shadow fade-on-scroll"
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-4px)';
+                        e.currentTarget.style.boxShadow = '0 8px 30px rgba(90, 103, 216, 0.12)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
+                      }}
+                      >
+                        <div style={{
+                          position: 'absolute',
+                          top: '-100px',
+                          right: '-100px',
+                          width: '200px',
+                          height: '200px',
+                          borderRadius: '50%',
+                          background: 'radial-gradient(circle, rgba(90,103,216,0.05), transparent)',
+                          pointerEvents: 'none'
+                        }} />
+                        <h3 style={{ 
+                          fontSize: '1.3rem', 
+                          marginBottom: '1.5rem',
+                          color: '#1a1a1a',
+                          fontWeight: 700,
+                          position: 'relative'
+                        }}>
+                          {category.category}
+                        </h3>
+                        <div style={{ 
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          gap: '0.5rem'
+                        }}>
+                          {(category.skills || category.items?.split(', ') || []).map((skill, i) => (
+                            <span key={i} style={{
+                              padding: '0.5rem 1rem',
+                              background: 'white',
+                              borderRadius: '8px',
+                              fontSize: '0.9rem',
+                              color: '#5a67d8',
+                              border: '1px solid rgba(90, 103, 216, 0.2)',
+                              transition: 'all 0.2s',
+                              cursor: 'default'
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = 'linear-gradient(135deg, #5a67d8, #2c5282)';
+                              e.currentTarget.style.color = 'white';
+                              e.currentTarget.style.transform = 'scale(1.05)';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = 'white';
+                              e.currentTarget.style.color = '#5a67d8';
+                              e.currentTarget.style.transform = 'scale(1)';
+                            }}
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {/* Technical Skills Section */}
+              <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+                <h2 style={{ 
+                  fontSize: 'clamp(2rem, 4vw, 3rem)', 
+                  marginBottom: '1rem',
+                  color: '#1a1a1a',
+                  fontWeight: 800
+                }}>
+                  Technical <span className="text-gradient" style={{
+                    background: 'linear-gradient(135deg, #2c5282, #5a67d8)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text'
+                  }}>Foundation</span>
+                </h2>
+                <p style={{ 
+                  fontSize: '1.1rem', 
+                  color: '#666',
+                  maxWidth: '600px',
+                  margin: '0 auto'
+                }}>
+                  Technologies and tools I work with
+                </p>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                {skills?.technical?.map((category, index) => (
+                  <div key={index} style={{
+                    padding: '2rem',
+                    background: 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)',
+                    borderRadius: '16px',
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                    transition: 'all 0.3s',
+                    border: '1px solid rgba(44, 82, 130, 0.1)',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}
+                  className="card-shadow fade-on-scroll"
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = '0 8px 30px rgba(44, 82, 130, 0.12)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
+                  }}
+                  >
+                    <div style={{
+                      position: 'absolute',
+                      top: '-100px',
+                      right: '-100px',
+                      width: '200px',
+                      height: '200px',
+                      borderRadius: '50%',
+                      background: 'radial-gradient(circle, rgba(44,82,130,0.05), transparent)',
+                      pointerEvents: 'none'
+                    }} />
+                    <h3 style={{ 
+                      fontSize: '1.3rem', 
+                      marginBottom: '1.5rem',
+                      color: '#1a1a1a',
+                      fontWeight: 700,
+                      position: 'relative'
+                    }}>
+                      {category.category}
+                    </h3>
+                    <div style={{ 
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      gap: '0.5rem'
+                    }}>
+                      {(category.skills || category.items?.split(', ') || []).map((skill, i) => (
+                        <span key={i} style={{
+                          padding: '0.5rem 1rem',
+                          background: 'white',
+                          borderRadius: '8px',
+                          fontSize: '0.9rem',
+                          color: '#2c5282',
+                          border: '1px solid rgba(44, 82, 130, 0.2)',
+                          transition: 'all 0.2s',
+                          cursor: 'default'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = 'linear-gradient(135deg, #2c5282, #5a67d8)';
+                          e.currentTarget.style.color = 'white';
+                          e.currentTarget.style.transform = 'scale(1.05)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = 'white';
+                          e.currentTarget.style.color = '#2c5282';
+                          e.currentTarget.style.transform = 'scale(1)';
+                        }}
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      }
+
+      // ============================================
+      // EXPERIENCE SECTION
+      // ============================================
+      function ExperienceSection({ experience }) {
+        return (
+          <section id="experience" style={{ 
+            padding: '8rem 2rem', 
+            background: 'var(--bg-primary)',
+            position: 'relative'
+          }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+              <SectionHeader 
+                title="Work"
+                highlight="Experience"
+                subtitle="Building products that make an impact"
+              />
+
+              {/* Timeline */}
+              <div style={{ position: 'relative' }}>
+                {/* Center line */}
+                <div style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: 0,
+                  bottom: 0,
+                  width: '3px',
+                  background: 'linear-gradient(180deg, #4a90e2, #9b59b6)',
+                  transform: 'translateX(-50%)',
+                  display: window.innerWidth >= 768 ? 'block' : 'none'
+                }} />
+                
+                {experience?.map((job, index) => (
+                  <TimelineItem key={index} job={job} index={index} />
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      }
+
+      // ============================================
+      // EDUCATION SECTION
+      // ============================================
+      function EducationSection({ education }) {
+        return (
+          <section id="education" style={{ 
+            padding: '8rem 2rem', 
+            background: '#f9f9f9' 
+          }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+              <SectionHeader 
+                title="Education &"
+                highlight="Certifications"
+                subtitle="Academic background and professional development"
+              />
+              
+              {/* Degrees */}
+              <h3 style={{ fontSize: '2rem', marginBottom: '2rem', color: '#4a90e2' }}>Degrees</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', marginBottom: '4rem' }}>
+                {education?.degrees?.map((degree, index) => (
+                  <div key={index} style={{
+                    padding: '2rem',
+                    background: 'white',
+                    borderRadius: '12px',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+                      {degree.logo && (
+                        <img 
+                          loading="lazy"
+                          src={degree.logo} 
+                          alt={degree.institution}
+                          style={{
+                            width: '45px',
+                            height: '45px',
+                            objectFit: 'contain',
+                            borderRadius: '6px',
+                            background: 'rgba(74, 144, 226, 0.1)',
+                            padding: '5px'
+                          }}
+                        />
+                      )}
+                      <div>
+                        <h4 style={{ margin: 0, fontSize: '1.25rem', color: '#1a1a1a' }}>
+                          {degree.degree}
+                        </h4>
+                        <a
+                          href={degree.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            margin: '0.25rem 0',
+                            color: '#2c5282',
+                            fontWeight: 600,
+                            textDecoration: 'none',
+                            display: 'inline-block'
+                          }}
+                        >
+                          {degree.institution}
+                        </a>
+                        <p style={{ margin: 0, color: '#666', fontSize: '0.9rem' }}>
+                          {degree.location} | {degree.startDate} - {degree.endDate}
+                        </p>
+                      </div>
+                    </div>
+                    {degree.courses && degree.courses.length > 0 && (
+                      <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #e5e5e5' }}>
+                        <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.9rem', color: '#666', fontWeight: 600 }}>
+                          Relevant Coursework:
+                        </p>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                          {degree.courses.map((course, i) => (
+                            <span key={i} style={{
+                              padding: '0.35rem 0.75rem',
+                              background: 'rgba(44, 82, 130, 0.08)',
+                              color: '#2c5282',
+                              borderRadius: '4px',
+                              fontSize: '0.85rem',
+                              border: '1px solid rgba(44, 82, 130, 0.15)'
+                            }}>
+                              {course}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Certifications */}
+              <h3 style={{ fontSize: '2rem', marginBottom: '2rem', color: '#2c5282' }}>Certifications</h3>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
+                {education?.certifications?.map((cert, index) => (
+                  <div key={index} style={{
+                    padding: '1.5rem',
+                    background: 'white',
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '1rem',
+                    transition: 'transform 0.3s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                  >
+                    {cert.logo && (
+                      <img 
+                        loading="lazy"
+                        src={cert.logo} 
+                        alt={cert.issuer}
+                        style={{
+                          width: '40px',
+                          height: '40px',
+                          objectFit: 'contain',
+                          borderRadius: '5px',
+                          background: 'rgba(74, 144, 226, 0.1)',
+                          padding: '4px',
+                          flexShrink: 0
+                        }}
+                      />
+                    )}
+                    <div>
+                      <h5 style={{ margin: 0, fontSize: '1rem', color: '#1a1a1a' }}>
+                        {cert.title}
+                      </h5>
+                      <p style={{ margin: '0.25rem 0 0 0', color: '#666', fontSize: '0.85rem' }}>
+                        {cert.issuer}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      }
+
+      // ============================================
+      // TESTIMONIALS SECTION
+      // ============================================
+      function TestimonialsSection({ testimonials }) {
+        return (
+          <section id="testimonials" style={{ 
+            padding: '6rem 2rem',
+            background: 'linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%)'
+          }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+              <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+                <h2 style={{ 
+                  fontSize: 'clamp(2rem, 4vw, 2.5rem)', 
+                  marginBottom: '1rem',
+                  color: '#1a1a1a',
+                  fontWeight: 800
+                }}>
+                  What People <span style={{
+                    background: 'linear-gradient(135deg, #2c5282, #5a67d8)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text'
+                  }}>Say</span>
+                </h2>
+                <p style={{ 
+                  fontSize: '1.1rem', 
+                  color: '#666',
+                  maxWidth: '600px',
+                  margin: '0 auto'
+                }}>
+                  LinkedIn recommendations from colleagues and leaders
+                </p>
+              </div>
+              
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
+                gap: '2rem'
+              }}>
+                {testimonials?.map((testimonial) => (
+                  <div
+                    key={testimonial.id}
+                    style={{
+                      background: 'white',
+                      padding: '2rem',
+                      borderRadius: '16px',
+                      boxShadow: '0 8px 30px rgba(44, 82, 130, 0.12)',
+                      position: 'relative',
+                      transition: 'all 0.3s ease',
+                      border: '1px solid rgba(44, 82, 130, 0.08)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-8px)';
+                      e.currentTarget.style.boxShadow = '0 12px 40px rgba(44, 82, 130, 0.18)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 8px 30px rgba(44, 82, 130, 0.12)';
+                    }}
+                  >
+                    {/* Quote Icon */}
+                    <div style={{
+                      position: 'absolute',
+                      top: '1.5rem',
+                      right: '1.5rem',
+                      fontSize: '3rem',
+                      color: 'rgba(44, 82, 130, 0.1)',
+                      lineHeight: 1,
+                      fontFamily: 'Georgia, serif'
+                    }}>
+                      "
+                    </div>
+                    
+                    {/* Quote Text */}
+                    <p style={{
+                      fontSize: '1rem',
+                      lineHeight: '1.8',
+                      color: '#333',
+                      marginBottom: '1.5rem',
+                      fontStyle: 'italic',
+                      position: 'relative',
+                      zIndex: 1
+                    }}>
+                      {testimonial.quote}
+                    </p>
+                    
+                    {/* Person Info */}
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '1rem',
+                      paddingTop: '1rem',
+                      borderTop: '1px solid rgba(44, 82, 130, 0.1)'
+                    }}>
+                      {testimonial.image && (
+                        <img
+                          loading="lazy"
+                          src={testimonial.image}
+                          alt={testimonial.name}
+                          style={{
+                            width: '50px',
+                            height: '50px',
+                            borderRadius: '50%',
+                            objectFit: 'cover',
+                            border: '2px solid rgba(44, 82, 130, 0.2)'
+                          }}
+                        />
+                      )}
+                      <div>
+                        <h4 style={{
+                          margin: 0,
+                          fontSize: '1.05rem',
+                          color: '#2c5282',
+                          fontWeight: 700
+                        }}>
+                          {testimonial.name}
+                        </h4>
+                        <p style={{
+                          margin: '0.25rem 0 0 0',
+                          fontSize: '0.9rem',
+                          color: '#666'
+                        }}>
+                          {testimonial.title}
+                        </p>
+                        {testimonial.company && (
+                          <p style={{
+                            margin: '0.15rem 0 0 0',
+                            fontSize: '0.85rem',
+                            color: '#999'
+                          }}>
+                            {testimonial.company}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      }
+
+      // ============================================
+      // PERSPECTIVES SECTION
+      // ============================================
+      function PerspectivesSection() {
+        const insights = [
+          {
+            icon: '💡',
+            title: 'Beyond the Hype: Prioritizing High-ROI Use Cases for Generative AI',
+            excerpt: 'A strategic framework for product leaders to evaluate and prioritize generative AI initiatives that deliver measurable business value, not just technical novelty.',
+            color: '#2c5282'
+          },
+          {
+            icon: '🤝',
+            title: 'Bridging the Gap: How Product Leaders Can Effectively Manage ML Engineering Teams',
+            excerpt: 'Leadership principles for aligning ML engineering execution with product vision, fostering collaboration between research and production, and setting realistic expectations with stakeholders.',
+            color: '#5a67d8'
+          },
+          {
+            icon: '🚀',
+            title: 'The Future of RAG: Moving from Simple Retrieval to Contextual Intelligence',
+            excerpt: 'Exploring the evolution of retrieval-augmented generation systems from basic keyword search to sophisticated contextual reasoning—and what it means for enterprise AI applications.',
+            color: '#4a5568'
+          }
+        ];
+
+        return (
+          <section id="perspectives" style={{ padding: '8rem 2rem', background: 'white' }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+              <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+                <h2 style={{ 
+                  fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
+                  fontWeight: 800, 
+                  marginBottom: '1rem',
+                  background: 'linear-gradient(135deg, #2c5282, #5a67d8)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}>
+                  Perspectives on AI & Product
+                </h2>
+                <p style={{ fontSize: '1.2rem', color: '#666', maxWidth: '700px', margin: '0 auto' }}>
+                  Thought leadership on building AI products that drive real business outcomes
+                </p>
+              </div>
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+                gap: '2.5rem' 
+              }}>
+                {insights.map((insight, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      padding: '2.5rem',
+                      background: 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)',
+                      borderRadius: '16px',
+                      border: '1px solid rgba(44, 82, 130, 0.1)',
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                      transition: 'all 0.3s ease',
+                      cursor: 'pointer',
+                      position: 'relative',
+                      overflow: 'hidden'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-8px)';
+                      e.currentTarget.style.boxShadow = '0 12px 35px rgba(44, 82, 130, 0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
+                    }}
+                  >
+                    <div style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '4px',
+                      background: `linear-gradient(90deg, ${insight.color}, ${insight.color}88)`
+                    }} />
+                    <div style={{ 
+                      fontSize: '3rem', 
+                      marginBottom: '1.5rem',
+                      opacity: 0.9
+                    }}>
+                      {insight.icon}
+                    </div>
+                    <h3 style={{ 
+                      fontSize: '1.4rem', 
+                      fontWeight: 700, 
+                      marginBottom: '1rem',
+                      color: '#1a1a1a',
+                      lineHeight: 1.3
+                    }}>
+                      {insight.title}
+                    </h3>
+                    <p style={{ 
+                      color: '#555', 
+                      fontSize: '1rem',
+                      lineHeight: 1.7,
+                      marginBottom: '1.5rem'
+                    }}>
+                      {insight.excerpt}
+                    </p>
+                    <div style={{
+                      color: insight.color,
+                      fontWeight: 600,
+                      fontSize: '0.95rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem'
+                    }}>
+                      Read More →
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      }
+
+      // ============================================
+      // PROJECTS SECTION
+      // ============================================
+      function ProjectsSection({ projects }) {
+        return (
+          <section id="projects" style={{ 
+            padding: '8rem 2rem', 
+            background: 'var(--bg-secondary)'
+          }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+              <SectionHeader 
+                title="Projects &"
+                highlight="Publications"
+                subtitle="Most recent works"
+              />
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem' }}>
+                {projects?.map((project, index) => (
+                  <Card key={index} hoverable={true} animated={true}>
+                    {project.image && (
+                      <div style={{
+                        width: '100%',
+                        height: '220px',
+                        overflow: 'hidden',
+                        position: 'relative'
+                      }}>
+                        <img 
+                          loading="lazy"
+                          src={project.image} 
+                          alt={project.title}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            transition: 'transform 0.5s'
+                          }}
+                          onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                          onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                        />
+                        <div style={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%)',
+                          pointerEvents: 'none'
+                        }} />
+                      </div>
+                    )}
+                    <div style={{ padding: '2rem' }}>
+                      <h3 style={{ 
+                        fontSize: '1.4rem', 
+                        marginBottom: '1rem',
+                        color: 'var(--text-primary)',
+                        fontWeight: 700
+                      }}>
+                        {project.title}
+                      </h3>
+                      <p style={{ 
+                        color: 'var(--text-secondary)', 
+                        lineHeight: '1.7',
+                        marginBottom: '1.5rem',
+                        fontSize: '0.95rem'
+                      }}>
+                        {project.description}
+                      </p>
+                      <div style={{ 
+                        display: 'flex', 
+                        flexWrap: 'wrap', 
+                        gap: '0.5rem',
+                        marginBottom: '1.5rem'
+                      }}>
+                        {project.tags?.map((tag, i) => (
+                          <span key={i} style={{
+                            padding: '0.4rem 0.9rem',
+                            background: 'var(--accent-light)',
+                            color: '#4a90e2',
+                            borderRadius: '8px',
+                            fontSize: '0.85rem',
+                            fontWeight: 600,
+                            border: '1px solid rgba(74, 144, 226, 0.2)'
+                          }}>
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      {project.link && (
+                        <a 
+                          href={project.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          onClick={() => Analytics.trackExternalLink(project.link, project.title)}
+                          style={{
+                            display: 'inline-block',
+                            padding: '0.75rem 1.5rem',
+                            background: 'linear-gradient(135deg, #2c5282, #5a67d8)',
+                            color: 'white',
+                            textDecoration: 'none',
+                            borderRadius: '10px',
+                            fontWeight: 600,
+                            fontSize: '0.9rem',
+                            transition: 'all 0.3s',
+                            boxShadow: '0 4px 12px rgba(44, 82, 130, 0.3)'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'scale(1.05)';
+                            e.currentTarget.style.boxShadow = '0 6px 16px rgba(44, 82, 130, 0.4)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(44, 82, 130, 0.3)';
+                          }}
+                        >
+                          View Project →
+                        </a>
+                      )}
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      }
+
+      // ============================================
+      // CONTACT SECTION
+      // ============================================
+      function ContactSection({ personal, social }) {
+        return (
+          <section id="contact" style={{ 
+            padding: '8rem 2rem', 
+            background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
+            color: 'white',
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              position: 'absolute',
+              top: '-200px',
+              right: '-200px',
+              width: '500px',
+              height: '500px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(74,144,226,0.15), transparent)',
+              pointerEvents: 'none'
+            }} />
+            <div style={{
+              position: 'absolute',
+              bottom: '-150px',
+              left: '-150px',
+              width: '400px',
+              height: '400px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(155,89,182,0.15), transparent)',
+              pointerEvents: 'none'
+            }} />
+            <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', position: 'relative' }}>
+              <h2 style={{ 
+                fontSize: 'clamp(2rem, 4vw, 3rem)', 
+                marginBottom: '1rem',
+                fontWeight: 800
+              }}>
+                Get In <span style={{
+                  background: 'linear-gradient(135deg, #4a90e2, #9b59b6)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}>Touch</span>
+              </h2>
+              <p style={{ 
+                fontSize: '1.15rem', 
+                marginBottom: '3rem',
+                color: 'rgba(255,255,255,0.8)',
+                lineHeight: '1.7',
+                maxWidth: '600px',
+                margin: '0 auto 3rem'
+              }}>
+                Have a project in mind or want to collaborate? Let's connect and build something amazing together!
+              </p>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '1rem',
+                flexWrap: 'wrap',
+                marginBottom: '2.5rem'
+              }}>
+                <a 
+                  href={`mailto:${personal?.email || ''}`}
+                  onClick={() => Analytics.trackClick('Email Me', 'contact-button')}
+                  style={{
+                    padding: '1rem 2.5rem',
+                    background: 'linear-gradient(135deg, #4a90e2, #9b59b6)',
+                    color: 'white',
+                    textDecoration: 'none',
+                    borderRadius: '12px',
+                    fontWeight: 700,
+                    fontSize: '1.1rem',
+                    transition: 'all 0.3s',
+                    boxShadow: '0 8px 20px rgba(74, 144, 226, 0.4)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = '0 12px 28px rgba(74, 144, 226, 0.5)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 8px 20px rgba(74, 144, 226, 0.4)';
+                  }}
+                >
+                  ✉️ Email Me
+                </a>
+                <a 
+                  href="https://calendly.com/ayushghosh990/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => Analytics.trackExternalLink('https://calendly.com/ayushghosh990/30min', 'Schedule a Chat')}
+                  style={{
+                    padding: '1rem 2.5rem',
+                    background: 'rgba(255,255,255,0.1)',
+                    color: 'white',
+                    textDecoration: 'none',
+                    borderRadius: '12px',
+                    fontWeight: 700,
+                    fontSize: '1.1rem',
+                    transition: 'all 0.3s',
+                    border: '2px solid rgba(255,255,255,0.2)',
+                    backdropFilter: 'blur(10px)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.2)';
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  📅 Schedule a Chat
+                </a>
+                <a 
+                  href={social?.find(s => s.name === 'LinkedIn')?.url || 'https://www.linkedin.com/in/ayush-ghosh/'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => Analytics.trackExternalLink(social?.find(s => s.name === 'LinkedIn')?.url || 'https://www.linkedin.com/in/ayush-ghosh/', 'LinkedIn')}
+                  style={{
+                    padding: '1rem 2.5rem',
+                    background: 'rgba(255,255,255,0.1)',
+                    color: 'white',
+                    textDecoration: 'none',
+                    borderRadius: '12px',
+                    fontWeight: 700,
+                    fontSize: '1.1rem',
+                    transition: 'all 0.3s',
+                    border: '2px solid rgba(255,255,255,0.2)',
+                    backdropFilter: 'blur(10px)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.2)';
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  💼 LinkedIn
+                </a>
+              </div>
+            </div>
+          </section>
+        );
+      }
+
+      // ============================================
+      // FOOTER
+      // ============================================
+      function Footer({ data, social }) {
+        return (
+          <footer style={{ 
+            padding: '3rem 2rem', 
+            background: '#1a1a1a', 
+            color: 'white', 
+            textAlign: 'center' 
+          }}>
+            <div style={{ marginBottom: '1.5rem' }}>
+              <h3 style={{ marginBottom: '1rem', fontSize: '1.5rem' }}>{data.name}</h3>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
+                {social?.map(link => (
+                  <a
+                    key={link.name}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => Analytics.trackExternalLink(link.url, link.name)}
+                    style={{
+                      color: 'rgba(255,255,255,0.6)',
+                      textDecoration: 'none',
+                      transition: 'color 0.3s'
+                    }}
+                    onMouseEnter={(e) => e.target.style.color = '#4a90e2'}
+                    onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.6)'}
+                  >
+                    {link.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+            <p style={{ margin: 0, color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem' }}>
+              © {new Date().getFullYear()} {data.name}. All rights reserved.
+            </p>
+          </footer>
+        );
+      }
+
+      // ============================================
+      // RENDER APP
+      // ============================================
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<PortfolioApp />);
     </script>
   </body>
 </html>
