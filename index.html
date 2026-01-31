@@ -108,9 +108,6 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    
     <!-- Global Styles -->
     <style>
       :root {
@@ -160,6 +157,13 @@
         background: var(--bg-primary);
         color: var(--text-primary);
         transition: background 0.3s ease, color 0.3s ease;
+        /* Hide scrollbar */
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+
+      body::-webkit-scrollbar {
+        display: none;  /* Chrome, Safari, Opera */
       }
 
       #root {
@@ -169,11 +173,19 @@
       /* Smooth scrolling */
       html {
         scroll-behavior: smooth;
+        /* Hide scrollbar */
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
       }
 
-      /* Custom scrollbar */
+      html::-webkit-scrollbar {
+        display: none;  /* Chrome, Safari, Opera */
+      }
+
+      /* Custom scrollbar - now hidden but kept for reference */
       ::-webkit-scrollbar {
-        width: 10px;
+        width: 0;
+        display: none;
       }
 
       ::-webkit-scrollbar-track {
@@ -308,6 +320,361 @@
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.2);
       }
+
+      /* ===== NEW INTERACTIVE ENHANCEMENTS ===== */
+      
+      /* 1. Enhanced Card Hover Effects with 3D Transform */
+      .interactive-card {
+        perspective: 1000px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .interactive-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(74, 144, 226, 0.1), transparent);
+        transition: left 0.5s ease;
+        pointer-events: none;
+      }
+
+      .interactive-card:hover::before {
+        left: 100%;
+      }
+
+      .interactive-card:hover {
+        transform: translateY(-8px) rotateX(2deg);
+        box-shadow: 0 20px 40px var(--card-shadow-hover), 0 0 0 1px rgba(74, 144, 226, 0.2);
+      }
+
+      /* 2. Sticky Navigation with Backdrop Blur */
+      .sticky-nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-color);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      body.dark-mode .sticky-nav {
+        background: rgba(26, 26, 26, 0.8);
+      }
+
+      /* 3. Animated Skill Bars */
+      @keyframes fillBar {
+        from {
+          width: 0;
+        }
+      }
+
+      .skill-bar {
+        width: 100%;
+        height: 8px;
+        background: var(--bg-tertiary);
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .skill-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #4a90e2, #9b59b6);
+        border-radius: 4px;
+        animation: fillBar 1.5s ease-out forwards;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .skill-bar-fill::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        animation: shimmer 2s infinite;
+      }
+
+      @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+
+      /* 4. Project Image Zoom on Hover */
+      .image-zoom-container {
+        overflow: hidden;
+        border-radius: 12px;
+        position: relative;
+      }
+
+      .image-zoom {
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .image-zoom-container:hover .image-zoom {
+        transform: scale(1.1);
+      }
+
+      .image-zoom-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        display: flex;
+        align-items: flex-end;
+        padding: 1rem;
+        color: white;
+      }
+
+      .image-zoom-container:hover .image-zoom-overlay {
+        opacity: 1;
+      }
+
+      /* 5. Button Ripple Effect */
+      .btn-ripple {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .btn-ripple::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+
+      .btn-ripple:active::after {
+        width: 300px;
+        height: 300px;
+      }
+
+      /* 6. Staggered Entrance Animations */
+      .stagger-item {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.6s ease-out forwards;
+      }
+
+      .stagger-item:nth-child(1) { animation-delay: 0.1s; }
+      .stagger-item:nth-child(2) { animation-delay: 0.2s; }
+      .stagger-item:nth-child(3) { animation-delay: 0.3s; }
+      .stagger-item:nth-child(4) { animation-delay: 0.4s; }
+      .stagger-item:nth-child(5) { animation-delay: 0.5s; }
+      .stagger-item:nth-child(6) { animation-delay: 0.6s; }
+
+      /* 7. Loading Skeleton */
+      @keyframes skeleton-loading {
+        0% { background-position: -200px 0; }
+        100% { background-position: calc(200px + 100%) 0; }
+      }
+
+      .skeleton {
+        background: linear-gradient(90deg, var(--bg-tertiary) 0px, var(--bg-secondary) 40px, var(--bg-tertiary) 80px);
+        background-size: 200px 100%;
+        animation: skeleton-loading 1.4s ease-in-out infinite;
+      }
+
+      /* 8. Scroll Progress Indicator */
+      .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 3px;
+        background: linear-gradient(90deg, #4a90e2, #9b59b6);
+        z-index: 9999;
+        transition: width 0.1s ease;
+      }
+
+      /* 9. Floating Action Button */
+      .fab {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4a90e2, #9b59b6);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        box-shadow: 0 4px 20px rgba(74, 144, 226, 0.4);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 999;
+        border: none;
+      }
+
+      .fab:hover {
+        transform: scale(1.1) rotate(90deg);
+        box-shadow: 0 6px 30px rgba(74, 144, 226, 0.6);
+      }
+
+      .fab.hidden {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0);
+      }
+
+      /* 10. Pulse Animation for Icons */
+      @keyframes pulse-icon {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+      }
+
+      .icon-pulse:hover {
+        animation: pulse-icon 0.5s ease-in-out;
+      }
+
+      /* Fade in scale animation for course badges */
+      @keyframes fadeInScale {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Fade in from bottom animation */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-in-bottom {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      .fade-in-bottom.is-visible {
+        animation: fadeInUp 0.6s ease-out forwards;
+      }
+
+      /* 11. Smooth Gradient Shift */
+      @keyframes gradient-shift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      .gradient-animate {
+        background-size: 200% 200%;
+        animation: gradient-shift 3s ease infinite;
+      }
+
+      /* 12. Shimmer Loading Animation */
+      @keyframes shimmer {
+        0% {
+          background-position: -1000px 0;
+        }
+        100% {
+          background-position: 1000px 0;
+        }
+      }
+
+      .skeleton {
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.05) 25%,
+          rgba(255, 255, 255, 0.1) 50%,
+          rgba(255, 255, 255, 0.05) 75%
+        );
+        background-size: 1000px 100%;
+        animation: shimmer 2s infinite;
+        border-radius: 8px;
+      }
+
+      /* 13. Animated Hero Gradient */
+      @keyframes gradient-move {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .animated-hero-bg {
+        background: linear-gradient(
+          135deg,
+          #0f2027,
+          #203a43,
+          #2c5364,
+          #1a2a6c,
+          #0f2027
+        );
+        background-size: 400% 400%;
+        animation: gradient-move 15s ease infinite;
+      }
+
+      /* 14. Active Nav Link */
+      .nav-link {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #4a90e2, #9b59b6);
+        transition: width 0.3s ease;
+      }
+
+      .nav-link.active::after {
+        width: 100%;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+        animation: gradient-shift 3s ease infinite;
+      }
     </style>
   </head>
   <body>
@@ -389,8 +756,78 @@
       window.Analytics = Analytics;
 
       // ============================================
+      // THEME COLORS - CENTRALIZED COLOR MANAGEMENT
+      // ============================================
+      const themeColors = {
+        light: {
+          textPrimary: '#1a1a1a',
+          textSecondary: '#666',
+          textTertiary: '#999',
+          accentDarkBlue: '#2c5282',
+          accentBlue: '#4a90e2',
+          accentMediumBlue: '#5a67d8',
+          accentBrightBlue: '#6db3ff'
+        },
+        dark: {
+          textPrimary: '#ffffff',
+          textSecondary: '#b3b3b3',
+          textTertiary: '#b3b3b3',
+          accentDarkBlue: '#6db3ff',
+          accentBlue: '#6db3ff',
+          accentMediumBlue: '#6db3ff',
+          accentBrightBlue: '#6db3ff'
+        }
+      };
+
+      // Helper function to get color based on dark mode
+      const getColor = (colorName, darkMode) => {
+        return themeColors[darkMode ? 'dark' : 'light'][colorName] || '#000000';
+      };
+
+      // Expose theme globally for debugging
+      window.themeColors = themeColors;
+      window.getColor = getColor;
+
+      // ============================================
       // REUSABLE COMPONENTS
       // ============================================
+      
+      // ImageWithSkeleton Component - shows skeleton while loading
+      function ImageWithSkeleton({ src, alt, style, className, loading = "lazy" }) {
+        const [imageLoaded, setImageLoaded] = React.useState(false);
+        const [imageError, setImageError] = React.useState(false);
+
+        return (
+          <div style={{ position: 'relative', ...style }}>
+            {!imageLoaded && !imageError && (
+              <div 
+                className="skeleton" 
+                style={{ 
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  ...style
+                }}
+              />
+            )}
+            <img
+              src={src}
+              alt={alt}
+              loading={loading}
+              className={className}
+              style={{
+                ...style,
+                opacity: imageLoaded ? 1 : 0,
+                transition: 'opacity 0.3s ease-in-out'
+              }}
+              onLoad={() => setImageLoaded(true)}
+              onError={() => setImageError(true)}
+            />
+          </div>
+        );
+      }
       
       // SectionHeader Component
       function SectionHeader({ title, highlight, subtitle, centered = true }) {
@@ -430,6 +867,48 @@
         );
       }
 
+      // Simple SVG Icon Renderer - inline SVG paths
+      function LucideIcon({ name, size = 20, color = 'currentColor' }) {
+        const iconPaths = {
+          'brain': 'M12 5a4 4 0 0 0-4 4v1a4 4 0 0 0 4 4 4 4 0 0 0 4-4V9a4 4 0 0 0-4-4zm0 0V3m0 18v-2m-7-7H3m18 0h-2',
+          'users': 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm7 0a3 3 0 1 0 0-6m6 13v-2a4 4 0 0 0-3-3.87',
+          'code': 'M16 18l6-6-6-6M8 6l-6 6 6 6',
+          'heart': 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z',
+          'star': 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
+          'rocket': 'M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z',
+          'lightbulb': 'M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4',
+          'target': 'M12 2v4m0 12v4M2 12h4m12 0h4M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4z',
+          'sparkles': 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 8l-1.5 1.5L16 11l-1.5 1.5L16 14l-1.5-1.5L13 14l1.5-1.5L13 11l1.5-1.5L13 8l1.5 1.5L16 8zM9 3l-.5.5L9 4l-.5.5L9 5l-.5-.5L8 5l.5-.5L8 4l.5-.5L8 3l.5.5L9 3z',
+          'mail': 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+          'calendar': 'M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z',
+          'briefcase': 'M16 20V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v16m-4-7h16',
+          'map-pin': 'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z M12 13a3 3 0 100-6 3 3 0 000 6z',
+          'linkedin': 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z',
+          'handshake': 'M11 17a4 4 0 0 0 4 4h1a4 4 0 0 0 4-4V5H11v12zm6-11a4 4 0 0 0-4 4 4 4 0 0 0-4-4H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h1a4 4 0 0 0 4 4h1a4 4 0 0 0 4-4',
+          'github': 'M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22',
+          'book': 'M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z',
+          'download': 'M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3'
+        };
+        
+        const path = iconPaths[name] || iconPaths['star'];
+        
+        return (
+          <svg 
+            width={size} 
+            height={size} 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke={color} 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+            style={{ display: 'inline-block', verticalAlign: 'middle' }}
+          >
+            <path d={path} />
+          </svg>
+        );
+      }
+
       // IconBadge Component
       function IconBadge({ icon, label, iconMap }) {
         return (
@@ -446,12 +925,48 @@
             transition: 'all 0.3s'
           }}>
             {icon && (
-              <i className={`fas ${iconMap?.[icon] || 'fa-star'}`} style={{
-                color: '#4a90e2',
-                fontSize: '1.1rem'
-              }}></i>
+              <LucideIcon name={iconMap?.[icon] || 'star'} size={20} color={getColor('accentBlue', true)} />
             )}
             {label}
+          </div>
+        );
+      }
+
+      // FadeInItem Component - for fade-in from bottom animation
+      function FadeInItem({ children, delay = 0 }) {
+        const [isVisible, setIsVisible] = React.useState(false);
+        const itemRef = React.useRef(null);
+
+        React.useEffect(() => {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  setIsVisible(true);
+                }
+              });
+            },
+            { threshold: 0.1 }
+          );
+
+          if (itemRef.current) {
+            observer.observe(itemRef.current);
+          }
+
+          return () => {
+            if (itemRef.current) {
+              observer.unobserve(itemRef.current);
+            }
+          };
+        }, []);
+
+        return (
+          <div
+            ref={itemRef}
+            className={`fade-in-bottom ${isVisible ? 'is-visible' : ''}`}
+            style={{ animationDelay: `${delay}s` }}
+          >
+            {children}
           </div>
         );
       }
@@ -487,16 +1002,49 @@
       }
 
       // TimelineItem Component
-      function TimelineItem({ job, index }) {
+      function TimelineItem({ job, index, darkMode }) {
         const isLeft = index % 2 === 0;
+        const [isVisible, setIsVisible] = React.useState(false);
+        const [showDescription, setShowDescription] = React.useState(false);
+        const itemRef = React.useRef(null);
+        
+        React.useEffect(() => {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  setIsVisible(true);
+                }
+              });
+            },
+            { threshold: 0.2 }
+          );
+          
+          if (itemRef.current) {
+            observer.observe(itemRef.current);
+          }
+          
+          return () => {
+            if (itemRef.current) {
+              observer.unobserve(itemRef.current);
+            }
+          };
+        }, []);
         
         return (
-          <div style={{ 
-            display: 'flex',
-            justifyContent: window.innerWidth >= 768 ? (isLeft ? 'flex-start' : 'flex-end') : 'center',
-            marginBottom: '3rem',
-            position: 'relative'
-          }}>
+          <div 
+            ref={itemRef}
+            style={{ 
+              display: 'flex',
+              justifyContent: window.innerWidth >= 768 ? (isLeft ? 'flex-start' : 'flex-end') : 'center',
+              marginBottom: '3rem',
+              position: 'relative',
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateX(0)' : (isLeft ? 'translateX(-50px)' : 'translateX(50px)'),
+              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+              transitionDelay: `${index * 0.1}s`
+            }}
+          >
             {/* Timeline dot */}
             <div style={{
               position: 'absolute',
@@ -532,7 +1080,18 @@
               )}
               
               <Card animated={true}>
-                <div style={{ padding: '2rem' }}>
+                <div 
+                  className="interactive-card" 
+                  style={{ 
+                    padding: '2rem', 
+                    background: 'var(--bg-primary)', 
+                    borderRadius: '16px',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s'
+                  }}
+                  onMouseEnter={() => setShowDescription(true)}
+                  onMouseLeave={() => setShowDescription(false)}
+                >
                   <div style={{
                     display: 'flex',
                     gap: '1.5rem',
@@ -551,10 +1110,10 @@
                         justifyContent: 'center',
                         flexShrink: 0
                       }}>
-                        <img 
-                          loading="lazy"
+                        <ImageWithSkeleton
                           src={job.logo} 
                           alt={job.company}
+                          loading="lazy"
                           style={{
                             width: '100%',
                             height: '100%',
@@ -574,7 +1133,7 @@
                       </h3>
                       <p style={{ 
                         margin: '0.25rem 0', 
-                        color: '#2c5282',
+                        color: getColor('accentDarkBlue', darkMode),
                         fontWeight: 600,
                         fontSize: '1.1rem'
                       }}>
@@ -584,7 +1143,7 @@
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{
-                              color: '#2c5282',
+                              color: getColor('accentDarkBlue', darkMode),
                               textDecoration: 'none'
                             }}
                           >
@@ -603,10 +1162,12 @@
                         flexWrap: 'wrap'
                       }}>
                         <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                          📍 {job.location}
+                          <LucideIcon name="map-pin" size={16} color="var(--text-secondary)" />
+                          {job.location}
                         </span>
                         <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                          📅 {job.startDate} - {job.endDate}
+                          <LucideIcon name="calendar" size={16} color="var(--text-secondary)" />
+                          {job.startDate} - {job.endDate}
                         </span>
                       </div>
                     </div>
@@ -617,13 +1178,19 @@
                       paddingLeft: '0',
                       listStyle: 'none',
                       color: 'var(--text-secondary)',
-                      lineHeight: '1.8'
+                      lineHeight: '1.8',
+                      opacity: showDescription ? 1 : 0,
+                      maxHeight: showDescription ? '1000px' : '0',
+                      overflow: 'hidden',
+                      transition: 'all 0.5s ease'
                     }}>
                       {job.description.map((bullet, i) => (
                         <li key={i} style={{ 
                           marginBottom: '0.75rem',
                           paddingLeft: '1.5rem',
-                          position: 'relative'
+                          position: 'relative',
+                          animation: showDescription ? `fadeInScale 0.4s ease ${i * 0.1}s forwards` : 'none',
+                          opacity: showDescription ? 1 : 0
                         }}>
                           <span style={{
                             position: 'absolute',
@@ -679,19 +1246,22 @@
             warnings.push('Projects should be an array');
             data.projects = [];
           }
-          if (!Array.isArray(data.skills)) {
-            warnings.push('Skills should be an array');
-            data.skills = [];
-          }
           if (!Array.isArray(data.social)) {
             warnings.push('Social links should be an array');
             data.social = [];
           }
           
-          // Validate skills structure
-          if (data.skills && !data.skills.nontechnical && !data.skills.technical) {
-            warnings.push('Skills missing nontechnical and technical categories');
+          // Validate skills structure - skills is an OBJECT with nontechnical and technical arrays
+          if (!data.skills || typeof data.skills !== 'object') {
+            warnings.push('Skills should be an object with nontechnical and technical categories');
             data.skills = { nontechnical: [], technical: [] };
+          } else {
+            if (!Array.isArray(data.skills.nontechnical)) {
+              data.skills.nontechnical = [];
+            }
+            if (!Array.isArray(data.skills.technical)) {
+              data.skills.technical = [];
+            }
           }
           
           // Validate education
@@ -871,6 +1441,10 @@
           return window.matchMedia('(prefers-color-scheme: dark)').matches;
         });
 
+        // ===== INTERACTIVE FEATURES STATE =====
+        const [scrollProgress, setScrollProgress] = useState(0);
+        const [showBackToTop, setShowBackToTop] = useState(false);
+
         // Apply dark mode class to body
         useEffect(() => {
           if (darkMode) {
@@ -949,6 +1523,7 @@
           return () => window.removeEventListener('scroll', handleScroll);
         }, []);
 
+        // Scroll animations observer
         useEffect(() => {
           if (!data) return;
 
@@ -978,6 +1553,27 @@
 
           return () => observer.disconnect();
         }, [data]);
+
+        // Scroll progress indicator
+        useEffect(() => {
+          const handleScroll = () => {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight - windowHeight;
+            const scrollTop = window.scrollY;
+            const progress = (scrollTop / documentHeight) * 100;
+            setScrollProgress(progress);
+            setShowBackToTop(scrollTop > 500);
+          };
+
+          window.addEventListener('scroll', handleScroll);
+          return () => window.removeEventListener('scroll', handleScroll);
+        }, []);
+
+        // Back to top handler
+        const scrollToTop = () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          Analytics.trackClick('Back to Top', 'fab-button');
+        };
 
         if (loading) {
           return (
@@ -1061,19 +1657,31 @@
 
         return (
           <ErrorBoundary>
+            {/* Scroll Progress Bar */}
+            <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
+
             <div className="portfolio-container">
             <Navigation data={data} darkMode={darkMode} toggleDarkMode={() => setDarkMode(!darkMode)} />
             <HeroSection data={data.personal} social={data.social} />
-            <AboutSection data={data.personal} highlights={data.highlights} />
-            <ExperienceSection experience={data.experience} />
-            <ProjectsSection projects={data.projects} />
-            <EducationSection education={data.education} />
-            <SkillsSection skills={data.skills} />
-            <TestimonialsSection testimonials={data.testimonials} />
+            <AboutSection data={data.personal} highlights={data.highlights} darkMode={darkMode} />
+            <ExperienceSection experience={data.experience} darkMode={darkMode} />
+            <ProjectsSection projects={data.projects} darkMode={darkMode} />
+            <EducationSection education={data.education} darkMode={darkMode} />
+            <SkillsSection skills={data.skills} darkMode={darkMode} />
+            <TestimonialsSection testimonials={data.testimonials} darkMode={darkMode} />
             {/* <PerspectivesSection /> */}
             <ContactSection personal={data.personal} social={data.social} />
             <Footer data={data.personal} social={data.social} />
             </div>
+
+            {/* Back to Top Floating Action Button */}
+            <button 
+              className={`fab ${!showBackToTop ? 'hidden' : ''}`}
+              onClick={scrollToTop}
+              title="Back to top"
+            >
+              ↑
+            </button>
           </ErrorBoundary>
         );
       }
@@ -1083,9 +1691,38 @@
       // ============================================
       function Navigation({ data, darkMode, toggleDarkMode }) {
         const [scrolled, setScrolled] = useState(false);
+        const [activeSection, setActiveSection] = useState('');
 
         useEffect(() => {
-          const handleScroll = () => setScrolled(window.scrollY > 50);
+          const handleScroll = () => {
+            setScrolled(window.scrollY > 50);
+            
+            // Determine active section
+            const sections = ['experience', 'projects', 'education', 'skills', 'contact'];
+            const scrollPosition = window.scrollY + 200;
+            let foundSection = false;
+            
+            for (const section of sections) {
+              const element = document.getElementById(section);
+              if (element) {
+                const offsetTop = element.offsetTop;
+                const offsetBottom = offsetTop + element.offsetHeight;
+                
+                if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+                  setActiveSection(section);
+                  foundSection = true;
+                  break;
+                }
+              }
+            }
+            
+            // If no section found, clear active section (user is above experience section)
+            if (!foundSection) {
+              setActiveSection('');
+            }
+          };
+          
+          handleScroll();
           window.addEventListener('scroll', handleScroll);
           return () => window.removeEventListener('scroll', handleScroll);
         }, []);
@@ -1095,12 +1732,12 @@
         };
 
         return (
-          <nav style={{
+          <nav className="sticky-nav" style={{
             position: 'fixed',
             top: 0,
             width: '100%',
             zIndex: 1000,
-            background: scrolled ? (darkMode ? 'rgba(26, 26, 26, 0.95)' : 'rgba(255, 255, 255, 0.95)') : 'transparent',
+            background: scrolled ? (darkMode ? 'rgba(26, 26, 26, 0.9)' : 'rgba(255, 255, 255, 0.9)') : 'transparent',
             backdropFilter: scrolled ? 'blur(10px)' : 'none',
             padding: '1rem 2rem',
             transition: 'all 0.3s ease',
@@ -1115,38 +1752,16 @@
               flexWrap: 'wrap',
               gap: '1rem'
             }}>
-              <h2 style={{ 
-                color: scrolled ? 'var(--text-primary)' : 'white', 
-                margin: 0, 
-                fontSize: '1.5rem',
-                fontWeight: 700,
-                transition: 'color 0.3s'
-              }}>
-                {data.personal?.name || 'Portfolio'}
-              </h2>
-              <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', alignItems: 'center' }}>
-                {['about', 'experience', 'projects', 'contact'].map(section => (
-                  <button
-                    key={section}
-                    onClick={() => {
-                      Analytics.trackClick(`Navigate to ${section}`, 'nav-link');
-                      scrollToSection(section);
-                    }}
-                    style={{
-                      background: 'none',
-                      border: 'none',
-                      color: scrolled ? 'var(--text-primary)' : 'white',
-                      cursor: 'pointer',
-                      fontSize: '1rem',
-                      textTransform: 'capitalize',
-                      transition: 'color 0.3s'
-                    }}
-                    onMouseEnter={(e) => e.target.style.color = '#4a90e2'}
-                    onMouseLeave={(e) => e.target.style.color = scrolled ? 'var(--text-primary)' : 'white'}
-                  >
-                    {section}
-                  </button>
-                ))}
+              <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                <h2 style={{ 
+                  color: scrolled ? 'var(--text-primary)' : 'white', 
+                  margin: 0, 
+                  fontSize: '1.5rem',
+                  fontWeight: 700,
+                  transition: 'color 0.3s'
+                }}>
+                  {data.personal?.name || 'Portfolio'}
+                </h2>
                 <button
                   onClick={() => {
                     Analytics.trackClick('Dark Mode Toggle', 'button');
@@ -1178,6 +1793,34 @@
                   {darkMode ? '☀️' : '🌙'}
                 </button>
               </div>
+              <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                {['experience', 'projects', 'education', 'skills', 'contact'].map(section => (
+                  <button
+                    key={section}
+                    onClick={() => {
+                      Analytics.trackClick(`Navigate to ${section}`, 'nav-link');
+                      scrollToSection(section);
+                    }}
+                    className={`nav-link ${activeSection === section ? 'active' : ''}`}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: scrolled ? 'var(--text-primary)' : 'white',
+                      cursor: 'pointer',
+                      fontSize: '1rem',
+                      textTransform: 'capitalize',
+                      transition: 'color 0.3s',
+                      fontWeight: activeSection === section ? 700 : 400,
+                      position: 'relative',
+                      paddingBottom: '4px'
+                    }}
+                    onMouseEnter={(e) => e.target.style.color = '#4a90e2'}
+                    onMouseLeave={(e) => e.target.style.color = scrolled ? 'var(--text-primary)' : 'white'}
+                  >
+                    {section}
+                  </button>
+                ))}
+              </div>
             </div>
           </nav>
         );
@@ -1193,13 +1836,20 @@
           setVisible(true);
         }, []);
 
+        const getIconForLink = (name) => {
+          const nameLower = name.toLowerCase();
+          if (nameLower.includes('linkedin')) return 'linkedin';
+          if (nameLower.includes('github')) return 'github';
+          if (nameLower.includes('scholar') || nameLower.includes('google')) return 'book';
+          return 'link';
+        };
+
         return (
-          <section style={{
+          <section className="animated-hero-bg" style={{
             minHeight: '100vh',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: 'var(--dark-hero-bg)',
             color: 'white',
             padding: '2rem',
             textAlign: 'center',
@@ -1240,12 +1890,14 @@
               {data.image && (
                 <div style={{
                   marginBottom: '2rem',
-                  animation: 'fadeInUp 1s ease-out'
+                  animation: 'fadeInUp 1s ease-out',
+                  display: 'flex',
+                  justifyContent: 'center'
                 }}>
-                  <img 
-                    loading="lazy"
+                  <ImageWithSkeleton
                     src={data.image} 
                     alt={data.name}
+                    loading="lazy"
                     style={{
                       width: '180px',
                       height: '180px',
@@ -1298,7 +1950,7 @@
                 color: 'rgba(255,255,255,0.9)',
                 lineHeight: 1.4
               }}>
-                Building High-Impact AI Products to Solve Complex Global Challenges
+                Building Scalable AI to Solve Global Challenges
               </h2>
 
               <p style={{ 
@@ -1309,7 +1961,7 @@
                 maxWidth: '800px',
                 margin: '0 auto 3rem'
               }}>
-                Strategic AI Product Leader with 5+ years of experience bridging the gap between cutting-edge ML research and market-ready products. I specialize in aligning cross-functional teams—from engineering to executive leadership—to deliver AI solutions that drive measurable business growth and operational efficiency.
+                AI Product Leader with 5+ years of experience transforming complex research into 0→1 products. I unify engineering, data science, and leadership teams to deploy scalable AI solutions that solve high-stakes global challenges.
               </p>
 
               <div style={{ 
@@ -1319,79 +1971,93 @@
                 flexWrap: 'wrap', 
                 marginBottom: '3rem' 
               }}>
-                {social?.map((link, index) => (
+                {social?.map((link, index) => {
+                  const isGitHub = link.name.toLowerCase().includes('github');
+                  return (
                   <a
                     key={link.name}
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => Analytics.trackExternalLink(link.url, `Hero: ${link.name}`)}
+                    title={link.name}
+                    className="btn-ripple icon-pulse"
                     style={{
-                      padding: '1rem 2rem',
+                      padding: '1rem',
+                      width: '50px',
+                      height: '50px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       background: index === 0 
                         ? 'linear-gradient(135deg, #2c5282, #5a67d8)'
-                        : 'rgba(44, 82, 130, 0.15)',
-                      border: index === 0 ? 'none' : '2px solid rgba(44, 82, 130, 0.3)',
-                      borderRadius: '12px',
-                      color: 'white',
+                        : isGitHub ? 'white' : 'rgba(44, 82, 130, 0.15)',
+                      border: index === 0 ? 'none' : isGitHub ? '2px solid rgba(44, 82, 130, 0.2)' : '2px solid rgba(44, 82, 130, 0.3)',
+                      borderRadius: '50%',
+                      color: isGitHub ? '#1a1a1a' : 'white',
                       textDecoration: 'none',
                       transition: 'all 0.3s',
                       fontWeight: 600,
-                      fontSize: '1rem',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '0.5rem'
+                      fontSize: '1rem'
                     }}
                     onMouseEnter={(e) => {
                       if (index === 0) {
-                        e.target.style.transform = 'translateY(-2px) scale(1.05)';
-                        e.target.style.boxShadow = '0 10px 25px rgba(44, 82, 130, 0.4)';
+                        e.currentTarget.style.transform = 'translateY(-4px) scale(1.05)';
+                        e.currentTarget.style.boxShadow = '0 10px 25px rgba(44, 82, 130, 0.4)';
+                      } else if (isGitHub) {
+                        e.currentTarget.style.background = 'white';
+                        e.currentTarget.style.transform = 'translateY(-4px)';
+                        e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.15)';
                       } else {
-                        e.target.style.background = 'rgba(44, 82, 130, 0.25)';
-                        e.target.style.transform = 'translateY(-2px)';
+                        e.currentTarget.style.background = 'rgba(44, 82, 130, 0.25)';
+                        e.currentTarget.style.transform = 'translateY(-4px)';
                       }
                     }}
                     onMouseLeave={(e) => {
-                      e.target.style.transform = 'translateY(0) scale(1)';
-                      e.target.style.boxShadow = 'none';
+                      e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                      e.currentTarget.style.boxShadow = 'none';
                       if (index !== 0) {
-                        e.target.style.background = 'rgba(44, 82, 130, 0.15)';
+                        e.currentTarget.style.background = isGitHub ? 'white' : 'rgba(44, 82, 130, 0.15)';
                       }
                     }}
                   >
-                    {link.name}
+                    <LucideIcon name={getIconForLink(link.name)} size={22} color={isGitHub ? '#1a1a1a' : 'white'} />
                   </a>
-                ))}
+                  );
+                })}
                 <a
                   href="./documents/resume.pdf"
                   download="AyushGhosh_Resume.pdf"
                   onClick={() => Analytics.trackClick('Download Resume', 'hero-button')}
+                  title="Download Resume"
+                  className="btn-ripple gradient-animate"
                   style={{
-                    padding: '1rem 2rem',
+                    padding: '1rem',
+                    width: '50px',
+                    height: '50px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     background: 'linear-gradient(135deg, #f39c12, #e67e22)',
                     border: 'none',
-                    borderRadius: '12px',
+                    borderRadius: '50%',
                     color: 'white',
                     textDecoration: 'none',
                     transition: 'all 0.3s',
                     fontWeight: 600,
                     fontSize: '1rem',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
                     boxShadow: '0 6px 20px rgba(243, 156, 18, 0.3)'
                   }}
                   onMouseEnter={(e) => {
-                    e.target.style.transform = 'translateY(-2px) scale(1.05)';
-                    e.target.style.boxShadow = '0 10px 30px rgba(243, 156, 18, 0.5)';
+                    e.currentTarget.style.transform = 'translateY(-4px) scale(1.05)';
+                    e.currentTarget.style.boxShadow = '0 10px 30px rgba(243, 156, 18, 0.5)';
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.transform = 'translateY(0) scale(1)';
-                    e.target.style.boxShadow = '0 6px 20px rgba(243, 156, 18, 0.3)';
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(243, 156, 18, 0.3)';
                   }}
-                  title="Download resume as PDF"
                 >
-                  📥 Download Resume
+                  <LucideIcon name="download" size={22} color="white" />
                 </a>
                 {/* <a
                   href="#perspectives"
@@ -1437,7 +2103,7 @@
               }}>
                 {data.location && (
                   <>
-                    <span>📍</span>
+                    <LucideIcon name="map-pin" size={16} color="rgba(255,255,255,0.5)" />
                     <span>{data.location}</span>
                   </>
                 )}
@@ -1450,30 +2116,30 @@
       // ============================================
       // ABOUT SECTION
       // ============================================
-      function AboutSection({ data, highlights }) {
-        // Icon mapping to Font Awesome classes
+      function AboutSection({ data, highlights, darkMode }) {
+        // Icon mapping to Lucide icon names
         const iconMap = {
-          'brain': 'fa-brain',
-          'users': 'fa-users',
-          'code': 'fa-code',
-          'heart': 'fa-heart',
-          'star': 'fa-star',
-          'rocket': 'fa-rocket',
-          'lightbulb': 'fa-lightbulb',
-          'target': 'fa-bullseye'
+          'brain': 'brain',
+          'users': 'users',
+          'code': 'code',
+          'heart': 'heart',
+          'star': 'star',
+          'rocket': 'rocket',
+          'lightbulb': 'lightbulb',
+          'target': 'target'
         };
         
         return (
           <section id="about" style={{ 
             padding: '8rem 2rem', 
-            background: 'linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%)'
+            background: 'var(--bg-secondary)'
           }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
               <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
                 <h2 style={{ 
                   fontSize: 'clamp(2rem, 4vw, 3rem)', 
                   marginBottom: '1rem',
-                  color: '#1a1a1a',
+                  color: 'var(--text-primary)',
                   fontWeight: 800
                 }}>
                   About <span className="text-gradient" style={{
@@ -1485,7 +2151,7 @@
                 </h2>
                 <p style={{ 
                   fontSize: '1.1rem', 
-                  color: '#666',
+                  color: getColor('textSecondary', darkMode),
                   maxWidth: '600px',
                   margin: '0 auto'
                 }}>
@@ -1498,27 +2164,29 @@
                 gap: '2rem' 
               }}>
                 {highlights?.map((highlight, index) => (
-                  <div key={index} style={{
-                    padding: '2.5rem',
-                    background: 'white',
-                    borderRadius: '20px',
-                    textAlign: 'center',
-                    transition: 'all 0.3s',
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-                    border: '1px solid rgba(74, 144, 226, 0.1)',
-                    position: 'relative',
-                    overflow: 'hidden'
-                  }}
-                  className="card-shadow fade-on-scroll"
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-8px)';
-                    e.currentTarget.style.boxShadow = '0 12px 35px rgba(74, 144, 226, 0.15)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
-                  }}
-                  >
+                  <FadeInItem key={index} delay={index * 0.1}>
+                    <div style={{
+                      padding: '2.5rem',
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      backdropFilter: 'blur(10px)',
+                      borderRadius: '20px',
+                      textAlign: 'center',
+                      transition: 'all 0.3s',
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                      border: '1px solid var(--border-color)',
+                      position: 'relative',
+                      overflow: 'hidden'
+                    }}
+                    className="card-shadow"
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-8px)';
+                      e.currentTarget.style.boxShadow = '0 12px 35px rgba(74, 144, 226, 0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
+                    }}
+                    >
                     <div style={{
                       position: 'absolute',
                       top: 0,
@@ -1537,27 +2205,25 @@
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      <i className={`fas ${iconMap[highlight.icon] || 'fa-sparkles'}`} style={{
-                        fontSize: '2rem',
-                        color: '#4a90e2'
-                      }}></i>
+                      <LucideIcon name={iconMap[highlight.icon] || 'sparkles'} size={32} color={getColor('accentBlue', darkMode)} />
                     </div>
                     <h3 style={{ 
                       fontSize: '1.5rem', 
                       marginBottom: '1rem',
-                      color: '#1a1a1a',
+                      color: getColor('textPrimary', darkMode),
                       fontWeight: 700
                     }}>
                       {highlight.title}
                     </h3>
                     <p style={{ 
-                      color: '#666', 
+                      color: getColor('textSecondary', darkMode), 
                       lineHeight: '1.7',
                       fontSize: '1rem'
                     }}>
                       {highlight.description}
                     </p>
-                  </div>
+                    </div>
+                  </FadeInItem>
                 ))}
               </div>
             </div>
@@ -1568,33 +2234,32 @@
       // ============================================
       // SKILLS SECTION
       // ============================================
-      function SkillsSection({ skills }) {
+      function SkillsSection({ skills, darkMode }) {
+        if (!skills) return null;
+
         return (
           <section id="skills" style={{ 
             padding: '8rem 2rem', 
-            background: 'white'
+            background: 'var(--bg-secondary)',
+            color: 'var(--text-primary)'
           }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-              {/* Strategic & Leadership Skills Section */}
-              {skills?.nontechnical && (
+              
+              {/* Non-Technical Skills */}
+              {skills.nontechnical && skills.nontechnical.length > 0 && (
                 <>
                   <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
                     <h2 style={{ 
                       fontSize: 'clamp(2rem, 4vw, 3rem)', 
                       marginBottom: '1rem',
-                      color: '#1a1a1a',
+                      color: 'var(--text-primary)',
                       fontWeight: 800
                     }}>
-                      Product <span className="text-gradient" style={{
-                        background: 'linear-gradient(135deg, #5a67d8, #2c5282)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text'
-                      }}>Leadership & Strategy</span>
+                      Product <span className="text-gradient">Leadership & Strategy</span>
                     </h2>
                     <p style={{ 
                       fontSize: '1.1rem', 
-                      color: '#666',
+                      color: 'var(--text-secondary)',
                       maxWidth: '600px',
                       margin: '0 auto'
                     }}>
@@ -1602,182 +2267,207 @@
                     </p>
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '6rem' }}>
-                    {skills.nontechnical.map((category, index) => (
-                      <div key={index} style={{
-                        padding: '2rem',
-                        background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
-                        borderRadius: '16px',
-                        boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-                        transition: 'all 0.3s',
-                        border: '1px solid rgba(90, 103, 216, 0.1)',
-                        position: 'relative',
-                        overflow: 'hidden'
-                      }}
-                      className="card-shadow fade-on-scroll"
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-4px)';
-                        e.currentTarget.style.boxShadow = '0 8px 30px rgba(90, 103, 216, 0.12)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
-                      }}
-                      >
-                        <div style={{
-                          position: 'absolute',
-                          top: '-100px',
-                          right: '-100px',
-                          width: '200px',
-                          height: '200px',
-                          borderRadius: '50%',
-                          background: 'radial-gradient(circle, rgba(90,103,216,0.05), transparent)',
-                          pointerEvents: 'none'
-                        }} />
-                        <h3 style={{ 
-                          fontSize: '1.3rem', 
-                          marginBottom: '1.5rem',
-                          color: '#1a1a1a',
-                          fontWeight: 700,
-                          position: 'relative'
-                        }}>
-                          {category.category}
-                        </h3>
-                        <div style={{ 
-                          display: 'flex',
-                          flexWrap: 'wrap',
-                          gap: '0.5rem'
-                        }}>
-                          {(category.skills || category.items?.split(', ') || []).map((skill, i) => (
-                            <span key={i} style={{
-                              padding: '0.5rem 1rem',
-                              background: 'white',
-                              borderRadius: '8px',
-                              fontSize: '0.9rem',
-                              color: '#5a67d8',
-                              border: '1px solid rgba(90, 103, 216, 0.2)',
-                              transition: 'all 0.2s',
-                              cursor: 'default'
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.background = 'linear-gradient(135deg, #5a67d8, #2c5282)';
-                              e.currentTarget.style.color = 'white';
-                              e.currentTarget.style.transform = 'scale(1.05)';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.background = 'white';
-                              e.currentTarget.style.color = '#5a67d8';
-                              e.currentTarget.style.transform = 'scale(1)';
-                            }}
-                            >
-                              {skill}
-                            </span>
-                          ))}
+                    {skills.nontechnical.map((category, idx) => {
+                      let items = [];
+                      if (Array.isArray(category.items)) {
+                        items = category.items;
+                      } else if (category.items && typeof category.items === 'string') {
+                        items = category.items.split(',').map(s => s.trim()).filter(s => s);
+                      }
+                      
+                      return (
+                        <div key={idx} style={{
+                          padding: '2rem',
+                          background: 'var(--bg-primary)',
+                          borderRadius: '16px',
+                          boxShadow: '0 4px 20px var(--card-shadow)',
+                          border: '1px solid var(--border-color)',
+                          transition: 'all 0.3s'
+                        }} className="card-shadow fade-on-scroll">
+                          <h3 style={{ 
+                            fontSize: '1.3rem', 
+                            marginBottom: '1.5rem',
+                            color: 'var(--text-primary)',
+                            fontWeight: 700
+                          }}>
+                            {category.category}
+                          </h3>
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                            {items.map((item, i) => {
+                              const skillName = typeof item === 'string' ? item : item.name;
+                              const skillLevel = typeof item === 'object' ? item.level : null;
+                              const fillPercent = skillLevel ? (skillLevel / 10) * 100 : 0;
+                              
+                              return (
+                                <div 
+                                  key={i} 
+                                  className="skill-badge"
+                                  style={{
+                                    position: 'relative',
+                                    padding: '0.5rem 1rem',
+                                    borderRadius: '8px',
+                                    fontSize: '0.9rem',
+                                    cursor: 'pointer',
+                                    border: '1px solid rgba(74, 144, 226, 0.2)',
+                                    overflow: 'hidden',
+                                    background: 'rgba(74, 144, 226, 0.1)',
+                                    color: getColor('accentMediumBlue', darkMode),
+                                    transition: 'all 0.3s',
+                                    minWidth: 'fit-content'
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    const fillEl = e.currentTarget.querySelector('.skill-fill');
+                                    if (fillEl) {
+                                      fillEl.style.width = `${fillPercent}%`;
+                                    }
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    const fillEl = e.currentTarget.querySelector('.skill-fill');
+                                    if (fillEl) {
+                                      fillEl.style.width = '0%';
+                                    }
+                                  }}
+                                >
+                                  <div 
+                                    className="skill-fill"
+                                    style={{
+                                      position: 'absolute',
+                                      top: 0,
+                                      left: 0,
+                                      height: '100%',
+                                      width: '0%',
+                                      background: 'rgba(74, 144, 226, 0.3)',
+                                      borderRadius: '8px',
+                                      transition: 'width 0.6s ease-out',
+                                      zIndex: 0,
+                                      pointerEvents: 'none'
+                                    }}
+                                  />
+                                  <span style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    {skillName}
+                                  </span>
+                                </div>
+                              );
+                            })}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </>
               )}
 
-              {/* Technical Skills Section */}
-              <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-                <h2 style={{ 
-                  fontSize: 'clamp(2rem, 4vw, 3rem)', 
-                  marginBottom: '1rem',
-                  color: '#1a1a1a',
-                  fontWeight: 800
-                }}>
-                  Technical <span className="text-gradient" style={{
-                    background: 'linear-gradient(135deg, #2c5282, #5a67d8)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text'
-                  }}>Foundation</span>
-                </h2>
-                <p style={{ 
-                  fontSize: '1.1rem', 
-                  color: '#666',
-                  maxWidth: '600px',
-                  margin: '0 auto'
-                }}>
-                  Technologies and tools I work with
-                </p>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-                {skills?.technical?.map((category, index) => (
-                  <div key={index} style={{
-                    padding: '2rem',
-                    background: 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)',
-                    borderRadius: '16px',
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-                    transition: 'all 0.3s',
-                    border: '1px solid rgba(44, 82, 130, 0.1)',
-                    position: 'relative',
-                    overflow: 'hidden'
-                  }}
-                  className="card-shadow fade-on-scroll"
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 8px 30px rgba(44, 82, 130, 0.12)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
-                  }}
-                  >
-                    <div style={{
-                      position: 'absolute',
-                      top: '-100px',
-                      right: '-100px',
-                      width: '200px',
-                      height: '200px',
-                      borderRadius: '50%',
-                      background: 'radial-gradient(circle, rgba(44,82,130,0.05), transparent)',
-                      pointerEvents: 'none'
-                    }} />
-                    <h3 style={{ 
-                      fontSize: '1.3rem', 
-                      marginBottom: '1.5rem',
-                      color: '#1a1a1a',
-                      fontWeight: 700,
-                      position: 'relative'
+              {/* Technical Skills */}
+              {skills.technical && skills.technical.length > 0 && (
+                <>
+                  <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+                    <h2 style={{ 
+                      fontSize: 'clamp(2rem, 4vw, 3rem)', 
+                      marginBottom: '1rem',
+                      color: 'var(--text-primary)',
+                      fontWeight: 800
                     }}>
-                      {category.category}
-                    </h3>
-                    <div style={{ 
-                      display: 'flex',
-                      flexWrap: 'wrap',
-                      gap: '0.5rem'
+                      Technical <span className="text-gradient">Foundation</span>
+                    </h2>
+                    <p style={{ 
+                      fontSize: '1.1rem', 
+                      color: 'var(--text-secondary)',
+                      maxWidth: '600px',
+                      margin: '0 auto'
                     }}>
-                      {(category.skills || category.items?.split(', ') || []).map((skill, i) => (
-                        <span key={i} style={{
-                          padding: '0.5rem 1rem',
-                          background: 'white',
-                          borderRadius: '8px',
-                          fontSize: '0.9rem',
-                          color: '#2c5282',
-                          border: '1px solid rgba(44, 82, 130, 0.2)',
-                          transition: 'all 0.2s',
-                          cursor: 'default'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = 'linear-gradient(135deg, #2c5282, #5a67d8)';
-                          e.currentTarget.style.color = 'white';
-                          e.currentTarget.style.transform = 'scale(1.05)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = 'white';
-                          e.currentTarget.style.color = '#2c5282';
-                          e.currentTarget.style.transform = 'scale(1)';
-                        }}
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
+                      Technologies and tools I work with
+                    </p>
                   </div>
-                ))}
-              </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                    {skills.technical.map((category, idx) => {
+                      let items = [];
+                      if (Array.isArray(category.items)) {
+                        items = category.items;
+                      } else if (category.items && typeof category.items === 'string') {
+                        items = category.items.split(',').map(s => s.trim()).filter(s => s);
+                      }
+                      
+                      return (
+                        <div key={idx} style={{
+                          padding: '2rem',
+                          background: 'var(--bg-primary)',
+                          borderRadius: '16px',
+                          boxShadow: '0 4px 20px var(--card-shadow)',
+                          border: '1px solid var(--border-color)',
+                          transition: 'all 0.3s'
+                        }} className="card-shadow fade-on-scroll">
+                          <h3 style={{ 
+                            fontSize: '1.3rem', 
+                            marginBottom: '1.5rem',
+                            color: 'var(--text-primary)',
+                            fontWeight: 700
+                          }}>
+                            {category.category}
+                          </h3>
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                            {items.map((item, i) => {
+                              const skillName = typeof item === 'string' ? item : item.name;
+                              const skillLevel = typeof item === 'object' ? item.level : null;
+                              const fillPercent = skillLevel ? (skillLevel / 10) * 100 : 0;
+                              
+                              return (
+                                <div 
+                                  key={i} 
+                                  className="skill-badge"
+                                  style={{
+                                    position: 'relative',
+                                    padding: '0.5rem 1rem',
+                                    borderRadius: '8px',
+                                    fontSize: '0.9rem',
+                                    cursor: 'pointer',
+                                    border: '1px solid rgba(44, 82, 130, 0.2)',
+                                    overflow: 'hidden',
+                                    background: 'rgba(44, 82, 130, 0.1)',
+                                    color: getColor('accentDarkBlue', darkMode),
+                                    transition: 'all 0.3s',
+                                    minWidth: 'fit-content'
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    const fillEl = e.currentTarget.querySelector('.skill-fill');
+                                    if (fillEl) {
+                                      fillEl.style.width = `${fillPercent}%`;
+                                    }
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    const fillEl = e.currentTarget.querySelector('.skill-fill');
+                                    if (fillEl) {
+                                      fillEl.style.width = '0%';
+                                    }
+                                  }}
+                                >
+                                  <div 
+                                    className="skill-fill"
+                                    style={{
+                                      position: 'absolute',
+                                      top: 0,
+                                      left: 0,
+                                      height: '100%',
+                                      width: '0%',
+                                      background: 'rgba(44, 82, 130, 0.3)',
+                                      borderRadius: '8px',
+                                      transition: 'width 0.6s ease-out',
+                                      zIndex: 0,
+                                      pointerEvents: 'none'
+                                    }}
+                                  />
+                                  <span style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    {skillName}
+                                  </span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
             </div>
           </section>
         );
@@ -1786,7 +2476,7 @@
       // ============================================
       // EXPERIENCE SECTION
       // ============================================
-      function ExperienceSection({ experience }) {
+      function ExperienceSection({ experience, darkMode }) {
         return (
           <section id="experience" style={{ 
             padding: '8rem 2rem', 
@@ -1815,7 +2505,7 @@
                 }} />
                 
                 {experience?.map((job, index) => (
-                  <TimelineItem key={index} job={job} index={index} />
+                  <TimelineItem key={index} job={job} index={index} darkMode={darkMode} />
                 ))}
               </div>
             </div>
@@ -1826,11 +2516,11 @@
       // ============================================
       // EDUCATION SECTION
       // ============================================
-      function EducationSection({ education }) {
+      function EducationSection({ education, darkMode }) {
         return (
           <section id="education" style={{ 
             padding: '8rem 2rem', 
-            background: '#f9f9f9' 
+            background: 'var(--bg-secondary)' 
           }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
               <SectionHeader 
@@ -1840,21 +2530,35 @@
               />
               
               {/* Degrees */}
-              <h3 style={{ fontSize: '2rem', marginBottom: '2rem', color: '#4a90e2' }}>Degrees</h3>
+              <h3 style={{ fontSize: '2rem', marginBottom: '2rem', color: getColor('accentBlue', darkMode) }}>Degrees</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', marginBottom: '4rem' }}>
-                {education?.degrees?.map((degree, index) => (
-                  <div key={index} style={{
-                    padding: '2rem',
-                    background: 'white',
-                    borderRadius: '12px',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-                  }}>
+                {education?.degrees?.map((degree, index) => {
+                  const [showCourses, setShowCourses] = React.useState(false);
+                  
+                  return (
+                  <FadeInItem key={index} delay={index * 0.1}>
+                    <div 
+                      style={{
+                        padding: '2rem',
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(10px)',
+                        borderRadius: '12px',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        transform: showCourses ? 'translateY(-2px)' : 'translateY(0)',
+                        boxShadow: showCourses ? '0 8px 16px rgba(0,0,0,0.15)' : '0 2px 8px rgba(0,0,0,0.1)',
+                        border: '1px solid var(--border-color)'
+                      }}
+                      onMouseEnter={() => setShowCourses(true)}
+                      onMouseLeave={() => setShowCourses(false)}
+                    >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
                       {degree.logo && (
-                        <img 
-                          loading="lazy"
+                        <ImageWithSkeleton
                           src={degree.logo} 
                           alt={degree.institution}
+                          loading="lazy"
                           style={{
                             width: '45px',
                             height: '45px',
@@ -1866,7 +2570,7 @@
                         />
                       )}
                       <div>
-                        <h4 style={{ margin: 0, fontSize: '1.25rem', color: '#1a1a1a' }}>
+                        <h4 style={{ margin: 0, fontSize: '1.25rem', color: 'var(--text-primary)' }}>
                           {degree.degree}
                         </h4>
                         <a
@@ -1875,7 +2579,7 @@
                           rel="noopener noreferrer"
                           style={{
                             margin: '0.25rem 0',
-                            color: '#2c5282',
+                            color: getColor('accentDarkBlue', darkMode),
                             fontWeight: 600,
                             textDecoration: 'none',
                             display: 'inline-block'
@@ -1883,14 +2587,37 @@
                         >
                           {degree.institution}
                         </a>
-                        <p style={{ margin: 0, color: '#666', fontSize: '0.9rem' }}>
-                          {degree.location} | {degree.startDate} - {degree.endDate}
-                        </p>
+                        <div style={{ 
+                          margin: '0.25rem 0 0 0', 
+                          color: getColor('textSecondary', darkMode), 
+                          fontSize: '0.9rem',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '1rem',
+                          flexWrap: 'wrap'
+                        }}>
+                          <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                            <LucideIcon name="map-pin" size={14} color={getColor('textSecondary', darkMode)} />
+                            {degree.location}
+                          </span>
+                          <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                            <LucideIcon name="calendar" size={14} color={getColor('textSecondary', darkMode)} />
+                            {degree.startDate} - {degree.endDate}
+                          </span>
+                        </div>
                       </div>
                     </div>
                     {degree.courses && degree.courses.length > 0 && (
-                      <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #e5e5e5' }}>
-                        <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.9rem', color: '#666', fontWeight: 600 }}>
+                      <div style={{ 
+                        marginTop: '1rem', 
+                        paddingTop: '1rem', 
+                        borderTop: '1px solid var(--border-color)',
+                        opacity: showCourses ? 1 : 0,
+                        maxHeight: showCourses ? '1000px' : '0',
+                        overflow: 'hidden',
+                        transition: 'all 0.4s ease',
+                      }}>
+                        <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.9rem', color: getColor('textSecondary', darkMode), fontWeight: 600 }}>
                           Relevant Coursework:
                         </p>
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
@@ -1898,10 +2625,12 @@
                             <span key={i} style={{
                               padding: '0.35rem 0.75rem',
                               background: 'rgba(44, 82, 130, 0.08)',
-                              color: '#2c5282',
+                              color: getColor('accentDarkBlue', darkMode),
                               borderRadius: '4px',
                               fontSize: '0.85rem',
-                              border: '1px solid rgba(44, 82, 130, 0.15)'
+                              border: '1px solid rgba(44, 82, 130, 0.15)',
+                              animation: showCourses ? `fadeInScale 0.3s ease ${i * 0.05}s forwards` : 'none',
+                              opacity: showCourses ? 1 : 0
                             }}>
                               {course}
                             </span>
@@ -1909,53 +2638,110 @@
                         </div>
                       </div>
                     )}
-                  </div>
-                ))}
+                    </div>
+                  </FadeInItem>
+                  );
+                })}
               </div>
 
               {/* Certifications */}
-              <h3 style={{ fontSize: '2rem', marginBottom: '2rem', color: '#2c5282' }}>Certifications</h3>
+              <h3 style={{ fontSize: '2rem', marginBottom: '2rem', color: getColor('accentDarkBlue', darkMode) }}>Certifications</h3>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
-                {education?.certifications?.map((cert, index) => (
-                  <div key={index} style={{
-                    padding: '1.5rem',
-                    background: 'white',
-                    borderRadius: '8px',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '1rem',
-                    transition: 'transform 0.3s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                {education?.certifications?.map((cert, index) => {
+                  const [showLink, setShowLink] = React.useState(false);
+                  
+                  return (
+                  <FadeInItem key={index} delay={index * 0.1}>
+                    <div 
+                      style={{
+                        padding: '1.5rem',
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(10px)',
+                        borderRadius: '8px',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '1rem',
+                        transition: 'all 0.3s',
+                        cursor: 'pointer',
+                        position: 'relative',
+                      border: '1px solid var(--border-color)'
+                    }}
+                    onMouseEnter={(e) => {
+                      setShowLink(true);
+                      e.currentTarget.style.transform = 'translateY(-4px)';
+                      e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                      setShowLink(false);
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+                    }}
                   >
-                    {cert.logo && (
-                      <img 
-                        loading="lazy"
-                        src={cert.logo} 
-                        alt={cert.issuer}
-                        style={{
-                          width: '40px',
-                          height: '40px',
-                          objectFit: 'contain',
-                          borderRadius: '5px',
-                          background: 'rgba(74, 144, 226, 0.1)',
-                          padding: '4px',
-                          flexShrink: 0
-                        }}
-                      />
-                    )}
-                    <div>
-                      <h5 style={{ margin: 0, fontSize: '1rem', color: '#1a1a1a' }}>
-                        {cert.title}
-                      </h5>
-                      <p style={{ margin: '0.25rem 0 0 0', color: '#666', fontSize: '0.85rem' }}>
-                        {cert.issuer}
-                      </p>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                      {cert.logo && (
+                        <ImageWithSkeleton
+                          src={cert.logo} 
+                          alt={cert.issuer}
+                          loading="lazy"
+                          style={{
+                            width: '40px',
+                            height: '40px',
+                            objectFit: 'contain',
+                            borderRadius: '5px',
+                            background: 'rgba(74, 144, 226, 0.1)',
+                            padding: '4px',
+                            flexShrink: 0
+                          }}
+                        />
+                      )}
+                      <div>
+                        <h5 style={{ margin: 0, fontSize: '1rem', color: getColor('textPrimary', darkMode) }}>
+                          {cert.title}
+                        </h5>
+                        <p style={{ margin: '0.25rem 0 0 0', color: getColor('textSecondary', darkMode), fontSize: '0.85rem' }}>
+                          {cert.issuer}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                    
+                    {/* Certificate Link - Shows on click */}
+                    {showLink && cert.url && cert.url !== '#' && (
+                      <a
+                        href={cert.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          padding: '0.5rem 1rem',
+                          background: 'rgba(74, 144, 226, 0.1)',
+                          color: getColor('accentBlue', darkMode),
+                          borderRadius: '6px',
+                          textDecoration: 'none',
+                          fontSize: '0.9rem',
+                          fontWeight: 600,
+                          border: '1px solid rgba(74, 144, 226, 0.3)',
+                          transition: 'all 0.2s',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          cursor: 'pointer'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = 'rgba(74, 144, 226, 0.2)';
+                          e.currentTarget.style.borderColor = 'rgba(74, 144, 226, 0.5)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = 'rgba(74, 144, 226, 0.1)';
+                          e.currentTarget.style.borderColor = 'rgba(74, 144, 226, 0.3)';
+                        }}
+                      >
+                        🔗 View Certificate
+                      </a>
+                    )}
+                    </div>
+                  </FadeInItem>
+                  );
+                })}
               </div>
             </div>
           </section>
@@ -1965,18 +2751,18 @@
       // ============================================
       // TESTIMONIALS SECTION
       // ============================================
-      function TestimonialsSection({ testimonials }) {
+      function TestimonialsSection({ testimonials, darkMode }) {
         return (
           <section id="testimonials" style={{ 
             padding: '6rem 2rem',
-            background: 'linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%)'
+            background: 'var(--bg-primary)'
           }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
               <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
                 <h2 style={{ 
                   fontSize: 'clamp(2rem, 4vw, 2.5rem)', 
                   marginBottom: '1rem',
-                  color: '#1a1a1a',
+                  color: 'var(--text-primary)',
                   fontWeight: 800
                 }}>
                   What People <span style={{
@@ -2001,23 +2787,29 @@
                 gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
                 gap: '2rem'
               }}>
-                {testimonials?.map((testimonial) => (
-                  <div
-                    key={testimonial.id}
-                    style={{
-                      background: 'white',
-                      padding: '2rem',
-                      borderRadius: '16px',
-                      boxShadow: '0 8px 30px rgba(44, 82, 130, 0.12)',
-                      position: 'relative',
-                      transition: 'all 0.3s ease',
-                      border: '1px solid rgba(44, 82, 130, 0.08)'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-8px)';
-                      e.currentTarget.style.boxShadow = '0 12px 40px rgba(44, 82, 130, 0.18)';
-                    }}
-                    onMouseLeave={(e) => {
+                {testimonials?.map((testimonial, index) => {
+                  const [showDetails, setShowDetails] = React.useState(false);
+                  
+                  return (
+                  <FadeInItem key={testimonial.id || index} delay={index * 0.1}>
+                    <div
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(10px)',
+                        padding: '2rem',
+                        borderRadius: '16px',
+                        boxShadow: '0 8px 30px rgba(44, 82, 130, 0.12)',
+                        position: 'relative',
+                        transition: 'all 0.3s ease',
+                        border: '1px solid var(--border-color)'
+                      }}
+                      onMouseEnter={(e) => {
+                        setShowDetails(true);
+                        e.currentTarget.style.transform = 'translateY(-8px)';
+                        e.currentTarget.style.boxShadow = '0 12px 40px rgba(44, 82, 130, 0.18)';
+                      }}
+                      onMouseLeave={(e) => {
+                        setShowDetails(false);
                       e.currentTarget.style.transform = 'translateY(0)';
                       e.currentTarget.style.boxShadow = '0 8px 30px rgba(44, 82, 130, 0.12)';
                     }}
@@ -2028,7 +2820,7 @@
                       top: '1.5rem',
                       right: '1.5rem',
                       fontSize: '3rem',
-                      color: 'rgba(44, 82, 130, 0.1)',
+                      color: 'var(--border-color)',
                       lineHeight: 1,
                       fontFamily: 'Georgia, serif'
                     }}>
@@ -2039,7 +2831,7 @@
                     <p style={{
                       fontSize: '1rem',
                       lineHeight: '1.8',
-                      color: '#333',
+                      color: getColor('textPrimary', darkMode),
                       marginBottom: '1.5rem',
                       fontStyle: 'italic',
                       position: 'relative',
@@ -2054,27 +2846,35 @@
                       alignItems: 'center',
                       gap: '1rem',
                       paddingTop: '1rem',
-                      borderTop: '1px solid rgba(44, 82, 130, 0.1)'
+                      borderTop: '1px solid var(--border-color)',
+                      opacity: showDetails ? 1 : 0,
+                      maxHeight: showDetails ? '200px' : '0',
+                      overflow: 'hidden',
+                      transition: 'all 0.4s ease',
                     }}>
                       {testimonial.image && (
-                        <img
-                          loading="lazy"
+                        <ImageWithSkeleton
                           src={testimonial.image}
                           alt={testimonial.name}
+                          loading="lazy"
                           style={{
                             width: '50px',
                             height: '50px',
                             borderRadius: '50%',
                             objectFit: 'cover',
-                            border: '2px solid rgba(44, 82, 130, 0.2)'
+                            border: '2px solid rgba(44, 82, 130, 0.2)',
+                            animation: showDetails ? 'fadeInScale 0.4s ease' : 'none'
                           }}
                         />
                       )}
-                      <div>
+                      <div style={{
+                        animation: showDetails ? 'fadeInScale 0.4s ease 0.1s forwards' : 'none',
+                        opacity: showDetails ? 1 : 0
+                      }}>
                         <h4 style={{
                           margin: 0,
                           fontSize: '1.05rem',
-                          color: '#2c5282',
+                          color: getColor('accentDarkBlue', darkMode),
                           fontWeight: 700
                         }}>
                           {testimonial.name}
@@ -2082,7 +2882,7 @@
                         <p style={{
                           margin: '0.25rem 0 0 0',
                           fontSize: '0.9rem',
-                          color: '#666'
+                          color: getColor('accentDarkBlue', darkMode)
                         }}>
                           {testimonial.title}
                         </p>
@@ -2090,15 +2890,17 @@
                           <p style={{
                             margin: '0.15rem 0 0 0',
                             fontSize: '0.85rem',
-                            color: '#999'
+                            color: getColor('accentDarkBlue', darkMode)
                           }}>
                             {testimonial.company}
                           </p>
                         )}
                       </div>
                     </div>
-                  </div>
-                ))}
+                    </div>
+                  </FadeInItem>
+                  );
+                })}
               </div>
             </div>
           </section>
@@ -2111,19 +2913,19 @@
       function PerspectivesSection() {
         const insights = [
           {
-            icon: '💡',
+            icon: 'lightbulb',
             title: 'Beyond the Hype: Prioritizing High-ROI Use Cases for Generative AI',
             excerpt: 'A strategic framework for product leaders to evaluate and prioritize generative AI initiatives that deliver measurable business value, not just technical novelty.',
             color: '#2c5282'
           },
           {
-            icon: '🤝',
+            icon: 'handshake',
             title: 'Bridging the Gap: How Product Leaders Can Effectively Manage ML Engineering Teams',
             excerpt: 'Leadership principles for aligning ML engineering execution with product vision, fostering collaboration between research and production, and setting realistic expectations with stakeholders.',
             color: '#5a67d8'
           },
           {
-            icon: '🚀',
+            icon: 'rocket',
             title: 'The Future of RAG: Moving from Simple Retrieval to Contextual Intelligence',
             excerpt: 'Exploring the evolution of retrieval-augmented generation systems from basic keyword search to sophisticated contextual reasoning—and what it means for enterprise AI applications.',
             color: '#4a5568'
@@ -2145,7 +2947,7 @@
                 }}>
                   Perspectives on AI & Product
                 </h2>
-                <p style={{ fontSize: '1.2rem', color: '#666', maxWidth: '700px', margin: '0 auto' }}>
+                <p style={{ fontSize: '1.2rem', color: getColor('textSecondary', darkMode), maxWidth: '700px', margin: '0 auto' }}>
                   Thought leadership on building AI products that drive real business outcomes
                 </p>
               </div>
@@ -2186,23 +2988,30 @@
                       background: `linear-gradient(90deg, ${insight.color}, ${insight.color}88)`
                     }} />
                     <div style={{ 
-                      fontSize: '3rem', 
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       marginBottom: '1.5rem',
-                      opacity: 0.9
+                      width: '60px',
+                      height: '60px',
+                      margin: '0 auto 1.5rem',
+                      borderRadius: '50%',
+                      background: `linear-gradient(135deg, ${insight.color}15, ${insight.color}05)`,
+                      border: `2px solid ${insight.color}30`
                     }}>
-                      {insight.icon}
+                      <LucideIcon name={insight.icon} size={28} color={insight.color} />
                     </div>
                     <h3 style={{ 
                       fontSize: '1.4rem', 
                       fontWeight: 700, 
                       marginBottom: '1rem',
-                      color: '#1a1a1a',
+                      color: getColor('textPrimary', darkMode),
                       lineHeight: 1.3
                     }}>
                       {insight.title}
                     </h3>
                     <p style={{ 
-                      color: '#555', 
+                      color: getColor('textSecondary', darkMode), 
                       fontSize: '1rem',
                       lineHeight: 1.7,
                       marginBottom: '1.5rem'
@@ -2230,7 +3039,7 @@
       // ============================================
       // PROJECTS SECTION
       // ============================================
-      function ProjectsSection({ projects }) {
+      function ProjectsSection({ projects, darkMode }) {
         return (
           <section id="projects" style={{ 
             padding: '8rem 2rem', 
@@ -2243,28 +3052,43 @@
                 subtitle="Most recent works"
               />
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem' }}>
-                {projects?.map((project, index) => (
-                  <Card key={index} hoverable={true} animated={true}>
-                    {project.image && (
-                      <div style={{
+                {projects?.map((project, index) => {
+                  const [showDetails, setShowDetails] = React.useState(false);
+                  
+                  return (
+                    <FadeInItem key={index} delay={index * 0.1}>
+                      <div 
+                        className="interactive-card fade-on-scroll"
+                        style={{
+                          background: 'var(--bg-primary)',
+                          borderRadius: '16px',
+                          overflow: 'hidden',
+                          boxShadow: '0 4px 20px var(--card-shadow)',
+                          border: `1px solid var(--border-color)`
+                        }}
+                        onMouseEnter={() => setShowDetails(true)}
+                        onMouseLeave={() => setShowDetails(false)}
+                      >
+                        {project.image && (
+                      <div className="image-zoom-container" style={{
                         width: '100%',
                         height: '220px',
-                        overflow: 'hidden',
                         position: 'relative'
                       }}>
-                        <img 
-                          loading="lazy"
+                        <ImageWithSkeleton
                           src={project.image} 
                           alt={project.title}
+                          loading="lazy"
+                          className="image-zoom"
                           style={{
                             width: '100%',
                             height: '100%',
-                            objectFit: 'cover',
-                            transition: 'transform 0.5s'
+                            objectFit: 'cover'
                           }}
-                          onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-                          onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                         />
+                        <div className="image-zoom-overlay">
+                          <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>View Details</span>
+                        </div>
                         <div style={{
                           position: 'absolute',
                           top: 0,
@@ -2289,7 +3113,11 @@
                         color: 'var(--text-secondary)', 
                         lineHeight: '1.7',
                         marginBottom: '1.5rem',
-                        fontSize: '0.95rem'
+                        fontSize: '0.95rem',
+                        opacity: showDetails ? 1 : 0,
+                        maxHeight: showDetails ? '500px' : '0',
+                        overflow: 'hidden',
+                        transition: 'all 0.5s ease'
                       }}>
                         {project.description}
                       </p>
@@ -2303,7 +3131,7 @@
                           <span key={i} style={{
                             padding: '0.4rem 0.9rem',
                             background: 'var(--accent-light)',
-                            color: '#4a90e2',
+                            color: getColor('accentBlue', darkMode),
                             borderRadius: '8px',
                             fontSize: '0.85rem',
                             fontWeight: 600,
@@ -2319,6 +3147,7 @@
                           target="_blank" 
                           rel="noopener noreferrer"
                           onClick={() => Analytics.trackExternalLink(project.link, project.title)}
+                          className="btn-ripple"
                           style={{
                             display: 'inline-block',
                             padding: '0.75rem 1.5rem',
@@ -2329,7 +3158,10 @@
                             fontWeight: 600,
                             fontSize: '0.9rem',
                             transition: 'all 0.3s',
-                            boxShadow: '0 4px 12px rgba(44, 82, 130, 0.3)'
+                            boxShadow: '0 4px 12px rgba(44, 82, 130, 0.3)',
+                            opacity: showDetails ? 1 : 0,
+                            transform: showDetails ? 'scale(1)' : 'scale(0.8)',
+                            pointerEvents: showDetails ? 'auto' : 'none'
                           }}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.transform = 'scale(1.05)';
@@ -2343,9 +3175,11 @@
                           View Project →
                         </a>
                       )}
+                      </div>
                     </div>
-                  </Card>
-                ))}
+                    </FadeInItem>
+                  );
+                })}
               </div>
             </div>
           </section>
@@ -2417,6 +3251,7 @@
                 <a 
                   href={`mailto:${personal?.email || ''}`}
                   onClick={() => Analytics.trackClick('Email Me', 'contact-button')}
+                  className="btn-ripple"
                   style={{
                     padding: '1rem 2.5rem',
                     background: 'linear-gradient(135deg, #4a90e2, #9b59b6)',
@@ -2440,13 +3275,15 @@
                     e.currentTarget.style.boxShadow = '0 8px 20px rgba(74, 144, 226, 0.4)';
                   }}
                 >
-                  ✉️ Email Me
+                  <LucideIcon name="mail" size={20} color="white" />
+                  Email Me
                 </a>
                 <a 
                   href="https://calendly.com/ayushghosh990/30min"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => Analytics.trackExternalLink('https://calendly.com/ayushghosh990/30min', 'Schedule a Chat')}
+                  className="btn-ripple"
                   style={{
                     padding: '1rem 2.5rem',
                     background: 'rgba(255,255,255,0.1)',
@@ -2471,13 +3308,15 @@
                     e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
-                  📅 Schedule a Chat
+                  <LucideIcon name="calendar" size={20} color="white" />
+                  Schedule a Chat
                 </a>
                 <a 
                   href={social?.find(s => s.name === 'LinkedIn')?.url || 'https://www.linkedin.com/in/ayush-ghosh/'}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => Analytics.trackExternalLink(social?.find(s => s.name === 'LinkedIn')?.url || 'https://www.linkedin.com/in/ayush-ghosh/', 'LinkedIn')}
+                  className="btn-ripple"
                   style={{
                     padding: '1rem 2.5rem',
                     background: 'rgba(255,255,255,0.1)',
@@ -2502,7 +3341,8 @@
                     e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
-                  💼 LinkedIn
+                  <LucideIcon name="linkedin" size={20} color="white" />
+                  LinkedIn
                 </a>
               </div>
             </div>
@@ -2514,6 +3354,14 @@
       // FOOTER
       // ============================================
       function Footer({ data, social }) {
+        const getIconForLink = (name) => {
+          const nameLower = name.toLowerCase();
+          if (nameLower.includes('linkedin')) return 'linkedin';
+          if (nameLower.includes('github')) return 'github';
+          if (nameLower.includes('scholar') || nameLower.includes('google')) return 'book';
+          return 'link';
+        };
+
         return (
           <footer style={{ 
             padding: '3rem 2rem', 
@@ -2522,8 +3370,8 @@
             textAlign: 'center' 
           }}>
             <div style={{ marginBottom: '1.5rem' }}>
-              <h3 style={{ marginBottom: '1rem', fontSize: '1.5rem' }}>{data.name}</h3>
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
+              <h3 style={{ marginBottom: '1.5rem', fontSize: '1.5rem' }}>{data.name}</h3>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
                 {social?.map(link => (
                   <a
                     key={link.name}
@@ -2531,15 +3379,34 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => Analytics.trackExternalLink(link.url, link.name)}
+                    title={link.name}
                     style={{
                       color: 'rgba(255,255,255,0.6)',
                       textDecoration: 'none',
-                      transition: 'color 0.3s'
+                      transition: 'all 0.3s',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '50%',
+                      background: 'rgba(255,255,255,0.05)',
+                      border: '1px solid rgba(255,255,255,0.1)'
                     }}
-                    onMouseEnter={(e) => e.target.style.color = '#4a90e2'}
-                    onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.6)'}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = '#4a90e2';
+                      e.currentTarget.style.background = 'rgba(74,144,226,0.1)';
+                      e.currentTarget.style.borderColor = '#4a90e2';
+                      e.currentTarget.style.transform = 'translateY(-4px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = 'rgba(255,255,255,0.6)';
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}
                   >
-                    {link.name}
+                    <LucideIcon name={getIconForLink(link.name)} size={20} color="currentColor" />
                   </a>
                 ))}
               </div>

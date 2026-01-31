@@ -30,34 +30,110 @@
       {
         "category": "Product Strategy & Vision",
         "icon": "chart-line",
-        "items": "Roadmapping, Prioritization & OKRs, Market Analysis, Stakeholder Management, Product Analytics, A/B testing, User Research, User Stories"
+        "items": [
+          { "name": "Roadmapping", "level": 9 },
+          { "name": "Prioritization & OKRs", "level": 9 },
+          { "name": "Market Analysis", "level": 8 },
+          { "name": "Stakeholder Management", "level": 9 },
+          { "name": "Product Analytics", "level": 8 },
+          { "name": "A/B testing", "level": 8 },
+          { "name": "User Research", "level": 8 },
+          { "name": "User Stories", "level": 9 }
+        ]
       },
       {
         "category": "AI Governance & MLOps Strategy",
         "icon": "book-open",
-        "items": "Model Ethics, Evaluation, Regulatory (FDA/ISO), AI Ethics, Cloud Architecture, MLOps Workflows, Data Engineering Best Practices, Healthcare & Medical Devices, Big Data Analytics"
+        "items": [
+          { "name": "Model Ethics", "level": 8 },
+          { "name": "Evaluation", "level": 8 },
+          { "name": "Regulatory (FDA/ISO)", "level": 7 },
+          { "name": "AI Ethics", "level": 8 },
+          { "name": "Cloud Architecture", "level": 7 },
+          { "name": "MLOps Workflows", "level": 8 },
+          { "name": "Data Engineering Best Practices", "level": 7 },
+          { "name": "Healthcare & Medical Devices", "level": 8 },
+          { "name": "Big Data Analytics", "level": 8 }
+        ]
       },
       {
         "category": "Execution & Growth",
         "icon": "chart-line",
-        "items": "KPIs, Reporting, Documentation, Team Building, Presentation, Root Cause Analysis, Critical Thinking, Continuous Learning, Prioritization, Agile Planning"
+        "items": [
+          { "name": "KPIs", "level": 9 },
+          { "name": "Reporting", "level": 9 },
+          { "name": "Documentation", "level": 8 },
+          { "name": "Team Building", "level": 8 },
+          { "name": "Presentation", "level": 9 },
+          { "name": "Root Cause Analysis", "level": 8 },
+          { "name": "Critical Thinking", "level": 9 },
+          { "name": "Continuous Learning", "level": 9 },
+          { "name": "Prioritization", "level": 9 },
+          { "name": "Agile Planning", "level": 8 }
+        ]
       }
     ],
     "technical": [
       {
         "category": "AI/ML Ecosystem",
         "icon": "brain",
-        "items": "LLMs, RAG, TensorFlow, PyTorch, Keras, scikit-learn, XGBoost, LangChain, Hugging Face"
+        "items": [
+          { "name": "LLMs", "level": 8 },
+          { "name": "RAG", "level": 8 },
+          { "name": "TensorFlow", "level": 7 },
+          { "name": "PyTorch", "level": 8 },
+          { "name": "Keras", "level": 7 },
+          { "name": "scikit-learn", "level": 8 },
+          { "name": "XGBoost", "level": 7 },
+          { "name": "LangChain", "level": 8 },
+          { "name": "Hugging Face", "level": 8 }
+        ]
       },
       {
         "category": "Data & Cloud Architecture",
         "icon": "cloud",
-        "items": "AWS (S3, EC2, Lambda, DynamoDB, Redshift), GCP (BigQuery), Databricks, Spark, Hadoop, MongoDB, SQL"
+        "items": [
+          { "name": "AWS (S3, EC2, Lambda, DynamoDB, Redshift)", "level": 8 },
+          { "name": "GCP (BigQuery)", "level": 7 },
+          { "name": "Databricks", "level": 8 },
+          { "name": "Spark", "level": 7 },
+          { "name": "Hadoop", "level": 6 },
+          { "name": "MongoDB", "level": 7 },
+          { "name": "SQL", "level": 9 }
+        ]
       },
       {
         "category": "Development & Deployment",
         "icon": "code",
-        "items": "Python, Bash, C#, R, Java, C++, XAML, HTML, CSS, MATLAB, .NET (Xamarin, MAUI), NUnit, Fast/FlaskAPI, pytest, Selenium, Docker, MLflow, Kubernetes, CI/CD, Git/GitHub, Postman, Plotly/Dash, Tableau, PowerBI, matplotlib, seaborn, Excel"
+        "items": [
+          { "name": "Python", "level": 9 },
+          { "name": "Bash", "level": 8 },
+          { "name": "C#", "level": 8 },
+          { "name": "R", "level": 8 },
+          { "name": "Java", "level": 7 },
+          { "name": "C++", "level": 6 },
+          { "name": "XAML", "level": 7 },
+          { "name": "HTML", "level": 9 },
+          { "name": "CSS", "level": 9 },
+          { "name": "MATLAB", "level": 7 },
+          { "name": ".NET (Xamarin, MAUI)", "level": 7 },
+          { "name": "NUnit", "level": 7 },
+          { "name": "FastAPI/Flask", "level": 8 },
+          { "name": "pytest", "level": 8 },
+          { "name": "Selenium", "level": 7 },
+          { "name": "Docker", "level": 8 },
+          { "name": "MLflow", "level": 7 },
+          { "name": "Kubernetes", "level": 6 },
+          { "name": "CI/CD", "level": 8 },
+          { "name": "Git/GitHub", "level": 9 },
+          { "name": "Postman", "level": 8 },
+          { "name": "Plotly/Dash", "level": 8 },
+          { "name": "Tableau", "level": 7 },
+          { "name": "PowerBI", "level": 7 },
+          { "name": "matplotlib", "level": 8 },
+          { "name": "seaborn", "level": 8 },
+          { "name": "Excel", "level": 9 }
+        ]
       }
     ]
   },
@@ -257,63 +333,80 @@
         "title": "Certified Six Sigma Green Belt",
         "issuer": "Minnesota West Community and Technical College",
         "logo": "/assets/images/msu-logo.png",
-        "date": "Sep 2023"
+        "date": "Sep 2023",
+        "url": "#"
       },
       {
         "id": "asem",
         "title": "Certified Associate in Engineering Management",
         "issuer": "American Society for Engineering Management",
         "logo": "/assets/images/asem-logo.png",
-        "date": "Oct 2024"
+        "date": "Oct 2024",
+        "url": "#"
       },
       {
         "id": "duke",
         "title": "AI Product Management (Specialization)",
         "issuer": "Duke University (Coursera)",
         "logo": "/assets/images/duke-logo.png",
-        "date": "Jun 2023"
+        "date": "Jun 2023",
+        "url": "https://www.coursera.org/account/accomplishments/specialization/certificate/HFGQ9688ME3F"
       },
       {
         "id": "ibm",
         "title": "Data Science (Specialization)",
         "issuer": "IBM (Coursera)",
         "logo": "/assets/images/ibm-logo.webp",
-        "date": "Jun 2023"
+        "date": "Jun 2023",
+        "url": "https://www.coursera.org/account/accomplishments/specialization/certificate/PNEYJRJYLD7Y"
       },
       {
         "id": "umn",
         "title": "Software Development Lifecycle (Specialization)",
         "issuer": "University of Minnesota (Coursera)",
         "logo": "/assets/images/umn-logo.png",
-        "date": "Jun 2023"
+        "date": "Jun 2023",
+        "url": "https://www.coursera.org/account/accomplishments/specialization/certificate/JG8FGUFPSMGU"
       },
       {
         "id": "google-pm",
         "title": "Project Management (Specialization)",
         "issuer": "Google (Coursera)",
         "logo": "/assets/images/google-logo.png",
-        "date": "May 2023"
+        "date": "May 2023",
+        "url": "https://www.coursera.org/account/accomplishments/specialization/certificate/GCQB9NXLFKDX"
       },
       {
         "id": "google-da",
         "title": "Data Analytics (Specialization)",
         "issuer": "Google (Coursera)",
         "logo": "/assets/images/google-logo.png",
-        "date": "Jul 2022"
+        "date": "Jul 2022",
+        "url": "https://www.coursera.org/account/accomplishments/specialization/certificate/X9KW4TDDQCFW"
       },
       {
         "id": "stanford",
         "title": "Machine Learning (Specialization)",
         "issuer": "Stanford University (Coursera)",
         "logo": "/assets/images/stanford-logo.webp",
-        "date": "Feb 2023"
+        "date": "Feb 2023",
+        "url": "https://www.coursera.org/account/accomplishments/specialization/certificate/W547QEMMYPUF"
+      },
+      {
+        "id": "rutgers",
+        "title": "Supply Chain Management (Specialization)",
+        "issuer": "Rutgers University (Coursera)",
+        "logo": "/assets/images/rutgers-logo.png",
+        "date": "Jun 2023",
+        "url": "https://www.coursera.org/account/accomplishments/specialization/certificate/CXKGJWM4DPW6"
       },
       {
         "id": "vanderbilt",
-        "title": "Prompt Engineering",
+        "title": "Prompt Engineering for ChatGPT",
         "issuer": "Vanderbilt University (Coursera)",
         "logo": "/assets/images/vanderbilt-logo.png",
-        "date": "Jun 2023"
+        "date": "Jun 2023",
+        "url": "https://www.coursera.org/account/accomplishments/certificate/CXQBA5ZLNWRS"
       }
     ]
   },
