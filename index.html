@@ -657,8 +657,7 @@
         .timeline-content { width: 100% !important; padding-left: 48px; }
         .timeline-arrow { display: none !important; }
       }
-        position: relative;
-      }
+      
 
       .image-zoom {
         transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -982,6 +981,50 @@
         );
         background-size: 400% 400%;
         animation: gradient-move 15s ease infinite;
+      }
+
+      /* Ensure hero text wraps on small screens */
+      .animated-hero-bg h1,
+      .animated-hero-bg h2,
+      .animated-hero-bg p {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        hyphens: auto;
+      }
+
+      /* Hero specific responsive rules */
+      .animated-hero-bg .hero-name {
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        margin-bottom: 1rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        white-space: normal;
+      }
+
+      .animated-hero-bg .hero-title {
+        font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: rgba(255,255,255,0.9);
+        line-height: 1.4;
+        white-space: normal;
+      }
+
+      .animated-hero-bg .hero-summary {
+        font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+        line-height: 1.8;
+        margin: 0 auto 3rem;
+        color: rgba(255,255,255,0.75);
+        max-width: min(90vw, 800px);
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      @media (max-width: 380px) {
+        .animated-hero-bg .hero-name { font-size: clamp(1.9rem, 8vw, 3rem); }
+        .animated-hero-bg .hero-title { font-size: clamp(1.2rem, 5.5vw, 1.6rem); }
+        .animated-hero-bg .hero-summary { font-size: 0.98rem; padding: 0 0.5rem; }
       }
 
       /* 14. Active Nav Link */
@@ -2514,12 +2557,7 @@
               
               
 
-              <h1 style={{ 
-                fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', 
-                marginBottom: '1rem',
-                fontWeight: 800,
-                letterSpacing: '-0.02em'
-              }}>
+              <h1 className="hero-name">
                 <span style={{
                   background: 'linear-gradient(135deg, #4a90e2, #9b59b6, #e94b8f)',
                   WebkitBackgroundClip: 'text',
@@ -2530,24 +2568,11 @@
                 </span>
               </h1>
 
-              <h2 style={{ 
-                fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)', 
-                fontWeight: 600, 
-                marginBottom: '1.5rem',
-                color: 'rgba(255,255,255,0.9)',
-                lineHeight: 1.4
-              }}>
+              <h2 className="hero-title">
                 Building Scalable AI to Solve Global Challenges
               </h2>
 
-              <p style={{ 
-                fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', 
-                lineHeight: '1.8',
-                marginBottom: '3rem',
-                color: 'rgba(255,255,255,0.7)',
-                maxWidth: '800px',
-                margin: '0 auto 3rem'
-              }}>
+              <p className="hero-summary">
                 AI Product Leader with 5+ years of experience transforming complex research into 0→1 products. I unify engineering, data science, and leadership teams to deploy scalable AI solutions that solve high-stakes global challenges.
               </p>
 
