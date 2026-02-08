@@ -395,29 +395,6 @@ import './styles.css';
         );
       }
 
-      // IconBadge Component
-      function IconBadge({ icon, label, iconMap }) {
-        return (
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '0.75rem',
-            padding: '0.75rem 1.25rem',
-            background: 'linear-gradient(135deg, rgba(74, 144, 226, 0.1), rgba(155, 89, 182, 0.05))',
-            borderRadius: '20px',
-            border: '1px solid rgba(74, 144, 226, 0.2)',
-            fontSize: '1rem',
-            color: 'var(--text-primary)',
-            transition: 'all 0.3s'
-          }}>
-            {icon && (
-              <LucideIcon name={iconMap?.[icon] || 'star'} size={20} color={getColor('accentBlue', true)} />
-            )}
-            {label}
-          </div>
-        );
-      }
-
       // FadeInItem Component - for fade-in from bottom animation
       function FadeInItem({ children, delay = 0 }) {
         const [isVisible, setIsVisible] = React.useState(false);
@@ -1234,7 +1211,6 @@ import './styles.css';
                 />
                 <EducationSection
                   education={featuredEducation}
-                  totalDegreeCount={(data.education?.degrees || []).length}
                   darkMode={darkMode}
                 />
                 <SkillsSection skills={data.skills} darkMode={darkMode} />
@@ -2094,127 +2070,10 @@ import './styles.css';
       }
 
       // ============================================
-      // CASE STUDIES SECTION
-      // ============================================
-      function CaseStudiesSection({ caseStudies, darkMode }) {
-        if (!Array.isArray(caseStudies) || caseStudies.length === 0) return null;
-        const [activeIndex, setActiveIndex] = useState(null);
-
-        return (
-          <section id="case-studies" className="section-bg-mesh alt" style={{ padding: '8rem 2rem', background: 'var(--bg-secondary)' }}>
-            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-              <div style={{ marginBottom: '3rem', textAlign: 'center' }}>
-                <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '0.75rem', color: 'var(--text-primary)', fontWeight: 800 }}>
-                  Product <span className="text-gradient">Case Studies</span>
-                </h2>
-                <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '1.05rem' }}>
-                  How I frame ambiguity, make product tradeoffs, and deliver measurable outcomes.
-                </p>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {caseStudies.map((study, index) => (
-                  <FadeInItem key={study.id || index} delay={index * 0.08}>
-                    <article
-                      className="glass-card"
-                      style={{ border: '1px solid var(--border-color)', borderRadius: '16px', overflow: 'hidden' }}
-                      onMouseEnter={() => setActiveIndex(index)}
-                    >
-                      <button
-                        type="button"
-                        onClick={() => setActiveIndex(prev => (prev === index ? null : index))}
-                        style={{
-                          width: '100%',
-                          textAlign: 'left',
-                          background: 'transparent',
-                          border: 'none',
-                          color: 'inherit',
-                          cursor: 'pointer',
-                          padding: '1.25rem 1.5rem',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          gap: '1rem'
-                        }}
-                      >
-                        <div>
-                          <h3 style={{ margin: 0, fontSize: '1.15rem', color: 'var(--text-primary)' }}>{study.title}</h3>
-                          <p style={{ margin: '0.35rem 0 0', color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
-                            {study.summary || study.problem}
-                          </p>
-                        </div>
-                        <span style={{ color: getColor('accentBlue', darkMode), fontWeight: 700, fontSize: '1.1rem' }}>
-                          {activeIndex === index ? '−' : '+'}
-                        </span>
-                      </button>
-                      <div
-                        style={{
-                          maxHeight: activeIndex === index ? '1200px' : '0',
-                          opacity: activeIndex === index ? 1 : 0,
-                          overflow: 'hidden',
-                          transition: 'max-height 0.35s ease, opacity 0.25s ease',
-                          padding: activeIndex === index ? '0 1.5rem 1.5rem' : '0 1.5rem'
-                        }}
-                      >
-                        <div style={{ marginBottom: '1rem' }}>
-                          <p style={{ margin: 0, color: getColor('accentBlue', darkMode), fontWeight: 700, fontSize: '0.9rem' }}>{study.company}</p>
-                          {study.timeline && (
-                            <p style={{ margin: '0.3rem 0 0', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                              {study.timeline}
-                            </p>
-                          )}
-                        </div>
-                        <div style={{ display: 'grid', gap: '0.85rem' }}>
-                          <div>
-                            <h4 style={{ margin: 0, fontSize: '0.95rem', color: getColor('accentDarkBlue', darkMode) }}>Problem</h4>
-                            <p style={{ margin: '0.25rem 0 0', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{study.problem}</p>
-                          </div>
-                          <div>
-                            <h4 style={{ margin: 0, fontSize: '0.95rem', color: getColor('accentDarkBlue', darkMode) }}>Strategy</h4>
-                            <ul style={{ margin: '0.35rem 0 0', paddingLeft: '1rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                              {(study.strategy || []).map((item, i) => <li key={i}>{item}</li>)}
-                            </ul>
-                          </div>
-                          <div>
-                            <h4 style={{ margin: 0, fontSize: '0.95rem', color: getColor('accentDarkBlue', darkMode) }}>Execution</h4>
-                            <ul style={{ margin: '0.35rem 0 0', paddingLeft: '1rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                              {(study.execution || []).map((item, i) => <li key={i}>{item}</li>)}
-                            </ul>
-                          </div>
-                          <div>
-                            <h4 style={{ margin: 0, fontSize: '0.95rem', color: getColor('accentDarkBlue', darkMode) }}>Outcome</h4>
-                            <ul style={{ margin: '0.35rem 0 0', paddingLeft: '1rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                              {(study.outcome || []).map((item, i) => <li key={i}>{item}</li>)}
-                            </ul>
-                          </div>
-                          {study.tradeoffs && (
-                            <div>
-                              <h4 style={{ margin: 0, fontSize: '0.95rem', color: getColor('accentDarkBlue', darkMode) }}>Tradeoffs</h4>
-                              <p style={{ margin: '0.25rem 0 0', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{study.tradeoffs}</p>
-                            </div>
-                          )}
-                          {study.nextStep && (
-                            <div>
-                              <h4 style={{ margin: 0, fontSize: '0.95rem', color: getColor('accentDarkBlue', darkMode) }}>What I'd Do Next</h4>
-                              <p style={{ margin: '0.25rem 0 0', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{study.nextStep}</p>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </article>
-                  </FadeInItem>
-                ))}
-              </div>
-            </div>
-          </section>
-        );
-      }
-
-      // ============================================
       // EDUCATION SECTION
       // ============================================
       function EducationSection({
         education,
-        totalDegreeCount = 0,
         darkMode
       }) {
         const [hoveredDegreeIndex, setHoveredDegreeIndex] = useState(null);
@@ -2596,135 +2455,6 @@ import './styles.css';
                 >
                   View All LinkedIn Recommendations
                 </a>
-              </div>
-            </div>
-          </section>
-        );
-      }
-
-      // ============================================
-      // PERSPECTIVES SECTION
-      // ============================================
-      function PerspectivesSection({ darkMode = false }) {
-        const insights = [
-          {
-            icon: 'lightbulb',
-            title: 'Beyond the Hype: Prioritizing High-ROI Use Cases for Generative AI',
-            excerpt: 'A strategic framework for product leaders to evaluate and prioritize generative AI initiatives that deliver measurable business value, not just technical novelty.',
-            color: '#2c5282'
-          },
-          {
-            icon: 'handshake',
-            title: 'Bridging the Gap: How Product Leaders Can Effectively Manage ML Engineering Teams',
-            excerpt: 'Leadership principles for aligning ML engineering execution with product vision, fostering collaboration between research and production, and setting realistic expectations with stakeholders.',
-            color: '#5a67d8'
-          },
-          {
-            icon: 'rocket',
-            title: 'The Future of RAG: Moving from Simple Retrieval to Contextual Intelligence',
-            excerpt: 'Exploring the evolution of retrieval-augmented generation systems from basic keyword search to sophisticated contextual reasoning—and what it means for enterprise AI applications.',
-            color: '#4a5568'
-          }
-        ];
-
-        return (
-          <section id="perspectives" style={{ padding: '8rem 2rem', background: 'white' }}>
-            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-              <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-                <h2 style={{ 
-                  fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
-                  fontWeight: 800, 
-                  marginBottom: '1rem',
-                  background: 'linear-gradient(135deg, #2c5282, #5a67d8)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
-                }}>
-                  Perspectives on AI & Product
-                </h2>
-                <p style={{ fontSize: '1.2rem', color: getColor('textSecondary', darkMode), maxWidth: '700px', margin: '0 auto' }}>
-                  Thought leadership on building AI products that drive real business outcomes
-                </p>
-              </div>
-              <div style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
-                gap: '2.5rem' 
-              }}>
-                {insights.map((insight, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      padding: '2.5rem',
-                      background: 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)',
-                      borderRadius: '16px',
-                      border: '1px solid rgba(44, 82, 130, 0.1)',
-                      boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-                      transition: 'all 0.3s ease',
-                      cursor: 'pointer',
-                      position: 'relative',
-                      overflow: 'hidden'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-8px)';
-                      e.currentTarget.style.boxShadow = '0 12px 35px rgba(44, 82, 130, 0.15)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
-                    }}
-                  >
-                    <div style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '4px',
-                      background: `linear-gradient(90deg, ${insight.color}, ${insight.color}88)`
-                    }} />
-                    <div style={{ 
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginBottom: '1.5rem',
-                      width: '60px',
-                      height: '60px',
-                      margin: '0 auto 1.5rem',
-                      borderRadius: '50%',
-                      background: `linear-gradient(135deg, ${insight.color}15, ${insight.color}05)`,
-                      border: `2px solid ${insight.color}30`
-                    }}>
-                      <LucideIcon name={insight.icon} size={28} color={insight.color} />
-                    </div>
-                    <h3 style={{ 
-                      fontSize: '1.4rem', 
-                      fontWeight: 700, 
-                      marginBottom: '1rem',
-                      color: getColor('textPrimary', darkMode),
-                      lineHeight: 1.3
-                    }}>
-                      {insight.title}
-                    </h3>
-                    <p style={{ 
-                      color: getColor('textSecondary', darkMode), 
-                      fontSize: '1rem',
-                      lineHeight: 1.7,
-                      marginBottom: '1.5rem'
-                    }}>
-                      {insight.excerpt}
-                    </p>
-                    <div style={{
-                      color: insight.color,
-                      fontWeight: 600,
-                      fontSize: '0.95rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.5rem'
-                    }}>
-                      Read More →
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           </section>
