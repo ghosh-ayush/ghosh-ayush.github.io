@@ -23,7 +23,7 @@ const THEME_RULES = [
   {
     id: 'execution',
     label: 'Execution',
-    color: '#4a90e2',
+    color: '#2f6ca8',
     patterns: [/agile/i, /planning/i, /team/i, /documentation/i, /reporting/i, /critical/i, /continuous learning/i, /presentation/i]
   },
   {
@@ -65,6 +65,7 @@ const THEME_RULES = [
 ];
 
 const THEME_BY_ID = Object.fromEntries(THEME_RULES.map((theme) => [theme.id, theme]));
+const DEFAULT_THEME_COLOR = '#2f6ca8';
 
 function normalizeItems(items) {
   if (Array.isArray(items)) return items;
@@ -779,9 +780,9 @@ function StatsPanel({ graph, activeNodeId, onReset }) {
           <span
             key={themeId}
             className="skills-chip"
-            style={{
-              borderColor: `${THEME_BY_ID[themeId]?.color || '#4a90e2'}66`,
-              background: `${THEME_BY_ID[themeId]?.color || '#4a90e2'}22`
+              style={{
+              borderColor: `${THEME_BY_ID[themeId]?.color || DEFAULT_THEME_COLOR}66`,
+              background: `${THEME_BY_ID[themeId]?.color || DEFAULT_THEME_COLOR}22`
             }}
           >
             {THEME_BY_ID[themeId]?.label || themeId}
@@ -824,6 +825,8 @@ function SkillsPage() {
   const [draggingNodeId, setDraggingNodeId] = useState(null);
   const [isPanning, setIsPanning] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
+  const [isCompactControls, setIsCompactControls] = useState(() => window.matchMedia('(max-width: 640px)').matches);
+  const [controlsOpen, setControlsOpen] = useState(() => !window.matchMedia('(max-width: 640px)').matches);
   const [viewport, setViewport] = useState({ scale: 1, tx: 0, ty: 0 });
   const [animationClock, setAnimationClock] = useState(0);
   const svgRef = useRef(null);
@@ -873,6 +876,28 @@ function SkillsPage() {
   useEffect(() => {
     if (lockedNodeId) setPanelOpen(true);
   }, [lockedNodeId]);
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 640px)');
+
+    const applyMode = (compact) => {
+      setIsCompactControls(compact);
+      setControlsOpen(compact ? false : true);
+    };
+
+    const onChange = (event) => {
+      applyMode(event.matches);
+    };
+
+    applyMode(media.matches);
+    if (typeof media.addEventListener === 'function') {
+      media.addEventListener('change', onChange);
+      return () => media.removeEventListener('change', onChange);
+    }
+
+    media.addListener(onChange);
+    return () => media.removeListener(onChange);
+  }, []);
 
   const graph = useMemo(() => buildCorrelationGraph(data?.skills || {}), [data]);
   const nodeBoundsPaddingX = 90;
@@ -1250,12 +1275,38 @@ function SkillsPage() {
     );
   }
 
+  if (graph.nodes.length === 0) {
+    return (
+      <div className="skills-page-shell">
+        <header className="sticky-nav skills-nav-border">
+          <div className="skills-nav-inner">
+            <a href="/" className="skills-back-link">Back to Home</a>
+            <button type="button" onClick={() => setDarkMode((prev) => !prev)} className="skills-mode-toggle" aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}>
+              {darkMode ? 'Light Mode' : 'Dark Mode'}
+            </button>
+          </div>
+        </header>
+        <main className="skills-main">
+          <h1>
+            My <span className="text-gradient">Skills</span>
+          </h1>
+          <p className="skills-intro">Unified map across product and technical skills.</p>
+          <aside className="skills-panel" style={{ marginTop: '1rem' }}>
+            <p className="skills-panel-kicker">No skills data</p>
+            <h2>Skills map unavailable</h2>
+            <p>Add skill categories and items in `portfolio-data.json` to render the interactive web.</p>
+          </aside>
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="skills-page-shell">
       <header className="sticky-nav skills-nav-border">
         <div className="skills-nav-inner">
           <a href="/" className="skills-back-link">Back to Home</a>
-          <button type="button" onClick={() => setDarkMode((prev) => !prev)} className="skills-mode-toggle">
+          <button type="button" onClick={() => setDarkMode((prev) => !prev)} className="skills-mode-toggle" aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}>
             {darkMode ? 'Light Mode' : 'Dark Mode'}
           </button>
         </div>
@@ -1276,6 +1327,7 @@ function SkillsPage() {
               className="skills-panel-toggle-btn"
               onClick={() => setPanelOpen((prev) => !prev)}
               aria-expanded={panelOpen}
+              aria-label={panelOpen ? 'Hide skill insights panel' : 'Show skill insights panel'}
             >
               {panelOpen ? 'Hide Insights' : 'Show Insights'}
             </button>
@@ -1329,8 +1381,8 @@ function SkillsPage() {
                   const midY = (source.renderY + target.renderY) / 2 - curveAmount * 0.7;
                   const edgeIsActive = activeNode ? activeEdgeIds.has(edge.id) : false;
                   const edgeColor = edge.sharedThemes.length
-                    ? THEME_BY_ID[edge.sharedThemes[0]]?.color || '#4a90e2'
-                    : '#4a90e2';
+                    ? THEME_BY_ID[edge.sharedThemes[0]]?.color || DEFAULT_THEME_COLOR
+                    : DEFAULT_THEME_COLOR;
                   const depthMix = (source.depth + target.depth) / 2;
                   const depthOpacity = 0.62 + (depthMix + 1) * 0.2;
                   const depthVisibility = depthMix < -0.08 ? 0.72 : 1;
@@ -1353,7 +1405,7 @@ function SkillsPage() {
                   const nodeIsActive = activeNode?.id === node.id;
                   const nodeIsNeighbor = neighborNodeIds.has(node.id);
                   const dimmed = activeNode && !nodeIsNeighbor;
-                  const color = THEME_BY_ID[node.primaryTheme]?.color || '#4a90e2';
+                  const color = THEME_BY_ID[node.primaryTheme]?.color || DEFAULT_THEME_COLOR;
                   const zoomReveal = viewport.scale >= 1.16;
                   const showLabel = nodeIsActive || nodeIsNeighbor || zoomReveal || (!activeNode && node.degree >= 10 && viewport.scale >= 1.02);
                   const nearRightEdge = node.renderX > graph.width - 168;
@@ -1377,12 +1429,25 @@ function SkillsPage() {
                         style={{ transition: 'all 0.2s ease' }}
                         onMouseEnter={() => setHoveredNodeId(node.id)}
                         onFocus={() => setHoveredNodeId(node.id)}
+                        onBlur={() => {
+                          if (!dragRef.current) setHoveredNodeId(null);
+                        }}
                         onPointerDown={(event) => handleNodePointerDown(event, node.id)}
+                        onKeyDown={(event) => {
+                          if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            setLockedNodeId((prev) => (prev === node.id ? null : node.id));
+                          }
+                        }}
                         onClick={(event) => {
                           event.stopPropagation();
                           if (dragMovedRef.current) return;
                           setLockedNodeId((prev) => (prev === node.id ? null : node.id));
                         }}
+                        tabIndex={0}
+                        role="button"
+                        aria-label={`Skill node: ${node.label}. ${node.level !== null ? `Proficiency ${node.level} out of 10.` : ''} Press Enter to ${nodeIsActive ? 'clear focus' : 'focus this skill'}.`}
+                        aria-pressed={nodeIsActive}
                       >
                         <title>{node.label}</title>
                       </circle>
@@ -1404,13 +1469,27 @@ function SkillsPage() {
                 </g>
               </svg>
             </div>
-            <div className="skills-network-actions">
-              <div className="skills-network-buttons">
-                <button type="button" onClick={() => setLockedNodeId(null)}>Reset Focus</button>
-                <button type="button" onClick={() => setManualNodePositions({})}>Reset Layout</button>
-                <button type="button" onClick={() => zoomByFactor(0.88)}>-</button>
-                <button type="button" onClick={() => setViewport(clampViewport({ scale: 1, tx: 0, ty: 0 }))}>Reset View</button>
-                <button type="button" onClick={() => zoomByFactor(1.12)}>+</button>
+            <div className={`skills-network-actions ${controlsOpen ? 'open' : 'collapsed'} ${isCompactControls ? 'compact' : 'wide'}`}>
+              {isCompactControls && (
+                <button
+                  type="button"
+                  className="skills-controls-toggle"
+                  onClick={() => setControlsOpen((prev) => !prev)}
+                  aria-expanded={controlsOpen}
+                  aria-label={controlsOpen ? 'Hide network controls' : 'Show network controls'}
+                >
+                  {controlsOpen ? 'Hide Controls' : 'Controls'}
+                </button>
+              )}
+              <div
+                className={`skills-network-buttons ${controlsOpen ? 'open' : ''}`}
+                hidden={!controlsOpen && isCompactControls}
+              >
+                <button type="button" onClick={() => setLockedNodeId(null)} aria-label="Reset focused skill">Reset Focus</button>
+                <button type="button" onClick={() => setManualNodePositions({})} aria-label="Reset custom node positions">Reset Layout</button>
+                <button type="button" onClick={() => zoomByFactor(0.88)} aria-label="Zoom out">-</button>
+                <button type="button" onClick={() => setViewport(clampViewport({ scale: 1, tx: 0, ty: 0 }))} aria-label="Reset zoom and pan">Reset View</button>
+                <button type="button" onClick={() => zoomByFactor(1.12)} aria-label="Zoom in">+</button>
               </div>
             </div>
           </section>

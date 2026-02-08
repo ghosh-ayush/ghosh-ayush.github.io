@@ -1,0 +1,47 @@
+{
+  "ci": {
+    "collect": {
+      "startServerCommand": "npm run preview -- --host 127.0.0.1 --port 4173 --strictPort",
+      "startServerReadyPattern": "127.0.0.1:4173",
+      "url": [
+        "http://127.0.0.1:4173/",
+        "http://127.0.0.1:4173/case-studies.html",
+        "http://127.0.0.1:4173/experience.html",
+        "http://127.0.0.1:4173/credentials.html",
+        "http://127.0.0.1:4173/skills.html"
+      ],
+      "numberOfRuns": 1,
+      "settings": {
+        "preset": "desktop",
+        "budgets": [
+          {
+            "path": "/*",
+            "resourceSizes": [
+              { "resourceType": "script", "budget": 360 },
+              { "resourceType": "stylesheet", "budget": 90 },
+              { "resourceType": "image", "budget": 900 },
+              { "resourceType": "total", "budget": 1700 }
+            ],
+            "resourceCounts": [
+              { "resourceType": "script", "budget": 18 },
+              { "resourceType": "stylesheet", "budget": 8 },
+              { "resourceType": "image", "budget": 60 }
+            ]
+          }
+        ]
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["error", { "minScore": 0.8 }],
+        "categories:accessibility": ["error", { "minScore": 0.9 }],
+        "cumulative-layout-shift": ["error", { "maxNumericValue": 0.1 }],
+        "largest-contentful-paint": ["warn", { "maxNumericValue": 4500 }],
+        "total-byte-weight": ["warn", { "maxNumericValue": 1200000 }]
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

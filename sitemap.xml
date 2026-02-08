@@ -2,47 +2,110 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ghosh-ayush.github.io/</loc>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://ghosh-ayush.github.io/#experience</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://ghosh-ayush.github.io/case-studies.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
   </url>
   <url>
     <loc>https://ghosh-ayush.github.io/experience.html</loc>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.86</priority>
   </url>
   <url>
     <loc>https://ghosh-ayush.github.io/credentials.html</loc>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ghosh-ayush.github.io/skills.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.82</priority>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.84</priority>
   </url>
   <url>
-    <loc>https://ghosh-ayush.github.io/#projects</loc>
+    <loc>https://ghosh-ayush.github.io/project-mobile-ui.html</loc>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.74</priority>
   </url>
   <url>
-    <loc>https://ghosh-ayush.github.io/#education</loc>
+    <loc>https://ghosh-ayush.github.io/project-awd.html</loc>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.74</priority>
   </url>
   <url>
-    <loc>https://ghosh-ayush.github.io/#contact</loc>
+    <loc>https://ghosh-ayush.github.io/project-loyalty.html</loc>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.74</priority>
+  </url>
+  <url>
+    <loc>https://ghosh-ayush.github.io/project-ai-resume.html</loc>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.74</priority>
+  </url>
+  <url>
+    <loc>https://ghosh-ayush.github.io/case-study-team-promotion-scaling.html</loc>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://ghosh-ayush.github.io/case-study-tesla-warranty-roi.html</loc>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://ghosh-ayush.github.io/case-study-sculptor-ops-efficiency.html</loc>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://ghosh-ayush.github.io/case-study-socai-medical-diagnostics.html</loc>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://ghosh-ayush.github.io/case-study-founding-pm-org-design.html</loc>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://ghosh-ayush.github.io/case-study-active-learning-hard-example-mining.html</loc>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://ghosh-ayush.github.io/case-study-feature-apis-vs-model-pipelines.html</loc>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://ghosh-ayush.github.io/case-study-algorithm-hardware-codesign-vlsi-ai.html</loc>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://ghosh-ayush.github.io/case-study-2d-to-3d-spatial-capture-research.html</loc>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
   </url>
 </urlset>

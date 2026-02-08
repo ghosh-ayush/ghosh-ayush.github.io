@@ -32,45 +32,126 @@
         "category": "Product Strategy & Vision",
         "icon": "chart-line",
         "items": [
-          { "name": "Roadmapping", "level": 9 },
-          { "name": "Prioritization & OKRs", "level": 9 },
-          { "name": "Market Analysis", "level": 7 },
-          { "name": "Stakeholder Management", "level": 9 },
-          { "name": "Product Analytics", "level": 8 },
-          { "name": "A/B testing", "level": 7 },
-          { "name": "User Research", "level": 8 },
-          { "name": "User Stories", "level": 8 }
+          {
+            "name": "Roadmapping",
+            "level": 9
+          },
+          {
+            "name": "Prioritization & OKRs",
+            "level": 9
+          },
+          {
+            "name": "Market Analysis",
+            "level": 7
+          },
+          {
+            "name": "Stakeholder Management",
+            "level": 9
+          },
+          {
+            "name": "Product Analytics",
+            "level": 8
+          },
+          {
+            "name": "A/B testing",
+            "level": 7
+          },
+          {
+            "name": "User Research",
+            "level": 8
+          },
+          {
+            "name": "User Stories",
+            "level": 8
+          }
         ]
       },
       {
         "category": "AI Governance & MLOps Strategy",
         "icon": "book-open",
         "items": [
-          { "name": "Model Ethics", "level": 7 },
-          { "name": "Evaluation", "level": 8 },
-          { "name": "Regulatory (FDA/ISO)", "level": 5 },
-          { "name": "AI Ethics", "level": 7 },
-          { "name": "Cloud Architecture", "level": 5 },
-          { "name": "MLOps Workflows", "level": 8 },
-          { "name": "Data Engineering Best Practices", "level": 5 },
-          { "name": "Healthcare & Medical Devices", "level": 7 },
-          { "name": "Big Data Analytics", "level": 7 }
+          {
+            "name": "Model Ethics",
+            "level": 7
+          },
+          {
+            "name": "Evaluation",
+            "level": 8
+          },
+          {
+            "name": "Regulatory (FDA/ISO)",
+            "level": 5
+          },
+          {
+            "name": "AI Ethics",
+            "level": 7
+          },
+          {
+            "name": "Cloud Architecture",
+            "level": 5
+          },
+          {
+            "name": "MLOps Workflows",
+            "level": 8
+          },
+          {
+            "name": "Data Engineering Best Practices",
+            "level": 5
+          },
+          {
+            "name": "Healthcare & Medical Devices",
+            "level": 7
+          },
+          {
+            "name": "Big Data Analytics",
+            "level": 7
+          }
         ]
       },
       {
         "category": "Execution & Growth",
         "icon": "chart-line",
         "items": [
-          { "name": "KPIs", "level": 9 },
-          { "name": "Reporting", "level": 8 },
-          { "name": "Documentation", "level": 7 },
-          { "name": "Team Building", "level": 7 },
-          { "name": "Presentation", "level": 9 },
-          { "name": "Root Cause Analysis", "level": 7 },
-          { "name": "Critical Thinking", "level": 9 },
-          { "name": "Continuous Learning", "level": 8 },
-          { "name": "Prioritization", "level": 8 },
-          { "name": "Agile Planning", "level": 7 }
+          {
+            "name": "KPIs",
+            "level": 9
+          },
+          {
+            "name": "Reporting",
+            "level": 8
+          },
+          {
+            "name": "Documentation",
+            "level": 7
+          },
+          {
+            "name": "Team Building",
+            "level": 7
+          },
+          {
+            "name": "Presentation",
+            "level": 9
+          },
+          {
+            "name": "Root Cause Analysis",
+            "level": 7
+          },
+          {
+            "name": "Critical Thinking",
+            "level": 9
+          },
+          {
+            "name": "Continuous Learning",
+            "level": 8
+          },
+          {
+            "name": "Prioritization",
+            "level": 8
+          },
+          {
+            "name": "Agile Planning",
+            "level": 7
+          }
         ]
       }
     ],
@@ -79,61 +160,190 @@
         "category": "AI/ML Ecosystem",
         "icon": "brain",
         "items": [
-          { "name": "LLMs", "level": 8 },
-          { "name": "RAG", "level": 8 },
-          { "name": "TensorFlow", "level": 5 },
-          { "name": "PyTorch", "level": 8 },
-          { "name": "Keras", "level": 5 },
-          { "name": "scikit-learn", "level": 8 },
-          { "name": "XGBoost", "level": 5 },
-          { "name": "LangChain", "level": 8 },
-          { "name": "Hugging Face", "level": 7 }
+          {
+            "name": "LLMs",
+            "level": 8
+          },
+          {
+            "name": "RAG",
+            "level": 8
+          },
+          {
+            "name": "TensorFlow",
+            "level": 5
+          },
+          {
+            "name": "PyTorch",
+            "level": 8
+          },
+          {
+            "name": "Keras",
+            "level": 5
+          },
+          {
+            "name": "scikit-learn",
+            "level": 8
+          },
+          {
+            "name": "XGBoost",
+            "level": 5
+          },
+          {
+            "name": "LangChain",
+            "level": 8
+          },
+          {
+            "name": "Hugging Face",
+            "level": 7
+          }
         ]
       },
       {
         "category": "Data & Cloud Architecture",
         "icon": "cloud",
         "items": [
-          { "name": "AWS (S3, EC2, Lambda, DynamoDB, Redshift)", "level": 8 },
-          { "name": "GCP (BigQuery)", "level": 5 },
-          { "name": "Databricks", "level": 7 },
-          { "name": "Spark", "level": 5 },
-          { "name": "Hadoop", "level": 6 },
-          { "name": "MongoDB", "level": 5 },
-          { "name": "SQL", "level": 9 }
+          {
+            "name": "AWS (S3, EC2, Lambda, DynamoDB, Redshift)",
+            "level": 8
+          },
+          {
+            "name": "GCP (BigQuery)",
+            "level": 5
+          },
+          {
+            "name": "Databricks",
+            "level": 7
+          },
+          {
+            "name": "Spark",
+            "level": 5
+          },
+          {
+            "name": "Hadoop",
+            "level": 6
+          },
+          {
+            "name": "MongoDB",
+            "level": 5
+          },
+          {
+            "name": "SQL",
+            "level": 9
+          }
         ]
       },
       {
         "category": "Development & Deployment",
         "icon": "code",
         "items": [
-          { "name": "Python", "level": 9 },
-          { "name": "Bash", "level": 7 },
-          { "name": "C#", "level": 7 },
-          { "name": "R", "level": 7 },
-          { "name": "Java", "level": 5 },
-          { "name": "C++", "level": 6 },
-          { "name": "XAML", "level": 5 },
-          { "name": "HTML", "level": 8 },
-          { "name": "CSS", "level": 8 },
-          { "name": "MATLAB", "level": 5 },
-          { "name": ".NET (Xamarin, MAUI)", "level": 5 },
-          { "name": "NUnit", "level": 5 },
-          { "name": "FastAPI/Flask", "level": 8 },
-          { "name": "pytest", "level": 7 },
-          { "name": "Selenium", "level": 5 },
-          { "name": "Docker", "level": 8 },
-          { "name": "MLflow", "level": 5 },
-          { "name": "Kubernetes", "level": 6 },
-          { "name": "CI/CD", "level": 7 },
-          { "name": "Git/GitHub", "level": 9 },
-          { "name": "Postman", "level": 7 },
-          { "name": "Plotly/Dash", "level": 7 },
-          { "name": "Tableau", "level": 5 },
-          { "name": "PowerBI", "level": 5 },
-          { "name": "matplotlib", "level": 7 },
-          { "name": "seaborn", "level": 7 },
-          { "name": "Excel", "level": 8 }
+          {
+            "name": "Python",
+            "level": 9
+          },
+          {
+            "name": "Bash",
+            "level": 7
+          },
+          {
+            "name": "C#",
+            "level": 7
+          },
+          {
+            "name": "R",
+            "level": 7
+          },
+          {
+            "name": "Java",
+            "level": 5
+          },
+          {
+            "name": "C++",
+            "level": 6
+          },
+          {
+            "name": "XAML",
+            "level": 5
+          },
+          {
+            "name": "HTML",
+            "level": 8
+          },
+          {
+            "name": "CSS",
+            "level": 8
+          },
+          {
+            "name": "MATLAB",
+            "level": 5
+          },
+          {
+            "name": ".NET (Xamarin, MAUI)",
+            "level": 5
+          },
+          {
+            "name": "NUnit",
+            "level": 5
+          },
+          {
+            "name": "FastAPI/Flask",
+            "level": 8
+          },
+          {
+            "name": "pytest",
+            "level": 7
+          },
+          {
+            "name": "Selenium",
+            "level": 5
+          },
+          {
+            "name": "Docker",
+            "level": 8
+          },
+          {
+            "name": "MLflow",
+            "level": 5
+          },
+          {
+            "name": "Kubernetes",
+            "level": 6
+          },
+          {
+            "name": "CI/CD",
+            "level": 7
+          },
+          {
+            "name": "Git/GitHub",
+            "level": 9
+          },
+          {
+            "name": "Postman",
+            "level": 7
+          },
+          {
+            "name": "Plotly/Dash",
+            "level": 7
+          },
+          {
+            "name": "Tableau",
+            "level": 5
+          },
+          {
+            "name": "PowerBI",
+            "level": 5
+          },
+          {
+            "name": "matplotlib",
+            "level": 7
+          },
+          {
+            "name": "seaborn",
+            "level": 7
+          },
+          {
+            "name": "Excel",
+            "level": 8
+          }
         ]
       }
     ]
@@ -417,15 +627,23 @@
       "title": "Mobile App UI/UX",
       "description": "Designed 15+ Figma/Balsamiq Mobile app screens based on user research; validated UX through stakeholder walkthroughs, reducing rework by 30%.",
       "image": "/assets/images/mobile-ui.svg",
-      "tags": ["Figma", "Balsamiq", "User research"],
-      "link": "/documents/pm-case-studies.pdf#page=1"
+      "tags": [
+        "Figma",
+        "Balsamiq",
+        "User research"
+      ],
+      "link": "/case-studies.html"
     },
     {
       "id": "awd",
       "title": "Academic World Dashboard",
       "description": "Designed and deployed full-stack Dash dashboard, handling 100k+ daily requests with containerized microservices. Implemented advanced graph queries in Neo4j to uncover research collaborations, increasing stakeholder insight by 60%.",
       "image": "/assets/images/awd.png",
-      "tags": ["FastAPI", "Dash/Plotly", "MySQL / MongoDB / Neo4j"],
+      "tags": [
+        "FastAPI",
+        "Dash/Plotly",
+        "MySQL / MongoDB / Neo4j"
+      ],
       "link": "https://mediaspace.illinois.edu/media/t/1_sqdt7fqv"
     },
     {
@@ -433,7 +651,10 @@
       "title": "Personalised Loyalty Model",
       "description": "Developed and tuned the XGBoost recommendation engine, achieving 98.8% accuracy on customer retention predictions. Visualized model output with interactive dashboards in Tableau to guide marketing strategy, increasing campaign ROI by 25%.",
       "image": "/assets/images/loyalty.png",
-      "tags": ["XGBoost on AWS EC2", "ASEM 2023 Paper"],
+      "tags": [
+        "XGBoost on AWS EC2",
+        "ASEM 2023 Paper"
+      ],
       "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=6cbn8bkAAAAJ&citation_for_view=6cbn8bkAAAAJ:u5HHmVD_uO8C"
     },
     {
@@ -441,8 +662,12 @@
       "title": "AI Resume Generator",
       "description": "Built a RAG pipeline using LangChain and FAISS for vector similarity search, achieving 92% relevance on test queries. Implemented GPT-4 integration to generate ATS-optimized resumes and cover letters from job descriptions, reducing manual drafting time by 80%.",
       "image": "/assets/images/ai-resume.svg",
-      "tags": ["LangChain", "FAISS", "GPT-4"],
-      "link": "/documents/pm-case-studies.pdf#page=2"
+      "tags": [
+        "LangChain",
+        "FAISS",
+        "GPT-4"
+      ],
+      "link": "/case-studies.html"
     }
   ],
   "caseStudies": [
@@ -473,7 +698,15 @@
         "Increased delivery predictability by aligning people plans with roadmap demand."
       ],
       "tradeoffs": "Chose rigor and consistency over speed in promotion cycles to avoid short-term morale spikes and long-term capability gaps.",
-      "nextStep": "Add leading indicators for burnout and skill-gap risk to improve forecast accuracy."
+      "nextStep": "Add leading indicators for burnout and skill-gap risk to improve forecast accuracy.",
+      "decisionOptions": [
+        "Fast-track promotions ad hoc to close immediate gaps quickly.",
+        "Freeze promotions until organization structure stabilizes.",
+        "Use a structured promotion rubric tied to business need and role readiness."
+      ],
+      "decisionChosen": "Used a structured promotion rubric tied to business need and role readiness.",
+      "decisionWhy": "This balanced short-term execution speed with long-term capability quality, while reducing fairness and attrition risks from inconsistent decisions.",
+      "whatIdDoDifferently": "Run calibration workshops one cycle earlier and publish example scorecards sooner to improve manager consistency in the first rollout."
     },
     {
       "id": "tesla-warranty-roi",
@@ -502,7 +735,15 @@
         "Created reusable framework relevant to Consumer PM, FinTech, and Insurance PM contexts."
       ],
       "tradeoffs": "Kept the model interpretable and scenario-driven instead of overfitting assumptions with limited field-failure data.",
-      "nextStep": "Extend the model with real-world claim datasets and dynamic pricing sensitivity."
+      "nextStep": "Extend the model with real-world claim datasets and dynamic pricing sensitivity.",
+      "decisionOptions": [
+        "Use anecdotal owner experiences as the primary decision basis.",
+        "Build a complex probabilistic model with many hidden assumptions.",
+        "Use a transparent scenario-based expected-value model segmented by mileage profile."
+      ],
+      "decisionChosen": "Built a transparent scenario-based expected-value model segmented by mileage profile.",
+      "decisionWhy": "Interpretability was critical for consumer trust, and scenario modeling handled uncertainty without sacrificing actionability.",
+      "whatIdDoDifferently": "Incorporate real claims datasets and resale value sensitivity to tighten confidence intervals and improve external validity."
     },
     {
       "id": "sculptor-ops-efficiency",
@@ -531,7 +772,15 @@
         "Delivered measurable cost savings through workflow optimization."
       ],
       "tradeoffs": "Scoped narrowly to high-frequency pain points first rather than broad platform redesign.",
-      "nextStep": "Expand automation coverage into adjacent workflows while preserving trust and auditability."
+      "nextStep": "Expand automation coverage into adjacent workflows while preserving trust and auditability.",
+      "decisionOptions": [
+        "Rebuild the full internal workflow platform end-to-end.",
+        "Ship isolated scripts for each team without common instrumentation.",
+        "Prioritize targeted tools for the highest-frequency bottlenecks inside existing workflows."
+      ],
+      "decisionChosen": "Prioritized targeted tools for highest-frequency bottlenecks inside existing workflows.",
+      "decisionWhy": "This gave the fastest measurable throughput gains with lower adoption risk in a high-stakes operating environment.",
+      "whatIdDoDifferently": "Introduce shared event instrumentation from day one to quantify secondary effects across adjacent analyst workflows."
     },
     {
       "id": "socai-medical-diagnostics",
@@ -560,7 +809,15 @@
         "Created a scalable roadmap for clinical deployment and product expansion."
       ],
       "tradeoffs": "Deferred lower-impact features to prioritize model reliability and clinician trust in early releases.",
-      "nextStep": "Scale across additional diagnostic categories while tightening monitoring and governance."
+      "nextStep": "Scale across additional diagnostic categories while tightening monitoring and governance.",
+      "decisionOptions": [
+        "Launch broad dermatology coverage from day one.",
+        "Focus only on model research before productizing workflows.",
+        "Start with a narrow alopecia-focused MVP and clinician-in-the-loop workflow."
+      ],
+      "decisionChosen": "Started with a narrow alopecia-focused MVP and clinician-in-the-loop workflow.",
+      "decisionWhy": "Narrowing scope improved product-market fit signal quality and reduced clinical adoption and governance risk in early stages.",
+      "whatIdDoDifferently": "Run payer and clinical integration discovery in parallel earlier to reduce downstream go-to-market and deployment delays."
     },
     {
       "id": "founding-pm-org-design",
@@ -589,7 +846,15 @@
         "Created clearer ownership boundaries across product, data, and platform work."
       ],
       "tradeoffs": "Accepted slower broad hiring in exchange for high-leverage specialist roles tied to product risk.",
-      "nextStep": "Institutionalize capability reviews each quarter to keep org design aligned with roadmap evolution."
+      "nextStep": "Institutionalize capability reviews each quarter to keep org design aligned with roadmap evolution.",
+      "decisionOptions": [
+        "Scale quickly with mostly generalist hiring.",
+        "Outsource critical platform and data functions temporarily.",
+        "Prioritize targeted MLOps and data-engineering roles tied to roadmap risk."
+      ],
+      "decisionChosen": "Prioritized targeted MLOps and data-engineering roles tied directly to roadmap risk.",
+      "decisionWhy": "Specialist ownership reduced execution fragility and protected scaling-critical capabilities that generalist staffing could not sustain.",
+      "whatIdDoDifferently": "Establish a formal capability matrix and succession risk review in quarter one instead of after initial hiring."
     },
     {
       "id": "active-learning-hard-example-mining",
@@ -618,7 +883,15 @@
         "Created a repeatable data-ops workflow for faster iteration."
       ],
       "tradeoffs": "Accepted reduced broad-label coverage in exchange for higher marginal learning value per labeled image.",
-      "nextStep": "Add active-learning policies by clinical subtype to further improve precision and fairness."
+      "nextStep": "Add active-learning policies by clinical subtype to further improve precision and fairness.",
+      "decisionOptions": [
+        "Label the entire dataset uniformly over time.",
+        "Label random batches to spread effort evenly.",
+        "Use active learning to prioritize low-confidence and hard-example samples."
+      ],
+      "decisionChosen": "Used active learning to prioritize low-confidence and hard-example samples.",
+      "decisionWhy": "This maximized model performance lift per annotation dollar and accelerated learning cycles under constrained labeling capacity.",
+      "whatIdDoDifferently": "Add labeler calibration and inter-rater quality checks earlier to further improve consistency on ambiguous examples."
     },
     {
       "id": "feature-apis-vs-model-pipelines",
@@ -647,7 +920,15 @@
         "Lowered technical debt risk from monolithic coupling."
       ],
       "tradeoffs": "Took on short-term coordination overhead to gain long-term scalability and fault isolation.",
-      "nextStep": "Automate contract testing and deployment gates across API and model-serving boundaries."
+      "nextStep": "Automate contract testing and deployment gates across API and model-serving boundaries.",
+      "decisionOptions": [
+        "Keep one backend monolith for feature APIs and ML pipelines.",
+        "Split code paths but keep undifferentiated shared ownership.",
+        "Separate architecture and ownership for feature APIs versus model/data pipelines."
+      ],
+      "decisionChosen": "Separated architecture and ownership for feature APIs versus model/data pipelines.",
+      "decisionWhy": "Workload isolation improved reliability and let product delivery and ML iteration progress in parallel without mutual contention.",
+      "whatIdDoDifferently": "Define service contracts and SLO boundaries before the split to reduce coordination overhead during migration."
     },
     {
       "id": "algorithm-hardware-codesign-vlsi-ai",
@@ -676,7 +957,15 @@
         "Created a decision framework balancing clinical confidence with hardware constraints."
       ],
       "tradeoffs": "Accepted minor precision tolerance in controlled components to unlock major efficiency gains.",
-      "nextStep": "Prototype clinical validation workflows for edge inference configurations under real operating conditions."
+      "nextStep": "Prototype clinical validation workflows for edge inference configurations under real operating conditions.",
+      "decisionOptions": [
+        "Depend on cloud-only inference for all diagnostic workloads.",
+        "Apply aggressive precision reduction across all model components.",
+        "Use targeted co-design with bounded precision relaxation in selected components."
+      ],
+      "decisionChosen": "Used targeted co-design with bounded precision relaxation in selected components.",
+      "decisionWhy": "This preserved clinically meaningful confidence while unlocking practical power and latency improvements for edge deployment.",
+      "whatIdDoDifferently": "Prototype on representative hardware platforms earlier to validate theoretical gains against real deployment constraints."
     },
     {
       "id": "2d-to-3d-spatial-capture-research",
@@ -705,7 +994,15 @@
         "Provided a roadmap to move toward clinical-grade capture with controlled UX complexity."
       ],
       "tradeoffs": "Avoided immediate full 3D rollout to prevent user drop-off while validating quality benefits first.",
-      "nextStep": "Pilot hybrid capture flows that dynamically escalate from 2D to 3D for ambiguous cases."
+      "nextStep": "Pilot hybrid capture flows that dynamically escalate from 2D to 3D for ambiguous cases.",
+      "decisionOptions": [
+        "Remain fully 2D to keep capture friction minimal.",
+        "Move all users to mandatory 3D capture immediately.",
+        "Adopt a hybrid flow that escalates from 2D to 3D for ambiguous cases."
+      ],
+      "decisionChosen": "Adopted a hybrid flow that escalates from 2D to 3D for ambiguous cases.",
+      "decisionWhy": "Hybrid capture balanced data-fidelity gains against user friction and protected completion rates while improving accuracy where it mattered most.",
+      "whatIdDoDifferently": "Pilot guided capture prompts and real-time quality feedback earlier to reduce user drop-off in advanced capture steps."
     }
   ],
   "testimonials": [

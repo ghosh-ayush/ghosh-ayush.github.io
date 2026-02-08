@@ -15,6 +15,8 @@ function CaseStudyExpandedContent({ study, includeMetric = true }) {
   const strategy = Array.isArray(study.strategy) ? study.strategy : [];
   const execution = Array.isArray(study.execution) ? study.execution : [];
   const outcome = Array.isArray(study.outcome) ? study.outcome : [];
+  const decisionOptions = Array.isArray(study.decisionOptions) ? study.decisionOptions : [];
+  const whatIdDoDifferently = study.whatIdDoDifferently || study.nextStep || '';
   const context = [study.company, study.timeline].filter(Boolean).join(' | ') || 'Not specified';
 
   return (
@@ -25,6 +27,32 @@ function CaseStudyExpandedContent({ study, includeMetric = true }) {
 
       <SectionBlock title="Problem">
         <p>{study.problem || 'Not specified'}</p>
+      </SectionBlock>
+
+      <SectionBlock title="Decision">
+        {decisionOptions.length > 0 && (
+          <div className="case-subsection">
+            <p className="case-subtitle">Options considered</p>
+            <ul>
+              {decisionOptions.map((option, index) => (
+                <li key={`decision-option-${study.id}-${index}`}>{option}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {study.decisionChosen && (
+          <div className="case-subsection">
+            <p className="case-subtitle">Chosen path</p>
+            <p>{study.decisionChosen}</p>
+          </div>
+        )}
+        {study.decisionWhy && (
+          <div className="case-subsection">
+            <p className="case-subtitle">Why this option</p>
+            <p>{study.decisionWhy}</p>
+          </div>
+        )}
+        {!study.decisionChosen && !study.decisionWhy && decisionOptions.length === 0 && <p>Not specified</p>}
       </SectionBlock>
 
       <SectionBlock title="Approach">
@@ -67,8 +95,12 @@ function CaseStudyExpandedContent({ study, includeMetric = true }) {
         )}
       </SectionBlock>
 
+      <SectionBlock title="What I'd do differently">
+        <p>{whatIdDoDifferently || 'Not specified'}</p>
+      </SectionBlock>
+
       {includeMetric && (
-        <SectionBlock title="Metric">
+        <SectionBlock title="Measurable Result">
           <p>{study.metric || 'Not specified'}</p>
         </SectionBlock>
       )}
@@ -85,7 +117,9 @@ function DesktopListItem({
   onLeave,
   onSelect
 }) {
+  const title = study.title || 'Untitled case study';
   const summaryLine = study.summary || study.problem || 'Not specified';
+  const metricLine = study.metric || 'Metric not specified';
 
   return (
     <button
@@ -97,25 +131,27 @@ function DesktopListItem({
       onBlur={onLeave}
       onClick={onSelect}
       aria-pressed={isSelected}
+      aria-label={`Preview case study ${index + 1}: ${title}`}
     >
       <div className="case-list-thumb">
         {study.image ? (
-          <img src={study.image} alt={study.title} loading="lazy" />
+          <img src={study.image} alt={`${title} case study preview image`} loading="lazy" decoding="async" width="640" height="360" />
         ) : (
           <div className="case-list-thumb-fallback">No image</div>
         )}
       </div>
       <div className="case-list-copy">
         <p className="case-list-kicker">Case Study {index + 1}</p>
-        <h3>{study.title}</h3>
+        <h3>{title}</h3>
         <p className="case-list-summary">{summaryLine}</p>
-        <p className="case-list-metric">{study.metric || 'Metric not specified'}</p>
+        <p className="case-list-metric">{metricLine}</p>
       </div>
     </button>
   );
 }
 
 function MobileAccordionItem({ study, index, expanded, onToggle }) {
+  const title = study.title || 'Untitled case study';
   const summaryLine = study.summary || study.problem || 'Not specified';
 
   return (
@@ -125,32 +161,36 @@ function MobileAccordionItem({ study, index, expanded, onToggle }) {
         onClick={onToggle}
         className="case-mobile-trigger"
         aria-expanded={expanded}
+        aria-label={`Toggle case study ${index + 1}: ${title}`}
       >
         <div className="case-mobile-head">
           <div className="case-mobile-thumb">
             {study.image ? (
-              <img src={study.image} alt={study.title} loading="lazy" />
+              <img src={study.image} alt={`${title} case study preview image`} loading="lazy" decoding="async" width="640" height="360" />
             ) : (
               <div className="case-mobile-thumb-fallback">No image</div>
             )}
           </div>
           <div className="case-mobile-copy">
             <p className="case-mobile-kicker">Case Study {index + 1}</p>
-            <h3>{study.title}</h3>
+            <h3>{title}</h3>
             <p>{summaryLine}</p>
           </div>
         </div>
         <span className="case-mobile-symbol">{expanded ? '−' : '+'}</span>
       </button>
 
-      <div
-        className="case-mobile-panel"
-        style={{
-          maxHeight: expanded ? '2400px' : '0',
-          opacity: expanded ? 1 : 0
-        }}
-      >
+      <div className={`case-mobile-panel ${expanded ? 'is-open' : ''}`}>
         <CaseStudyExpandedContent study={study} includeMetric />
+        {study.id && (
+          <a
+            href={`/case-study-${study.id}.html`}
+            className="case-detail-link"
+            aria-label={`Open dedicated page for ${title}`}
+          >
+            Open dedicated case page →
+          </a>
+        )}
       </div>
     </article>
   );
@@ -195,6 +235,7 @@ function CaseStudiesPage() {
   const visibleStudyId = previewStudyId || selectedStudyId || caseStudies[0]?.id;
   const activeStudy = caseStudies.find((study) => study.id === visibleStudyId) || caseStudies[0] || null;
   const activeIndex = caseStudies.findIndex((study) => study.id === (activeStudy?.id || ''));
+  const activeStudyTitle = activeStudy?.title || 'Untitled case study';
 
   useEffect(() => {
     if (caseStudies.length === 0) return;
@@ -231,6 +272,7 @@ function CaseStudiesPage() {
             type="button"
             onClick={() => setDarkMode((prev) => !prev)}
             className="case-mode-toggle"
+            aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             {darkMode ? 'Light Mode' : 'Dark Mode'}
           </button>
@@ -238,16 +280,18 @@ function CaseStudiesPage() {
       </header>
 
       <main className="case-main">
-        <h1>
-          Product <span className="text-gradient">Case Studies</span>
-        </h1>
-        <p className="case-page-intro">
-          Explore each case study through a compact list on the left and full details on the right. Hover to preview and click to lock on desktop.
-        </p>
+        <div className="subpage-hero">
+          <h1 className="subpage-title">
+            Product <span className="text-gradient">Case Studies</span>
+          </h1>
+          <p className="subpage-intro case-page-intro">
+            Explore each case study as a decision narrative with options considered, chosen path, tradeoffs, measurable results, and retrospective improvements.
+          </p>
+        </div>
 
         <div className="case-explorer-grid">
           <aside className="glass-card case-list-pane">
-            {caseStudies.map((study, index) => (
+            {caseStudies.length > 0 ? caseStudies.map((study, index) => (
               <DesktopListItem
                 key={study.id || index}
                 study={study}
@@ -258,7 +302,9 @@ function CaseStudiesPage() {
                 onLeave={() => setPreviewStudyId(null)}
                 onSelect={() => setSelectedStudyId(study.id)}
               />
-            ))}
+            )) : (
+              <p className="case-empty-state">No case studies available yet.</p>
+            )}
           </aside>
 
           <section className="glass-card case-detail-pane">
@@ -267,23 +313,33 @@ function CaseStudiesPage() {
                 <p className="case-detail-kicker">
                   Case Study {activeIndex + 1}
                 </p>
-                <h2>{activeStudy.title}</h2>
+                <h2>{activeStudyTitle}</h2>
                 <p className="case-detail-summary">
                   {activeStudy.summary || activeStudy.problem || 'Not specified'}
                 </p>
 
                 <div className="case-detail-visual">
                   {activeStudy.image ? (
-                    <img src={activeStudy.image} alt={activeStudy.title} loading="lazy" />
+                    <img src={activeStudy.image} alt={`${activeStudyTitle} case study visual`} loading="lazy" decoding="async" width="640" height="360" />
                   ) : (
                     <div className="case-detail-visual-fallback">No image available</div>
                   )}
                 </div>
 
                 <div className="case-metric-highlight">
-                  <span>Key Metric</span>
+                  <span>Measurable Result</span>
                   <p>{activeStudy.metric || 'Metric not specified'}</p>
                 </div>
+
+                {activeStudy.id && (
+                  <a
+                    href={`/case-study-${activeStudy.id}.html`}
+                    className="case-detail-link"
+                    aria-label={`Open dedicated page for ${activeStudyTitle}`}
+                  >
+                    Open dedicated case page →
+                  </a>
+                )}
 
                 <CaseStudyExpandedContent study={activeStudy} includeMetric={false} />
               </>
@@ -294,7 +350,7 @@ function CaseStudiesPage() {
         </div>
 
         <div className="case-mobile-stack">
-          {caseStudies.map((study, index) => (
+          {caseStudies.length > 0 ? caseStudies.map((study, index) => (
             <MobileAccordionItem
               key={study.id || index}
               study={study}
@@ -302,7 +358,13 @@ function CaseStudiesPage() {
               expanded={mobileOpenId === study.id}
               onToggle={() => setMobileOpenId((prev) => (prev === study.id ? null : study.id))}
             />
-          ))}
+          )) : (
+            <article className="glass-card case-mobile-item">
+              <p className="case-empty-state case-empty-state-mobile">
+                No case studies available yet.
+              </p>
+            </article>
+          )}
         </div>
       </main>
     </div>

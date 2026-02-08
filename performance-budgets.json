@@ -1,0 +1,8 @@
+{
+  "maxTotalJsBytes": 360000,
+  "maxLargestJsBytes": 190000,
+  "maxTotalCssBytes": 80000,
+  "maxLargestImageBytes": 260000,
+  "maxTotalImageBytes": 3000000,
+  "maxHtmlBytes": 900000
+}

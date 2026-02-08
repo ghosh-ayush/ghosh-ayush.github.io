@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { ImageWithSkeleton, ProjectCardImage } from './components/media';
 import './styles.css';
 
       // ============================================
@@ -80,11 +81,11 @@ import './styles.css';
         light: {
           textPrimary: '#1a1a1a',
           textSecondary: '#666',
-          textTertiary: '#999',
+          textTertiary: '#596273',
           accentDarkBlue: '#2c5282',
-          accentBlue: '#4a90e2',
-          accentMediumBlue: '#5a67d8',
-          accentBrightBlue: '#6db3ff'
+          accentBlue: '#2f6ca8',
+          accentMediumBlue: '#445db9',
+          accentBrightBlue: '#4f7fc6'
         },
         dark: {
           textPrimary: '#ffffff',
@@ -219,102 +220,6 @@ import './styles.css';
       // REUSABLE COMPONENTS
       // ============================================
       
-      // ImageWithSkeleton Component - shows skeleton while loading
-      function ImageWithSkeleton({ src, alt, style, className, loading = "lazy" }) {
-        const [imageLoaded, setImageLoaded] = React.useState(false);
-        const [imageError, setImageError] = React.useState(false);
-        const imgRef = React.useRef(null);
-
-        React.useEffect(() => {
-          setImageLoaded(false);
-          setImageError(false);
-
-          const img = imgRef.current;
-          if (!img) return;
-
-          // Handle cached images where onLoad may not fire after mount.
-          if (img.complete) {
-            if (img.naturalWidth > 0) {
-              setImageLoaded(true);
-            } else {
-              setImageError(true);
-            }
-          }
-        }, [src]);
-
-        return (
-          <div style={{ position: 'relative', ...style }}>
-            {!imageLoaded && !imageError && (
-              <div 
-                className="skeleton" 
-                style={{ 
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  ...style
-                }}
-              />
-            )}
-            <img
-              ref={imgRef}
-              src={src}
-              alt={alt}
-              loading={loading}
-              className={className}
-              style={{
-                ...style,
-                opacity: imageLoaded || imageError ? 1 : 0,
-                transition: 'opacity 0.3s ease-in-out'
-              }}
-              onLoad={() => {
-                setImageLoaded(true);
-                setImageError(false);
-              }}
-              onError={() => {
-                setImageError(true);
-                setImageLoaded(false);
-              }}
-            />
-          </div>
-        );
-      }
-
-      // ProjectCardImage Component - kept separate from logo rendering behavior
-      function ProjectCardImage({ src, alt, className, style, loading = "lazy" }) {
-        const [imageError, setImageError] = React.useState(false);
-
-        if (!src || imageError) {
-          return (
-            <div style={{
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'rgba(255,255,255,0.9)',
-              fontSize: '0.9rem',
-              fontWeight: 600,
-              background: 'linear-gradient(135deg, rgba(44,82,130,0.75), rgba(90,103,216,0.6))'
-            }}>
-              Preview unavailable
-            </div>
-          );
-        }
-
-        return (
-          <img
-            src={src}
-            alt={alt}
-            loading={loading}
-            className={className}
-            style={style}
-            onError={() => setImageError(true)}
-          />
-        );
-      }
-      
       // SectionHeader Component
       function SectionHeader({ title, highlight, subtitle, centered = true }) {
         return (
@@ -330,7 +235,7 @@ import './styles.css';
             }}>
               {title} {highlight && (
                 <span className="text-gradient" style={{
-                  background: 'linear-gradient(135deg, #5a67d8, #2c5282)',
+                  background: 'var(--brand-gradient)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text'
@@ -349,6 +254,24 @@ import './styles.css';
                 {subtitle}
               </p>
             )}
+          </div>
+        );
+      }
+
+      function EmptyStateCard({ title, description }) {
+        return (
+          <div
+            className="glass-card"
+            style={{
+              border: '1px solid var(--border-color)',
+              borderRadius: '14px',
+              padding: '1rem 1.1rem',
+              color: 'var(--text-secondary)',
+              textAlign: 'center'
+            }}
+          >
+            <p style={{ margin: 0, fontWeight: 700, color: 'var(--text-primary)' }}>{title}</p>
+            <p style={{ margin: '0.4rem 0 0', lineHeight: 1.55 }}>{description}</p>
           </div>
         );
       }
@@ -466,18 +389,11 @@ import './styles.css';
       // TimelineItem Component
       function TimelineItem({ job, index, darkMode }) {
         const isLeft = index % 2 === 0;
-          const [isVisible, setIsVisible] = React.useState(false);
+        const [isVisible, setIsVisible] = React.useState(false);
         const [lockedOpen, setLockedOpen] = React.useState(false);
         const [isHovering, setIsHovering] = React.useState(false);
         const expanded = lockedOpen || isHovering;
         const itemRef = React.useRef(null);
-          const [isDesktop, setIsDesktop] = React.useState(() => window.innerWidth >= 768);
-
-          React.useEffect(() => {
-            const onResize = () => setIsDesktop(window.innerWidth >= 768);
-            window.addEventListener('resize', onResize);
-            return () => window.removeEventListener('resize', onResize);
-          }, []);
         
         React.useEffect(() => {
           const observer = new IntersectionObserver(
@@ -508,7 +424,7 @@ import './styles.css';
             className="timeline-item-wrapper"
             style={{ 
               display: 'flex',
-              justifyContent: isDesktop ? (isLeft ? 'flex-start' : 'flex-end') : 'center',
+              justifyContent: isLeft ? 'flex-start' : 'flex-end',
               marginBottom: '3rem',
               position: 'relative',
               opacity: isVisible ? 1 : 0,
@@ -518,25 +434,23 @@ import './styles.css';
             }}
           >
             {/* Timeline dot */}
-            <div className="timeline-dot" style={{ display: isDesktop ? 'block' : 'block' }} />
+            <div className="timeline-dot" />
 
             <div className="timeline-content" style={{
-              width: isDesktop ? '45%' : '100%',
+              width: '45%',
               position: 'relative'
             }}>
               {/* Arrow pointing to timeline */}
-              {isDesktop && (
-                <div className="timeline-arrow" style={{
-                  position: 'absolute',
-                  top: '2rem',
-                  [isLeft ? 'right' : 'left']: '-10px',
-                  width: 0,
-                  height: 0,
-                  borderTop: '10px solid transparent',
-                  borderBottom: '10px solid transparent',
-                  [isLeft ? 'borderRight' : 'borderLeft']: `10px solid var(--bg-primary)`,
-                }} />
-              )}
+              <div className="timeline-arrow" style={{
+                position: 'absolute',
+                top: '2rem',
+                [isLeft ? 'right' : 'left']: '-10px',
+                width: 0,
+                height: 0,
+                borderTop: '10px solid transparent',
+                borderBottom: '10px solid transparent',
+                [isLeft ? 'borderRight' : 'borderLeft']: `10px solid var(--bg-primary)`,
+              }} />
               
               <Card animated={true}>
                 <div 
@@ -554,6 +468,8 @@ import './styles.css';
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setLockedOpen(prev => !prev); } }}
                   onMouseEnter={() => setIsHovering(true)}
                   onMouseLeave={() => setIsHovering(false)}
+                  onFocus={() => setIsHovering(true)}
+                  onBlur={() => setIsHovering(false)}
                 >
                   <div className="timeline-year" aria-hidden="true">{(job.startDate || '').split(' ').pop()}</div>
                   <div style={{
@@ -562,30 +478,31 @@ import './styles.css';
                     alignItems: 'flex-start',
                     marginBottom: '1rem'
                   }}>
-                    {job.logo && (
-                      <div style={{
-                        width: '80px',
-                        height: '80px',
-                        borderRadius: '12px',
-                        background: 'var(--accent-light)',
-                        padding: '8px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexShrink: 0
-                      }}>
-                        <ImageWithSkeleton
-                          src={job.logo} 
-                          alt={job.company}
-                          loading="lazy"
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'contain'
-                          }}
-                        />
-                      </div>
-                    )}
+                    <div style={{
+                      width: '80px',
+                      height: '80px',
+                      borderRadius: '12px',
+                      background: 'var(--accent-light)',
+                      padding: '8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0
+                    }}>
+                      <ImageWithSkeleton
+                        src={job.logo}
+                        alt={job.company || 'Company logo'}
+                        fallbackLabel="No logo"
+                        loading="lazy"
+                        width={80}
+                        height={80}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'contain'
+                        }}
+                      />
+                    </div>
                     <div style={{ flex: 1 }}>
                       <h3 style={{ 
                         fontSize: '1.3rem', 
@@ -636,7 +553,7 @@ import './styles.css';
                       </div>
                     </div>
                   </div>
-                      {(job.description && job.description.length > 0) && (
+                      {(job.description && job.description.length > 0) ? (
                     <ul style={{ 
                       marginTop: '1.5rem',
                       paddingLeft: '0',
@@ -663,12 +580,16 @@ import './styles.css';
                             width: '6px',
                             height: '6px',
                             borderRadius: '50%',
-                            background: 'linear-gradient(135deg, #2c5282, #5a67d8)'
+                            background: 'var(--brand-gradient)'
                           }} />
                           <span dangerouslySetInnerHTML={{ __html: bullet }} />
                         </li>
-                      ))}
+                        ))}
                     </ul>
+                  ) : (
+                    <p style={{ marginTop: '1.1rem', color: 'var(--text-secondary)' }}>
+                      Detailed impact points will be added soon.
+                    </p>
                   )}
                 </div>
               </Card>
@@ -862,7 +783,7 @@ import './styles.css';
                     onClick={() => window.location.reload()}
                     style={{
                       padding: '0.75rem 2rem',
-                      background: 'linear-gradient(135deg, #4a90e2, #9b59b6)',
+                      background: 'var(--brand-gradient)',
                       color: 'white',
                       border: 'none',
                       borderRadius: '8px',
@@ -873,7 +794,7 @@ import './styles.css';
                     }}
                     onMouseEnter={(e) => {
                       e.target.style.transform = 'scale(1.05)';
-                      e.target.style.boxShadow = '0 4px 12px rgba(74, 144, 226, 0.3)';
+                      e.target.style.boxShadow = '0 4px 12px rgba(var(--brand-rgb), 0.3)';
                     }}
                     onMouseLeave={(e) => {
                       e.target.style.transform = 'scale(1)';
@@ -1102,8 +1023,8 @@ import './styles.css';
                 <div style={{
                   width: '50px',
                   height: '50px',
-                  border: '4px solid rgba(74, 144, 226, 0.2)',
-                  borderTop: '4px solid #4a90e2',
+                  border: '4px solid rgba(var(--brand-rgb), 0.2)',
+                  borderTop: '4px solid var(--brand-1)',
                   borderRadius: '50%',
                   margin: '0 auto 1rem',
                   animation: 'spin 0.8s linear infinite'
@@ -1142,7 +1063,7 @@ import './styles.css';
                   onClick={() => window.location.reload()}
                   style={{
                     padding: '0.75rem 2rem',
-                    background: 'linear-gradient(135deg, #4a90e2, #9b59b6)',
+                    background: 'var(--brand-gradient)',
                     color: 'white',
                     border: 'none',
                     borderRadius: '8px',
@@ -1153,7 +1074,7 @@ import './styles.css';
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.transform = 'scale(1.05)';
-                    e.target.style.boxShadow = '0 4px 12px rgba(74, 144, 226, 0.3)';
+                    e.target.style.boxShadow = '0 4px 12px rgba(var(--brand-rgb), 0.3)';
                   }}
                   onMouseLeave={(e) => {
                     e.target.style.transform = 'scale(1)';
@@ -1222,9 +1143,11 @@ import './styles.css';
 
             {/* Back to Top Floating Action Button */}
             <button 
+              type="button"
               className={`fab ${!showBackToTop ? 'hidden' : ''}`}
               onClick={scrollToTop}
               title="Back to top"
+              aria-label="Back to top"
             >
               ↑
             </button>
@@ -1367,10 +1290,12 @@ import './styles.css';
                   {data.personal?.name || 'Portfolio'}
                 </h2>
                 <button
+                  type="button"
                   onClick={() => {
                     Analytics.trackClick('Dark Mode Toggle', 'button');
                     toggleDarkMode();
                   }}
+                  aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
                   style={{
                     background: 'rgba(74, 144, 226, 0.2)',
                     border: '1px solid rgba(74, 144, 226, 0.3)',
@@ -1419,7 +1344,7 @@ import './styles.css';
                       position: 'relative',
                       paddingBottom: '4px'
                     }}
-                    onMouseEnter={(e) => e.target.style.color = '#4a90e2'}
+                    onMouseEnter={(e) => e.target.style.color = 'var(--accent-accessible)'}
                     onMouseLeave={(e) => e.target.style.color = scrolled ? 'var(--text-primary)' : 'white'}
                   >
                     {label}
@@ -1500,7 +1425,7 @@ import './styles.css';
               width: '500px',
               height: '500px',
               borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(74,144,226,0.1) 0%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(var(--brand-rgb), 0.12) 0%, transparent 70%)',
               top: '-200px',
               right: '-200px',
               animation: 'float 6s ease-in-out infinite'
@@ -1510,7 +1435,7 @@ import './styles.css';
               width: '400px',
               height: '400px',
               borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(155,89,182,0.1) 0%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(var(--brand-rgb), 0.08) 0%, transparent 70%)',
               bottom: '-150px',
               left: '-150px',
               animation: 'float 8s ease-in-out infinite'
@@ -1525,38 +1450,39 @@ import './styles.css';
               transition: 'all 1s ease-out'
             }}>
               {/* Headshot */}
-              {personal?.image && (
-                <div style={{
-                  marginBottom: '2rem',
-                  animation: 'fadeInUp 1s ease-out',
-                  display: 'flex',
-                  justifyContent: 'center'
-                }}>
-                  <ImageWithSkeleton
-                    src={personal.image} 
-                    alt={personal.name}
-                    loading="lazy"
-                    style={{
-                      width: '180px',
-                      height: '180px',
-                      borderRadius: '50%',
-                      objectFit: 'cover',
-                      border: '5px solid rgba(74, 144, 226, 0.3)',
-                      boxShadow: '0 10px 40px rgba(74, 144, 226, 0.3)',
-                      transition: 'transform 0.3s'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                  />
-                </div>
-              )}
+              <div style={{
+                marginBottom: '2rem',
+                animation: 'fadeInUp 1s ease-out',
+                display: 'flex',
+                justifyContent: 'center'
+              }}>
+                <ImageWithSkeleton
+                  src={personal?.image}
+                  alt={personal?.name || 'Profile photo'}
+                  fallbackLabel="Profile image unavailable"
+                  loading="lazy"
+                  width={180}
+                  height={180}
+                  style={{
+                    width: '180px',
+                    height: '180px',
+                    borderRadius: '50%',
+                    objectFit: 'cover',
+                    border: '5px solid rgba(74, 144, 226, 0.3)',
+                    boxShadow: '0 10px 40px rgba(74, 144, 226, 0.3)',
+                    transition: 'transform 0.3s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                />
+              </div>
               
               
               
 
               <h1 className="hero-name">
                 <span style={{
-                  background: 'linear-gradient(135deg, #4a90e2, #9b59b6, #e94b8f)',
+                  background: 'var(--brand-gradient-strong)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text'
@@ -1583,7 +1509,19 @@ import './styles.css';
                 const seen = new Set();
                 const unique = items.filter(it => { if (seen.has(it.src)) return false; seen.add(it.src); return true; });
 
-                if (!unique.length) return null;
+                if (!unique.length) {
+                  return (
+                    <p
+                      style={{
+                        margin: '1rem auto 0',
+                        color: 'rgba(255,255,255,0.72)',
+                        fontSize: '0.92rem'
+                      }}
+                    >
+                      Affiliation logos will appear here as they are added.
+                    </p>
+                  );
+                }
 
                 const trackItems = unique.concat(unique);
 
@@ -1594,11 +1532,11 @@ import './styles.css';
                         <div className="logo-item" role="listitem" key={`logo-${idx}`}>
                           {it.url ? (
                             <a href={it.url} target="_blank" rel="noopener noreferrer" className="logo-pill" title={it.title || ''} onClick={() => Analytics.trackExternalLink(it.url, it.title || 'affiliation')}>
-                              <ImageWithSkeleton src={it.src} alt={it.title || 'Affiliation logo'} style={{ maxHeight: '48px', maxWidth: '140px' }} />
+                              <ImageWithSkeleton src={it.src} alt={it.title ? `${it.title} organization logo` : 'Organization logo'} width={140} height={48} style={{ maxHeight: '48px', maxWidth: '140px' }} />
                             </a>
                           ) : (
                             <div className="logo-pill" title={it.title || ''}>
-                              <ImageWithSkeleton src={it.src} alt={it.title || 'Affiliation logo'} style={{ maxHeight: '48px', maxWidth: '140px' }} />
+                              <ImageWithSkeleton src={it.src} alt={it.title ? `${it.title} organization logo` : 'Organization logo'} width={140} height={48} style={{ maxHeight: '48px', maxWidth: '140px' }} />
                             </div>
                           )}
                         </div>
@@ -1615,7 +1553,7 @@ import './styles.css';
                 flexWrap: 'wrap', 
                 marginBottom: '2.2rem' 
               }}>
-                {social?.map((link, index) => {
+                {social?.length ? social.map((link, index) => {
                   const isGitHub = link.name.toLowerCase().includes('github');
                   return (
                   <a
@@ -1625,6 +1563,7 @@ import './styles.css';
                     rel="noopener noreferrer"
                     onClick={() => Analytics.trackExternalLink(link.url, `Hero: ${link.name}`)}
                     title={link.name}
+                    aria-label={`Open ${link.name}`}
                     className="btn-ripple icon-pulse"
                     style={{
                       padding: '1rem',
@@ -1634,7 +1573,7 @@ import './styles.css';
                       alignItems: 'center',
                       justifyContent: 'center',
                       background: index === 0 
-                        ? 'linear-gradient(135deg, #2c5282, #5a67d8)'
+                        ? 'var(--brand-gradient)'
                         : isGitHub ? 'white' : 'rgba(44, 82, 130, 0.15)',
                       border: index === 0 ? 'none' : isGitHub ? '2px solid rgba(44, 82, 130, 0.2)' : '2px solid rgba(44, 82, 130, 0.3)',
                       borderRadius: '50%',
@@ -1668,12 +1607,17 @@ import './styles.css';
                     <LucideIcon name={getIconForLink(link.name)} size={22} color={isGitHub ? '#1a1a1a' : 'white'} />
                   </a>
                   );
-                })}
+                }) : (
+                  <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.92rem' }}>
+                    Social links will appear here once added.
+                  </span>
+                )}
                 <a
                   href="./documents/resume.pdf"
                   download="AyushGhosh_Resume.pdf"
                   onClick={() => Analytics.trackClick('Download Resume', 'hero-button')}
                   title="Download Resume"
+                  aria-label="Download resume PDF"
                   className="btn-ripple gradient-animate"
                   style={{
                     padding: '1rem',
@@ -1787,7 +1731,7 @@ import './styles.css';
                   fontWeight: 800
                 }}>
                   About <span className="text-gradient" style={{
-                    background: 'linear-gradient(135deg, #4a90e2, #9b59b6)',
+                    background: 'var(--brand-gradient)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text'
@@ -1808,7 +1752,7 @@ import './styles.css';
                 gap: '2rem',
                 alignItems: 'stretch'
               }}>
-                {highlights?.map((highlight, index) => (
+                {(highlights || []).map((highlight, index) => (
                   <FadeInItem key={index} delay={index * 0.1}>
                     <div style={{
                       padding: '2.5rem',
@@ -1841,14 +1785,14 @@ import './styles.css';
                       left: 0,
                       right: 0,
                       height: '4px',
-                      background: 'linear-gradient(90deg, #4a90e2, #9b59b6)'
+                      background: 'var(--brand-gradient-soft)'
                     }} />
                     <div style={{
                       width: '70px',
                       height: '70px',
                       margin: '0 auto 1.5rem',
                       borderRadius: '20px',
-                      background: 'linear-gradient(135deg, rgba(74,144,226,0.1), rgba(155,89,182,0.1))',
+                      background: 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.14), rgba(var(--brand-rgb), 0.06))',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center'
@@ -1876,6 +1820,14 @@ import './styles.css';
                   </FadeInItem>
                 ))}
               </div>
+              {!(highlights && highlights.length) && (
+                <div style={{ marginTop: '1rem' }}>
+                  <EmptyStateCard
+                    title="No highlights available"
+                    description="Add highlight entries in portfolio-data.json to populate this section."
+                  />
+                </div>
+              )}
             </div>
           </section>
         );
@@ -1885,7 +1837,22 @@ import './styles.css';
       // SKILLS SECTION
       // ============================================
       function SkillsSection({ skills, darkMode }) {
-        if (!skills) return null;
+        const [hoveredCoreSkillIndex, setHoveredCoreSkillIndex] = useState(null);
+        const [lockedCoreSkillIndex, setLockedCoreSkillIndex] = useState(null);
+        if (!skills) {
+          return (
+            <section id="skills" style={{ padding: '8rem 2rem', background: 'var(--bg-secondary)', color: 'var(--text-primary)' }}>
+              <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+                <SectionHeader title="Core" highlight="Skills" />
+                <EmptyStateCard
+                  title="Skills data unavailable"
+                  description="Add skills in portfolio-data.json to populate this section."
+                />
+              </div>
+            </section>
+          );
+        }
+
         const normalizeItems = (items) => {
           if (Array.isArray(items)) return items;
           if (typeof items === 'string') return items.split(',').map((s) => s.trim()).filter(Boolean);
@@ -1932,36 +1899,43 @@ import './styles.css';
               />
 
               <div style={{ margin: '0 auto 2.2rem', maxWidth: '760px', textAlign: 'center' }}>
+                {coreSkills.length === 0 ? (
+                  <EmptyStateCard
+                    title="No core skills to display"
+                    description="Add proficiency-tagged skills to surface the top capabilities here."
+                  />
+                ) : (
                 <div style={{ marginTop: '0.8rem', display: 'flex', gap: '0.55rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-                  {coreSkills.map((skill, index) => (
-                    <div
+                  {coreSkills.map((skill, index) => {
+                    const fillPercent = Math.max(0, Math.min(100, (skill.level / 10) * 100));
+                    const isFilled = (lockedCoreSkillIndex ?? hoveredCoreSkillIndex) === index;
+
+                    return (
+                    <button
+                      type="button"
                       key={`section-core-skill-${index}`}
                       className="skill-badge"
                       style={{
                         position: 'relative',
-                        padding: '0.42rem 0.72rem',
-                        borderRadius: '999px',
                         border: `1px solid ${getColor('accentDarkBlue', darkMode)}40`,
+                        borderRadius: '999px',
                         background: `${getColor('accentDarkBlue', darkMode)}12`,
+                        padding: '0.42rem 0.72rem',
+                        lineHeight: 1.2,
                         color: 'var(--text-primary)',
                         fontSize: '0.84rem',
                         fontWeight: 600,
                         overflow: 'hidden',
-                        cursor: 'default'
+                        cursor: 'pointer'
                       }}
-                      onMouseEnter={(e) => {
-                        const fillPercent = Math.max(0, Math.min(100, (skill.level / 10) * 100));
-                        const fillEl = e.currentTarget.querySelector('.skill-fill');
-                        if (fillEl) {
-                          fillEl.style.width = `${fillPercent}%`;
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        const fillEl = e.currentTarget.querySelector('.skill-fill');
-                        if (fillEl) {
-                          fillEl.style.width = '0%';
-                        }
-                      }}
+                      aria-pressed={lockedCoreSkillIndex === index}
+                      onMouseEnter={() => setHoveredCoreSkillIndex(index)}
+                      onMouseLeave={() => setHoveredCoreSkillIndex(null)}
+                      onFocus={() => setHoveredCoreSkillIndex(index)}
+                      onBlur={() => setHoveredCoreSkillIndex(null)}
+                      onClick={() =>
+                        setLockedCoreSkillIndex((prev) => (prev === index ? null : index))
+                      }
                     >
                       <div
                         className="skill-fill"
@@ -1970,7 +1944,7 @@ import './styles.css';
                           top: 0,
                           left: 0,
                           height: '100%',
-                          width: '0%',
+                          width: isFilled ? `${fillPercent}%` : '0%',
                           background: `${getColor('accentDarkBlue', darkMode)}35`,
                           borderRadius: '999px',
                           transition: 'width 0.55s ease-out',
@@ -1979,12 +1953,15 @@ import './styles.css';
                         }}
                       />
                       <span style={{ position: 'relative', zIndex: 1 }}>{skill.name}</span>
-                    </div>
-                  ))}
+                    </button>
+                  );
+                  })}
                 </div>
+                )}
                 <a
                   href="/skills.html"
                   onClick={() => Analytics.trackClick('View full skills map', 'skills-section')}
+                  aria-label="View full skills map"
                   style={{
                     display: 'inline-block',
                     marginTop: '0.9rem',
@@ -2023,20 +2000,18 @@ import './styles.css';
               {/* Timeline */}
               <div style={{ position: 'relative' }}>
                 {/* Center line */}
-                <div style={{
-                  position: 'absolute',
-                  left: '50%',
-                  top: 0,
-                  bottom: 0,
-                  width: '3px',
-                  background: 'linear-gradient(180deg, #4a90e2, #9b59b6)',
-                  transform: 'translateX(-50%)',
-                  display: window.innerWidth >= 768 ? 'block' : 'none'
-                }} />
+                <div className="timeline-center-line" />
                 
-                {experience?.map((job, index) => (
-                  <TimelineItem key={index} job={job} index={index} darkMode={darkMode} />
-                ))}
+                {experience?.length ? (
+                  experience.map((job, index) => (
+                    <TimelineItem key={index} job={job} index={index} darkMode={darkMode} />
+                  ))
+                ) : (
+                  <EmptyStateCard
+                    title="No work experience available"
+                    description="Add at least one role in portfolio-data.json to populate this timeline."
+                  />
+                )}
               </div>
 
               {totalExperienceCount > (experience?.length || 0) && (
@@ -2044,7 +2019,8 @@ import './styles.css';
                   <a
                     href="/experience.html"
                     className="btn-ripple cta-animate is-visible"
-                    onClick={() => Analytics.trackClick('View full experience', 'experience-section')}
+                    onClick={() => Analytics.trackClick('View work experience', 'experience-section')}
+                    aria-label="View full work experience"
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -2060,7 +2036,7 @@ import './styles.css';
                       transition: 'all 0.3s'
                     }}
                   >
-                    View full experience →
+                    View work experience →
                   </a>
                 </div>
               )}
@@ -2077,6 +2053,7 @@ import './styles.css';
         darkMode
       }) {
         const [hoveredDegreeIndex, setHoveredDegreeIndex] = useState(null);
+        const [activeDegreeIndex, setActiveDegreeIndex] = useState(null);
 
         return (
           <section id="education" style={{ 
@@ -2090,20 +2067,31 @@ import './styles.css';
                 subtitle="Educational foundation and advanced coursework"
               />
               
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
-                {education?.degrees?.map((degree, index) => {
-                  const showCourses = hoveredDegreeIndex === index;
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+                {(education?.degrees?.length ? education.degrees : []).map((degree, index) => {
+                  const showCourses = hoveredDegreeIndex === index || activeDegreeIndex === index;
                   
                   return (
                   <FadeInItem key={index} delay={index * 0.1}>
                     <div 
                       onMouseEnter={() => setHoveredDegreeIndex(index)}
                       onMouseLeave={() => setHoveredDegreeIndex(null)}
+                      onClick={() => setActiveDegreeIndex((prev) => (prev === index ? null : index))}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          setActiveDegreeIndex((prev) => (prev === index ? null : index));
+                        }
+                      }}
+                      tabIndex={0}
+                      role="button"
+                      aria-expanded={showCourses}
+                      aria-label={`Toggle coursework for ${degree.degree}`}
                       style={{
                         padding: '2rem',
                         background: 'var(--bg-primary)',
                         borderRadius: '16px',
-                        cursor: 'default',
+                        cursor: 'pointer',
                         transition: 'all 0.3s ease',
                         transform: showCourses ? 'translateY(-6px)' : 'translateY(0)',
                         boxShadow: showCourses
@@ -2127,33 +2115,34 @@ import './styles.css';
                       />
 
                       <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
-                        {degree.logo && (
-                          <div
+                        <div
+                          style={{
+                            width: '52px',
+                            height: '52px',
+                            borderRadius: '12px',
+                            background: `${getColor('accentBlue', darkMode)}18`,
+                            border: `1px solid ${getColor('accentBlue', darkMode)}33`,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0
+                          }}
+                        >
+                          <ImageWithSkeleton
+                            src={degree.logo}
+                            alt={degree.institution || 'Institution logo'}
+                            fallbackLabel="No logo"
+                            loading="lazy"
+                            width={40}
+                            height={40}
                             style={{
-                              width: '52px',
-                              height: '52px',
-                              borderRadius: '12px',
-                              background: `${getColor('accentBlue', darkMode)}18`,
-                              border: `1px solid ${getColor('accentBlue', darkMode)}33`,
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              flexShrink: 0
+                              width: '40px',
+                              height: '40px',
+                              objectFit: 'contain',
+                              borderRadius: '8px'
                             }}
-                          >
-                            <ImageWithSkeleton
-                              src={degree.logo}
-                              alt={degree.institution}
-                              loading="lazy"
-                              style={{
-                                width: '40px',
-                                height: '40px',
-                                objectFit: 'contain',
-                                borderRadius: '8px'
-                              }}
-                            />
-                          </div>
-                        )}
+                          />
+                        </div>
 
                         <div style={{ flex: 1, minWidth: 0 }}>
                           <p style={{ margin: 0, fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase', color: getColor('textSecondary', darkMode), fontWeight: 700 }}>
@@ -2166,6 +2155,7 @@ import './styles.css';
                             href={degree.url}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={(event) => event.stopPropagation()}
                             style={{
                               marginTop: '0.45rem',
                               color: getColor('accentDarkBlue', darkMode),
@@ -2212,7 +2202,7 @@ import './styles.css';
                           borderTop: '1px solid var(--border-color)'
                         }}>
                           <p style={{ margin: 0, fontSize: '0.82rem', color: getColor('textSecondary', darkMode), fontWeight: 700 }}>
-                            {showCourses ? 'Relevant Coursework' : 'Hover to view relevant coursework'}
+                            {showCourses ? 'Relevant Coursework' : 'Hover, tap, or press Enter to view relevant coursework'}
                           </p>
                           <div style={{
                             marginTop: '0.7rem',
@@ -2246,12 +2236,21 @@ import './styles.css';
                   );
                 })}
               </div>
+              {!(education?.degrees?.length) && (
+                <div style={{ marginTop: '1.2rem' }}>
+                  <EmptyStateCard
+                    title="No degrees listed"
+                    description="Add degree entries in portfolio-data.json to populate this section."
+                  />
+                </div>
+              )}
 
               <div style={{ textAlign: 'center', marginTop: '2rem' }}>
                 <a
                   href="/credentials.html"
                   className="btn-ripple cta-animate is-visible"
                   onClick={() => Analytics.trackClick('View full credentials', 'education-section')}
+                  aria-label="View full credentials"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -2295,7 +2294,7 @@ import './styles.css';
                   fontWeight: 800
                 }}>
                   What People <span style={{
-                    background: 'linear-gradient(135deg, #2c5282, #5a67d8)',
+                    background: 'var(--brand-gradient)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text'
@@ -2303,7 +2302,7 @@ import './styles.css';
                 </h2>
                 <p style={{ 
                   fontSize: '1.1rem', 
-                  color: '#666',
+                  color: 'var(--text-secondary)',
                   maxWidth: '600px',
                   margin: '0 auto'
                 }}>
@@ -2313,17 +2312,23 @@ import './styles.css';
               
               <div style={{ 
                 display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
                 gap: '2rem'
               }}>
-                {testimonials?.map((testimonial, index) => {
+                {(testimonials || []).map((testimonial, index) => {
                   const testimonialId = testimonial.id ?? index;
                   const showDetails = activeTestimonialId === testimonialId;
+                  const quote = testimonial.quote || 'Recommendation text will be added soon.';
+                  const recommenderName = testimonial.name || 'Recommender name unavailable';
+                  const recommenderTitle = testimonial.title || 'Role details unavailable';
 
                   return (
                   <FadeInItem key={testimonialId} delay={index * 0.1}>
                     <div
                       tabIndex={0}
+                      role="button"
+                      aria-expanded={showDetails}
+                      aria-label={`Toggle recommendation from ${recommenderName}`}
                       style={{
                         background: 'rgba(255, 255, 255, 0.05)',
                         backdropFilter: 'blur(10px)',
@@ -2335,8 +2340,18 @@ import './styles.css';
                         border: '1px solid var(--border-color)'
                       }}
                       onFocus={() => setActiveTestimonialId(testimonialId)}
-                      onBlur={() => setActiveTestimonialId(null)}
+                      onBlur={(event) => {
+                        if (!event.currentTarget.contains(event.relatedTarget)) {
+                          setActiveTestimonialId(null);
+                        }
+                      }}
                       onClick={() => setActiveTestimonialId((prev) => (prev === testimonialId ? null : testimonialId))}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          setActiveTestimonialId((prev) => (prev === testimonialId ? null : testimonialId));
+                        }
+                      }}
                       onMouseEnter={(e) => {
                         setActiveTestimonialId(testimonialId);
                         e.currentTarget.style.transform = 'translateY(-8px)';
@@ -2371,7 +2386,7 @@ import './styles.css';
                       position: 'relative',
                       zIndex: 1
                     }}>
-                      {testimonial.quote}
+                      {quote}
                     </p>
                     
                     {/* Person Info */}
@@ -2387,21 +2402,22 @@ import './styles.css';
                       pointerEvents: showDetails ? 'auto' : 'none',
                       transition: 'all 0.4s ease',
                     }}>
-                      {testimonial.image && (
-                        <ImageWithSkeleton
-                          src={testimonial.image}
-                          alt={testimonial.name}
-                          loading="lazy"
-                          style={{
-                            width: '50px',
-                            height: '50px',
-                            borderRadius: '50%',
-                            objectFit: 'cover',
-                            border: '2px solid rgba(44, 82, 130, 0.2)',
-                            animation: 'fadeInScale 0.4s ease'
-                          }}
-                        />
-                      )}
+                      <ImageWithSkeleton
+                        src={testimonial.image}
+                        alt={testimonial.name || 'Recommender photo'}
+                        fallbackLabel="No photo"
+                        loading="lazy"
+                        width={50}
+                        height={50}
+                        style={{
+                          width: '50px',
+                          height: '50px',
+                          borderRadius: '50%',
+                          objectFit: 'cover',
+                          border: '2px solid rgba(44, 82, 130, 0.2)',
+                          animation: 'fadeInScale 0.4s ease'
+                        }}
+                      />
                       <div style={{
                         animation: showDetails ? 'fadeInScale 0.4s ease 0.1s forwards' : 'none',
                         opacity: showDetails ? 1 : 0
@@ -2412,14 +2428,14 @@ import './styles.css';
                           color: getColor('accentDarkBlue', darkMode),
                           fontWeight: 700
                         }}>
-                          {testimonial.name}
+                          {recommenderName}
                         </h4>
                         <p style={{
                           margin: '0.25rem 0 0 0',
                           fontSize: '0.9rem',
                           color: getColor('accentDarkBlue', darkMode)
                         }}>
-                          {testimonial.title}
+                          {recommenderTitle}
                         </p>
                         {testimonial.company && (
                           <p style={{
@@ -2437,12 +2453,21 @@ import './styles.css';
                   );
                 })}
               </div>
+              {!(testimonials && testimonials.length) && (
+                <div style={{ marginTop: '1rem' }}>
+                  <EmptyStateCard
+                    title="No recommendations available"
+                    description="Add recommendations in portfolio-data.json to populate this section."
+                  />
+                </div>
+              )}
               <div style={{ textAlign: 'center', marginTop: '2rem' }}>
                 <a
                   href="https://www.linkedin.com/in/ayush-ghosh/details/recommendations/"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => Analytics.trackExternalLink('https://www.linkedin.com/in/ayush-ghosh/details/recommendations/', 'All LinkedIn Recommendations')}
+                  aria-label="View all LinkedIn recommendations"
                   style={{
                     display: 'inline-block',
                     padding: '0.75rem 1.2rem',
@@ -2472,13 +2497,17 @@ import './styles.css';
             ...item,
             type: item.title === 'Personalised Loyalty Model' ? 'Publication' : 'Project',
             oneLiner: item.description,
-            details: item.description
+            details: item.description,
+            detailHref: item.id ? `/project-${item.id}.html` : null,
+            artifactHref: item.link || null
           })),
           ...(caseStudies || []).map((item) => ({
             ...item,
             type: 'Case Study',
             description: item.summary || item.problem || '',
             oneLiner: item.summary || item.problem || '',
+            detailHref: item.id ? `/case-study-${item.id}.html` : null,
+            artifactHref: item.link || null,
             sections: [
               item.problem ? { label: 'Problem', text: item.problem } : null,
               Array.isArray(item.strategy) && item.strategy.length ? { label: 'Strategy', bullets: item.strategy } : null,
@@ -2501,12 +2530,26 @@ import './styles.css';
                 highlight="Case Studies"
                 subtitle="Selected projects, publication, and featured product case studies"
               />
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2.5rem' }}>
                 {mergedItems.map((item, index) => {
-                  const isExpanded = activeCardId === item.id;
-                  const typeColor = item.type === 'Case Study'
+                  const cardId = item.id || `project-card-${index}`;
+                  const isExpanded = activeCardId === cardId;
+                  const itemType = item.type || 'Work Item';
+                  const itemTitle = item.title || 'Untitled work item';
+                  const itemOneLiner = item.oneLiner || 'Summary not provided yet.';
+                  const itemDetails = item.details || itemOneLiner;
+                  const tags = Array.isArray(item.tags) ? item.tags.filter(Boolean) : [];
+                  const companyLine = [item.company, item.timeline].filter(Boolean).join(' | ');
+                  const normalizedArtifactHref = typeof item.artifactHref === 'string'
+                    ? item.artifactHref.split('#')[0].split('?')[0]
+                    : '';
+                  const isInternalArtifact = normalizedArtifactHref.startsWith('/');
+                  const isFallbackArtifact = new Set(['/', '/index.html', '/case-studies.html']).has(normalizedArtifactHref);
+                  const duplicatesDetailPage = Boolean(item.detailHref) && normalizedArtifactHref === item.detailHref;
+                  const showArtifactLink = Boolean(item.artifactHref) && !(isInternalArtifact && (isFallbackArtifact || duplicatesDetailPage));
+                  const typeColor = itemType === 'Case Study'
                     ? getColor('accentMediumBlue', darkMode)
-                    : item.type === 'Publication'
+                    : itemType === 'Publication'
                       ? getColor('accentDarkBlue', darkMode)
                       : getColor('accentBlue', darkMode);
 
@@ -2514,9 +2557,25 @@ import './styles.css';
                     <FadeInItem key={item.id || index} delay={index * 0.1}>
                       <div 
                         className="interactive-card project-card fade-on-scroll glass-card"
-                        onMouseEnter={() => setActiveCardId(item.id)}
+                        onMouseEnter={() => setActiveCardId(cardId)}
                         onMouseLeave={() => setActiveCardId(null)}
-                        onClick={() => setActiveCardId(prev => (prev === item.id ? null : item.id))}
+                        onFocus={() => setActiveCardId(cardId)}
+                        onBlur={(event) => {
+                          if (!event.currentTarget.contains(event.relatedTarget)) {
+                            setActiveCardId(null);
+                          }
+                        }}
+                        onClick={() => setActiveCardId(prev => (prev === cardId ? null : cardId))}
+                        onKeyDown={(event) => {
+                          if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            setActiveCardId((prev) => (prev === cardId ? null : cardId));
+                          }
+                        }}
+                        tabIndex={0}
+                        role="button"
+                        aria-expanded={isExpanded}
+                        aria-label={`Toggle details for ${itemType}: ${itemTitle}`}
                         style={{
                           borderRadius: '16px',
                           overflow: 'hidden',
@@ -2526,7 +2585,6 @@ import './styles.css';
                         }}
                       >
                         <div className="card-content">
-                        {item.image && (
                       <div className="image-zoom-container" style={{
                         width: '100%',
                         height: '220px',
@@ -2534,8 +2592,10 @@ import './styles.css';
                       }}>
                         <ProjectCardImage
                           src={item.image}
-                          alt={item.title}
+                          alt={`${itemTitle} ${itemType ? itemType.toLowerCase() : 'portfolio'} preview`}
                           loading="lazy"
+                          width={640}
+                          height={360}
                           className="image-zoom"
                           style={{
                             width: '100%',
@@ -2556,7 +2616,6 @@ import './styles.css';
                           pointerEvents: 'none'
                         }} />
                       </div>
-                    )}
                     <div style={{ padding: '2rem' }}>
                       <span style={{
                         display: 'inline-flex',
@@ -2570,26 +2629,26 @@ import './styles.css';
                         color: typeColor,
                         background: `${typeColor}15`
                       }}>
-                        {item.type}
+                        {itemType}
                       </span>
                       <h3 style={{ 
                         fontSize: '1.4rem', 
-                        marginBottom: item.type === 'Case Study' ? '0.35rem' : '1rem',
+                        marginBottom: itemType === 'Case Study' ? '0.35rem' : '1rem',
                         color: 'var(--text-primary)',
                         fontWeight: 700
                       }}>
-                        {item.title}
+                        {itemTitle}
                       </h3>
-                      {item.type === 'Case Study' && item.company && (
+                      {itemType === 'Case Study' && companyLine && (
                         <p style={{
                           margin: '0 0 0.75rem',
                           color: 'var(--text-tertiary)',
                           fontSize: '0.85rem'
                         }}>
-                          {item.company} {item.timeline ? `| ${item.timeline}` : ''}
+                          {companyLine}
                         </p>
                       )}
-                      {item.type === 'Case Study' ? (
+                      {itemType === 'Case Study' ? (
                         <div style={{ marginBottom: '1.5rem' }}>
                           <p style={{ 
                             color: 'var(--text-secondary)', 
@@ -2600,7 +2659,7 @@ import './styles.css';
                             overflow: 'hidden',
                             textOverflow: 'ellipsis'
                           }}>
-                            {item.oneLiner}
+                            {itemOneLiner}
                           </p>
                           <div style={{
                             maxHeight: isExpanded ? '1000px' : '0',
@@ -2654,16 +2713,16 @@ import './styles.css';
                           fontSize: '0.95rem',
                           opacity: 1
                         }}>
-                          {isExpanded ? item.details : item.oneLiner}
+                          {isExpanded ? itemDetails : itemOneLiner}
                         </p>
                       )}
                       <div style={{ 
                         display: 'flex', 
                         flexWrap: 'wrap', 
                         gap: '0.5rem',
-                        marginBottom: item.tags?.length ? '1.5rem' : '0'
+                        marginBottom: tags.length ? '1.5rem' : '0'
                       }}>
-                        {item.tags?.map((tag, i) => (
+                        {tags.map((tag, i) => (
                           <span key={i} className={`skill-badge fade-on-scroll`} style={{
                             padding: '0.4rem 0.9rem',
                             background: 'var(--accent-light)',
@@ -2677,43 +2736,71 @@ import './styles.css';
                           </span>
                         ))}
                       </div>
-                      {item.link && (
-                        <a 
-                          href={item.link} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            Analytics.trackExternalLink(item.link, item.title);
-                          }}
-                          className="btn-ripple cta-animate is-visible"
-                          style={{
-                            display: 'inline-block',
-                            padding: '0.75rem 1.5rem',
-                            background: 'linear-gradient(135deg, #2c5282, #5a67d8)',
-                            color: 'white',
-                            textDecoration: 'none',
-                            borderRadius: '10px',
-                            fontWeight: 600,
-                            fontSize: '0.9rem',
-                            transition: 'all 0.3s',
-                            boxShadow: '0 4px 12px rgba(44, 82, 130, 0.3)',
-                            opacity: 1,
-                            transform: 'scale(1)',
-                            pointerEvents: 'auto'
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'scale(1.05)';
-                            e.currentTarget.style.boxShadow = '0 6px 16px rgba(44, 82, 130, 0.4)';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'scale(1)';
-                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(44, 82, 130, 0.3)';
-                          }}
-                        >
-                          View Details →
-                        </a>
+                      {tags.length === 0 && (
+                        <p style={{ margin: '0 0 1.5rem', color: 'var(--text-tertiary)', fontSize: '0.84rem' }}>
+                          Stack/skills metadata will be added soon.
+                        </p>
                       )}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
+                        {item.detailHref && (
+                          <a
+                            href={item.detailHref}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              Analytics.trackClick(`Open detail page: ${itemTitle}`, 'projects-section');
+                            }}
+                            className="btn-ripple cta-animate is-visible"
+                            style={{
+                              display: 'inline-block',
+                              padding: '0.75rem 1.5rem',
+                              background: 'var(--brand-gradient)',
+                              color: 'white',
+                              textDecoration: 'none',
+                              borderRadius: '10px',
+                              fontWeight: 600,
+                              fontSize: '0.9rem',
+                              transition: 'all 0.3s',
+                              boxShadow: '0 4px 12px rgba(44, 82, 130, 0.3)',
+                              opacity: 1,
+                              transform: 'scale(1)',
+                              pointerEvents: 'auto'
+                            }}
+                            aria-label={`Open detailed page for ${itemTitle}`}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform = 'scale(1.05)';
+                              e.currentTarget.style.boxShadow = '0 6px 16px rgba(44, 82, 130, 0.4)';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = 'scale(1)';
+                              e.currentTarget.style.boxShadow = '0 4px 12px rgba(44, 82, 130, 0.3)';
+                            }}
+                          >
+                            View Details →
+                          </a>
+                        )}
+                        {showArtifactLink && (
+                          <a
+                            href={item.artifactHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              Analytics.trackExternalLink(item.artifactHref, itemTitle);
+                            }}
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              color: getColor('accentDarkBlue', darkMode),
+                              textDecoration: 'none',
+                              fontWeight: 700,
+                              fontSize: '0.88rem'
+                            }}
+                            aria-label={`Open external artifact for ${itemTitle}`}
+                          >
+                            Open Artifact ↗
+                          </a>
+                        )}
+                      </div>
                       </div>
                     </div>
                   </div>
@@ -2721,12 +2808,21 @@ import './styles.css';
                   );
                 })}
               </div>
+              {mergedItems.length === 0 && (
+                <div style={{ marginTop: '1rem' }}>
+                  <EmptyStateCard
+                    title="No projects or case studies available"
+                    description="Add project or case study entries in portfolio-data.json to populate this section."
+                  />
+                </div>
+              )}
               {totalCaseStudyCount > displayedCaseStudyCount && (
                 <div style={{ marginTop: '2rem', textAlign: 'center' }}>
                   <a
                     href="/case-studies.html"
                     className="btn-ripple cta-animate is-visible"
                     onClick={() => Analytics.trackClick('View all projects', 'projects-section')}
+                    aria-label="View all projects and case studies"
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -2755,6 +2851,9 @@ import './styles.css';
       // CONTACT SECTION
       // ============================================
       function ContactSection({ personal, social }) {
+        const emailHref = personal?.email ? `mailto:${personal.email}` : null;
+        const linkedinUrl = social?.find((s) => s.name === 'LinkedIn')?.url || null;
+
         return (
           <section id="contact" className="section-bg-mesh alt" style={{ 
             padding: '8rem 2rem', 
@@ -2790,7 +2889,7 @@ import './styles.css';
                 fontWeight: 800
               }}>
                 Get In <span style={{
-                  background: 'linear-gradient(135deg, #4a90e2, #9b59b6)',
+                  background: 'var(--brand-gradient)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text'
@@ -2818,36 +2917,44 @@ import './styles.css';
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => Analytics.trackExternalLink('https://calendly.com/ayushghosh990/30min', 'Book a coffee chat')}
+                  aria-label="Book a coffee chat on Calendly"
                   className="btn-ripple"
                   style={{
                     padding: '1rem 2.5rem',
-                    background: 'linear-gradient(135deg, #4a90e2, #9b59b6)',
+                    background: 'var(--brand-gradient)',
                     color: 'white',
                     textDecoration: 'none',
                     borderRadius: '12px',
                     fontWeight: 700,
                     fontSize: '1.1rem',
                     transition: 'all 0.3s',
-                    boxShadow: '0 8px 20px rgba(74, 144, 226, 0.4)',
+                    boxShadow: '0 8px 20px rgba(var(--brand-rgb), 0.4)',
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '0.5rem'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 12px 28px rgba(74, 144, 226, 0.5)';
+                    e.currentTarget.style.boxShadow = '0 12px 28px rgba(var(--brand-rgb), 0.5)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 8px 20px rgba(74, 144, 226, 0.4)';
+                    e.currentTarget.style.boxShadow = '0 8px 20px rgba(var(--brand-rgb), 0.4)';
                   }}
                 >
                   <LucideIcon name="calendar" size={20} color="white" />
                   Book a coffee chat
                 </a>
                 <a 
-                  href={`mailto:${personal?.email || ''}`}
-                  onClick={() => Analytics.trackClick('Email Me', 'contact-button')}
+                  href={emailHref || '#'}
+                  onClick={(event) => {
+                    if (!emailHref) {
+                      event.preventDefault();
+                      return;
+                    }
+                    Analytics.trackClick('Email Me', 'contact-button');
+                  }}
+                  aria-label={personal?.email ? `Send email to ${personal.email}` : 'Send an email'}
                   className="btn-ripple"
                   style={{
                     padding: '1rem 2.5rem',
@@ -2877,10 +2984,17 @@ import './styles.css';
                   Email Me
                 </a>
                 <a 
-                  href={social?.find(s => s.name === 'LinkedIn')?.url || 'https://www.linkedin.com/in/ayush-ghosh/'}
+                  href={linkedinUrl || '#'}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => Analytics.trackExternalLink(social?.find(s => s.name === 'LinkedIn')?.url || 'https://www.linkedin.com/in/ayush-ghosh/', 'LinkedIn')}
+                  onClick={(event) => {
+                    if (!linkedinUrl) {
+                      event.preventDefault();
+                      return;
+                    }
+                    Analytics.trackExternalLink(linkedinUrl, 'LinkedIn');
+                  }}
+                  aria-label="Open LinkedIn profile"
                   className="btn-ripple"
                   style={{
                     padding: '1rem 2.5rem',
@@ -2907,9 +3021,14 @@ import './styles.css';
                   }}
                 >
                   <LucideIcon name="linkedin" size={20} color="white" />
-                  LinkedIn
+                  {linkedinUrl ? 'LinkedIn' : 'LinkedIn unavailable'}
                 </a>
               </div>
+              {!emailHref && (
+                <p style={{ margin: '-1.4rem 0 1.2rem', color: 'rgba(255,255,255,0.72)', fontSize: '0.88rem' }}>
+                  Email address is not available right now.
+                </p>
+              )}
             </div>
           </section>
         );
@@ -2937,7 +3056,7 @@ import './styles.css';
             <div style={{ marginBottom: '1.5rem' }}>
               <h3 style={{ marginBottom: '1.5rem', fontSize: '1.5rem' }}>{data.name}</h3>
               <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
-                {social?.map(link => (
+                {social?.length ? social.map(link => (
                   <a
                     key={link.name}
                     href={link.url}
@@ -2945,6 +3064,7 @@ import './styles.css';
                     rel="noopener noreferrer"
                     onClick={() => Analytics.trackExternalLink(link.url, link.name)}
                     title={link.name}
+                    aria-label={`Open ${link.name}`}
                     style={{
                       color: 'rgba(255,255,255,0.6)',
                       textDecoration: 'none',
@@ -2959,9 +3079,9 @@ import './styles.css';
                       border: '1px solid rgba(255,255,255,0.1)'
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.color = '#4a90e2';
-                      e.currentTarget.style.background = 'rgba(74,144,226,0.1)';
-                      e.currentTarget.style.borderColor = '#4a90e2';
+                      e.currentTarget.style.color = 'var(--brand-1)';
+                      e.currentTarget.style.background = 'rgba(var(--brand-rgb), 0.1)';
+                      e.currentTarget.style.borderColor = 'var(--brand-1)';
                       e.currentTarget.style.transform = 'translateY(-4px)';
                     }}
                     onMouseLeave={(e) => {
@@ -2973,7 +3093,11 @@ import './styles.css';
                   >
                     <LucideIcon name={getIconForLink(link.name)} size={20} color="currentColor" />
                   </a>
-                ))}
+                )) : (
+                  <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.92rem' }}>
+                    Social links are unavailable right now.
+                  </span>
+                )}
               </div>
             </div>
             <p style={{ margin: 0, color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem' }}>

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Personalised Loyalty Model | Publication | Ayush Ghosh</title>
+    <meta name="description" content="Developed and tuned the XGBoost recommendation engine, achieving 98.8% accuracy on customer retention predictions. Visualized model output with interactive dashboar…" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#4a90e2" />
+
+    <link rel="canonical" href="https://ghosh-ayush.github.io/project-loyalty.html" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://ghosh-ayush.github.io/project-loyalty.html" />
+    <meta property="og:title" content="Personalised Loyalty Model | Publication" />
+    <meta property="og:description" content="Developed and tuned the XGBoost recommendation engine, achieving 98.8% accuracy on customer retention predictions. Visualized model output with interactive dashboar…" />
+    <meta property="og:image" content="https://ghosh-ayush.github.io/assets/images/loyalty.png" />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://ghosh-ayush.github.io/project-loyalty.html" />
+    <meta property="twitter:title" content="Personalised Loyalty Model | Publication" />
+    <meta property="twitter:description" content="Developed and tuned the XGBoost recommendation engine, achieving 98.8% accuracy on customer retention predictions. Visualized model output with interactive dashboar…" />
+    <meta property="twitter:image" content="https://ghosh-ayush.github.io/assets/images/loyalty.png" />
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ghosh-ayush.github.io/"},{"@type":"ListItem","position":2,"name":"Projects & Publications","item":"https://ghosh-ayush.github.io/index.html"},{"@type":"ListItem","position":3,"name":"Personalised Loyalty Model","item":"https://ghosh-ayush.github.io/project-loyalty.html"}]}</script>
+
+    <style>
+      :root {
+        --bg: #f6f8fb;
+        --card: #ffffff;
+        --text: #1a1a1a;
+        --muted: #4a5568;
+        --accent: #1f4f82;
+        --border: #dfe5ee;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+      .wrap {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 1.1rem 1rem 3rem;
+      }
+      .breadcrumbs {
+        font-size: 0.9rem;
+        color: var(--muted);
+        margin-bottom: 1rem;
+      }
+      .breadcrumbs a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .hero {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.1rem;
+        box-shadow: 0 8px 24px rgba(22, 41, 66, 0.08);
+      }
+      .kicker {
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 0.78rem;
+        color: var(--accent);
+        font-weight: 700;
+      }
+      h1 {
+        margin: 0.35rem 0 0;
+        font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+        line-height: 1.28;
+      }
+      .summary {
+        margin-top: 0.55rem;
+        color: var(--muted);
+      }
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        margin-top: 0.7rem;
+      }
+      .pill {
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 0.28rem 0.62rem;
+        font-size: 0.8rem;
+        color: var(--muted);
+        background: #f9fbff;
+      }
+      .hero img {
+        margin-top: 0.8rem;
+        width: 100%;
+        height: clamp(180px, 38vw, 300px);
+        object-fit: cover;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+      }
+      .artifact-link {
+        display: inline-flex;
+        margin-top: 0.8rem;
+        text-decoration: none;
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .grid {
+        display: grid;
+        gap: 0.85rem;
+        margin-top: 1rem;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 0.85rem 0.95rem;
+      }
+      .card h2 {
+        margin: 0;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--accent);
+      }
+      .card p {
+        margin: 0.5rem 0 0;
+        color: var(--muted);
+      }
+      .card ul {
+        margin: 0.45rem 0 0;
+        padding-left: 1rem;
+        color: var(--muted);
+      }
+      .links-grid {
+        display: grid;
+        gap: 0.85rem;
+        margin-top: 1rem;
+      }
+      .links-grid h2 {
+        margin-bottom: 0.35rem;
+      }
+      .links-grid a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .empty-inline {
+        margin: 0.35rem 0 0;
+        color: var(--muted);
+      }
+      @media (min-width: 860px) {
+        .links-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+    </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V4F5XVFQY8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-V4F5XVFQY8');
+    </script>
+  </head>
+  <body>
+    <main class="wrap">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a> / <a href="/index.html">Projects &amp; Publications</a> / <span>Personalised Loyalty Model</span>
+      </nav>
+
+      <article class="hero">
+        <p class="kicker">Publication</p>
+        <h1>Personalised Loyalty Model</h1>
+        <p class="summary">Developed and tuned the XGBoost recommendation engine, achieving 98.8% accuracy on customer retention predictions. Visualized model output with interactive dashboar…</p>
+        <div class="hero-meta"><span class="pill">Publication</span><span class="pill">XGBoost on AWS EC2</span><span class="pill">ASEM 2023 Paper</span></div>
+        <img src="/assets/images/loyalty.png" alt="Personalised Loyalty Model visual for publication details" loading="lazy" />
+        <a class="artifact-link" href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=6cbn8bkAAAAJ&amp;citation_for_view=6cbn8bkAAAAJ:u5HHmVD_uO8C" target="_blank" rel="noopener noreferrer">Open related artifact ↗</a>
+      </article>
+
+      <section class="grid">
+        <section class="card"><h2>Overview</h2><p>Developed and tuned the XGBoost recommendation engine, achieving 98.8% accuracy on customer retention predictions. Visualized model output with interactive dashboards in Tableau to guide marketing strategy, increasing campaign ROI by 25%.</p></section><section class="card"><h2>Key stack</h2><ul><li>XGBoost on AWS EC2</li><li>ASEM 2023 Paper</li></ul></section><section class="card"><h2>Impact signal</h2><p>Developed and tuned the XGBoost recommendation engine, achieving 98.8% accuracy on customer retention predictions. Visualized model output with interactive dashboards in Tableau to guide marketing strategy, increasing campaign ROI by 25%.</p></section>
+      </section>
+
+      <section class="links-grid" aria-label="Internal linking">
+        <section class="card">
+          <h2>Related case studies</h2>
+          <ul><li><a href="/case-study-2d-to-3d-spatial-capture-research.html">Moving from 2D to 3D: Spatial Capture Research</a></li><li><a href="/case-study-team-promotion-scaling.html">Team Promotion &amp; Talent Scaling as a Product Problem</a></li><li><a href="/case-study-tesla-warranty-roi.html">Tesla Model Y Battery Warranty ROI Analysis</a></li></ul>
+        </section>
+
+        <section class="card">
+          <h2>Relevant skills</h2>
+          <ul><li><a href="/skills.html">XGBoost on AWS EC2</a></li><li><a href="/skills.html">ASEM 2023 Paper</a></li><li><a href="/skills.html">XGBoost</a></li><li><a href="/skills.html">Tableau</a></li></ul>
+        </section>
+
+        <section class="card">
+          <h2>Related experience</h2>
+          <ul><li><a href="/experience.html">AI PM (Data Science) at Sculptor Capital Management</a></li><li><a href="/experience.html">Social Media Data Scientist (Intern) at CoLinkers Events Management</a></li><li><a href="/experience.html">Decision Analytics Associate (Data Science) at ZS Associates</a></li></ul>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

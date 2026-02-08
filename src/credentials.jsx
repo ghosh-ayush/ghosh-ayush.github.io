@@ -2,20 +2,74 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
 
+function LogoThumb({ src, alt }) {
+  const [errored, setErrored] = useState(false);
+  const hasImage = Boolean(src) && !errored;
+
+  if (!hasImage) {
+    return (
+      <div
+        role="img"
+        aria-label={alt || 'Logo unavailable'}
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '0.68rem',
+          fontWeight: 700,
+          color: 'var(--text-secondary)',
+          textAlign: 'center',
+          padding: '0.2rem',
+          background: 'linear-gradient(135deg, rgba(74, 144, 226, 0.12), rgba(44, 82, 130, 0.1))'
+        }}
+      >
+        No logo
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+      width="112"
+      height="112"
+      onError={() => setErrored(true)}
+      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+    />
+  );
+}
+
 function DegreeCard({ degree, index, expanded, onToggle, onMouseEnter, onMouseLeave }) {
   const courses = Array.isArray(degree.courses) ? degree.courses : [];
+  const degreeTitle = degree.degree || 'Degree title unavailable';
+  const institution = degree.institution || 'Institution not specified';
+  const startDate = degree.startDate || '';
+  const endDate = degree.endDate || '';
+  const period = startDate || endDate ? `${startDate} - ${endDate}`.trim() : 'Timeline not specified';
 
   return (
     <article
       className="glass-card"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      onFocus={onMouseEnter}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          onMouseLeave();
+        }
+      }}
       style={{ border: '1px solid var(--border-color)', borderRadius: '16px', overflow: 'hidden' }}
     >
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={expanded}
+        aria-label={`Toggle details for degree ${index + 1}: ${degreeTitle}`}
         style={{
           width: '100%',
           textAlign: 'left',
@@ -31,31 +85,30 @@ function DegreeCard({ degree, index, expanded, onToggle, onMouseEnter, onMouseLe
         }}
       >
         <div style={{ display: 'flex', gap: '0.9rem', alignItems: 'center', minWidth: 0 }}>
-          {degree.logo && (
-            <div
-              style={{
-                width: '52px',
-                height: '52px',
-                borderRadius: '10px',
-                background: 'rgba(74, 144, 226, 0.1)',
-                border: '1px solid rgba(74, 144, 226, 0.2)',
-                padding: '0.3rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0
-              }}
-            >
-              <img src={degree.logo} alt={degree.institution} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-            </div>
-          )}
+          <div
+            style={{
+              width: '52px',
+              height: '52px',
+              borderRadius: '10px',
+              background: 'rgba(74, 144, 226, 0.1)',
+              border: '1px solid rgba(74, 144, 226, 0.2)',
+              padding: '0.3rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+              overflow: 'hidden'
+            }}
+          >
+            <LogoThumb src={degree.logo} alt={degree.institution} />
+          </div>
           <div style={{ minWidth: 0 }}>
             <p
               style={{
                 margin: 0,
                 fontSize: '0.78rem',
                 fontWeight: 700,
-                color: '#4a90e2',
+                color: 'var(--accent-accessible)',
                 letterSpacing: '0.04em',
                 textTransform: 'uppercase'
               }}
@@ -63,14 +116,14 @@ function DegreeCard({ degree, index, expanded, onToggle, onMouseEnter, onMouseLe
               Degree {index + 1}
             </p>
             <h2 style={{ margin: '0.35rem 0 0', fontSize: '1.1rem', color: 'var(--text-primary)', lineHeight: 1.35 }}>
-              {degree.degree}
+              {degreeTitle}
             </h2>
             <p style={{ margin: '0.2rem 0 0', color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.5 }}>
-              {degree.institution} | {degree.startDate} - {degree.endDate}
+              {institution} | {period}
             </p>
           </div>
         </div>
-        <span style={{ color: '#4a90e2', fontWeight: 800, fontSize: '1.2rem', lineHeight: 1 }}>
+        <span style={{ color: 'var(--accent-accessible)', fontWeight: 800, fontSize: '1.2rem', lineHeight: 1 }}>
           {expanded ? '−' : '+'}
         </span>
       </button>
@@ -85,20 +138,20 @@ function DegreeCard({ degree, index, expanded, onToggle, onMouseEnter, onMouseLe
         }}
       >
         <div style={{ marginBottom: '0.8rem' }}>
-          <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{degree.location}</p>
+          <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{degree.location || 'Location not specified'}</p>
           {degree.url && (
             <a
               href={degree.url}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ display: 'inline-block', marginTop: '0.35rem', color: '#4a90e2', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 600 }}
+              style={{ display: 'inline-block', marginTop: '0.35rem', color: 'var(--accent-accessible)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 600 }}
             >
               Institution link ↗
             </a>
           )}
         </div>
 
-        {courses.length > 0 && (
+        {courses.length > 0 ? (
           <div>
             <p style={{ margin: '0 0 0.5rem', color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: 600 }}>
               Relevant Coursework
@@ -121,6 +174,10 @@ function DegreeCard({ degree, index, expanded, onToggle, onMouseEnter, onMouseLe
               ))}
             </div>
           </div>
+        ) : (
+          <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.88rem' }}>
+            Relevant coursework details are not available yet.
+          </p>
         )}
       </div>
     </article>
@@ -129,13 +186,33 @@ function DegreeCard({ degree, index, expanded, onToggle, onMouseEnter, onMouseLe
 
 function CertificationCard({ cert, showLink, onMouseEnter, onMouseLeave, onToggle }) {
   const hasCertificateUrl = cert.url && cert.url !== '#';
+  const certTitle = cert.title || 'Certification title unavailable';
+  const certIssuer = cert.issuer || 'Issuer not specified';
+  const certDate = cert.date || 'Date not specified';
 
   return (
     <article
       className="glass-card"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      onFocus={hasCertificateUrl ? onMouseEnter : undefined}
+      onBlur={hasCertificateUrl ? (event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          onMouseLeave();
+        }
+      } : undefined}
       onClick={hasCertificateUrl ? onToggle : undefined}
+      onKeyDown={(event) => {
+        if (!hasCertificateUrl) return;
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onToggle();
+        }
+      }}
+      tabIndex={hasCertificateUrl ? 0 : undefined}
+      role={hasCertificateUrl ? 'button' : undefined}
+      aria-expanded={hasCertificateUrl ? showLink : undefined}
+      aria-label={hasCertificateUrl ? `Toggle certificate link for ${certTitle}` : undefined}
       style={{
         border: '1px solid var(--border-color)',
         borderRadius: '14px',
@@ -147,28 +224,27 @@ function CertificationCard({ cert, showLink, onMouseEnter, onMouseLeave, onToggl
       }}
     >
       <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-        {cert.logo && (
-          <div
-            style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '10px',
-              background: 'rgba(74, 144, 226, 0.1)',
-              border: '1px solid rgba(74, 144, 226, 0.2)',
-              padding: '0.3rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0
-            }}
-          >
-            <img src={cert.logo} alt={cert.issuer} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-          </div>
-        )}
+        <div
+          style={{
+            width: '48px',
+            height: '48px',
+            borderRadius: '10px',
+            background: 'rgba(74, 144, 226, 0.1)',
+            border: '1px solid rgba(74, 144, 226, 0.2)',
+            padding: '0.3rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+            overflow: 'hidden'
+          }}
+        >
+          <LogoThumb src={cert.logo} alt={cert.issuer} />
+        </div>
         <div>
-          <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '0.98rem', lineHeight: 1.4 }}>{cert.title}</h3>
-          <p style={{ margin: '0.25rem 0 0', color: 'var(--text-secondary)', fontSize: '0.84rem' }}>{cert.issuer}</p>
-          <p style={{ margin: '0.2rem 0 0', color: 'var(--text-tertiary)', fontSize: '0.8rem' }}>{cert.date}</p>
+          <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '0.98rem', lineHeight: 1.4 }}>{certTitle}</h3>
+          <p style={{ margin: '0.25rem 0 0', color: 'var(--text-secondary)', fontSize: '0.84rem' }}>{certIssuer}</p>
+          <p style={{ margin: '0.2rem 0 0', color: 'var(--text-tertiary)', fontSize: '0.8rem' }}>{certDate}</p>
         </div>
       </div>
 
@@ -195,7 +271,7 @@ function CertificationCard({ cert, showLink, onMouseEnter, onMouseLeave, onToggl
               borderRadius: '8px',
               border: '1px solid rgba(74, 144, 226, 0.3)',
               background: 'rgba(74, 144, 226, 0.1)',
-              color: '#4a90e2',
+              color: 'var(--accent-accessible)',
               textDecoration: 'none',
               fontSize: '0.85rem',
               fontWeight: 700
@@ -204,6 +280,11 @@ function CertificationCard({ cert, showLink, onMouseEnter, onMouseLeave, onToggl
             View Certificate ↗
           </a>
         </div>
+      )}
+      {!hasCertificateUrl && (
+        <p style={{ margin: 0, color: 'var(--text-tertiary)', fontSize: '0.82rem' }}>
+          Certificate link unavailable.
+        </p>
       )}
     </article>
   );
@@ -262,20 +343,21 @@ function CredentialsPage() {
         <div style={{ maxWidth: '720px', textAlign: 'center' }}>
           <h1 style={{ marginBottom: '0.75rem' }}>Could not load credentials</h1>
           <p style={{ color: 'var(--text-secondary)' }}>{error}</p>
-          <a href="/" style={{ display: 'inline-block', marginTop: '1rem', color: '#4a90e2' }}>Back to home</a>
+          <a href="/" style={{ display: 'inline-block', marginTop: '1rem', color: 'var(--accent-accessible)' }}>Back to home</a>
         </div>
       </div>
     );
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-secondary)', color: 'var(--text-primary)' }}>
+    <div className="subpage-shell">
       <header className="sticky-nav" style={{ borderBottom: '1px solid var(--border-color)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0.9rem 1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
-          <a href="/" style={{ textDecoration: 'none', color: 'var(--text-primary)', fontWeight: 800 }}>Back to Home</a>
+        <div className="subpage-nav-inner">
+          <a href="/" className="subpage-back-link">Back to Home</a>
           <button
             type="button"
             onClick={() => setDarkMode((prev) => !prev)}
+            aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
             style={{
               border: '1px solid var(--border-color)',
               borderRadius: '10px',
@@ -291,13 +373,15 @@ function CredentialsPage() {
         </div>
       </header>
 
-      <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '3rem 1.25rem 4rem' }}>
-        <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', margin: 0 }}>
-          Degrees & <span className="text-gradient">Certifications</span>
-        </h1>
-        <p style={{ marginTop: '0.75rem', color: 'var(--text-secondary)', maxWidth: '900px', lineHeight: 1.7 }}>
-          Complete academic and certification profile, including coursework and credential links.
-        </p>
+      <main className="subpage-main">
+        <div className="subpage-hero">
+          <h1 className="subpage-title">
+            Degrees & <span className="text-gradient">Certifications</span>
+          </h1>
+          <p className="subpage-intro">
+            Complete academic and certification profile, including coursework and credential links.
+          </p>
+        </div>
 
         <section style={{ marginTop: '2rem' }}>
           <h2 style={{ margin: '0 0 1rem', fontSize: '1.45rem', color: 'var(--text-primary)' }}>Degrees</h2>
@@ -320,6 +404,14 @@ function CredentialsPage() {
               })()
             ))}
           </div>
+          {degrees.length === 0 && (
+            <article className="glass-card" style={{ border: '1px solid var(--border-color)', borderRadius: '14px', padding: '1rem 1.1rem' }}>
+              <p style={{ margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>No degrees available.</p>
+              <p style={{ margin: '0.35rem 0 0', color: 'var(--text-secondary)' }}>
+                Add degree entries in `portfolio-data.json` to populate this section.
+              </p>
+            </article>
+          )}
         </section>
 
         <section style={{ marginTop: '2.5rem' }}>
@@ -342,6 +434,14 @@ function CredentialsPage() {
               })()
             ))}
           </div>
+          {certifications.length === 0 && (
+            <article className="glass-card" style={{ border: '1px solid var(--border-color)', borderRadius: '14px', padding: '1rem 1.1rem', marginTop: '0.9rem' }}>
+              <p style={{ margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>No certifications available.</p>
+              <p style={{ margin: '0.35rem 0 0', color: 'var(--text-secondary)' }}>
+                Add certification entries in `portfolio-data.json` to populate this section.
+              </p>
+            </article>
+          )}
         </section>
       </main>
     </div>
