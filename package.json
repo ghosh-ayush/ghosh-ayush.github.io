@@ -10,7 +10,7 @@
     "prebuild": "npm run validate:data && node scripts/generate-seo-pages.mjs",
     "build": "vite build && mkdir -p dist/assets && cp -R assets/images dist/assets/ && cp -R documents dist/ && cp project-*.html dist/ && cp case-study-*.html dist/ && cp portfolio-data.json dist/portfolio-data.json && cp robots.txt dist/robots.txt && cp sitemap.xml dist/sitemap.xml && cp favicon.svg dist/favicon.svg",
     "preview": "vite preview",
-    "test": "node --test tests/**/*.test.mjs",
+    "test": "node --test",
     "check:links": "node scripts/check-links-assets.mjs",
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:budgets": "node scripts/check-performance-budgets.mjs",
