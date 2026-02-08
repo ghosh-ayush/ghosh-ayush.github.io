@@ -3157,7 +3157,7 @@ import './styles.css';
                   href="https://calendly.com/ayushghosh990/30min"
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => Analytics.trackExternalLink('https://calendly.com/ayushghosh990/30min', 'Book a coffe chat')}
+                  onClick={() => Analytics.trackExternalLink('https://calendly.com/ayushghosh990/30min', 'Book a coffee chat')}
                   className="btn-ripple"
                   style={{
                     padding: '1rem 2.5rem',
@@ -3183,7 +3183,7 @@ import './styles.css';
                   }}
                 >
                   <LucideIcon name="calendar" size={20} color="white" />
-                  Book a coffe chat
+                  Book a coffee chat
                 </a>
                 <a 
                   href={`mailto:${personal?.email || ''}`}
