@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ImageWithSkeleton, ProjectCardImage } from './components/media';
 import './styles.css';
@@ -114,6 +114,93 @@ import './styles.css';
         { id: 'skills', label: 'skills' },
         { id: 'contact', label: 'contact' }
       ];
+
+      const ZOOM_GRID_COLUMNS = 10;
+
+      function getZoomGridKeywords(skills) {
+        const groups = [
+          ...((skills && Array.isArray(skills.nontechnical)) ? skills.nontechnical : []),
+          ...((skills && Array.isArray(skills.technical)) ? skills.technical : [])
+        ];
+
+        const seen = new Set();
+        const ranked = [];
+
+        groups.forEach((group) => {
+          (group?.items || []).forEach((item) => {
+            const rawName = String(item?.name || '').trim();
+            if (!rawName) return;
+            const key = rawName.toLowerCase();
+            if (seen.has(key)) return;
+            seen.add(key);
+            ranked.push({
+              name: rawName,
+              level: Number(item?.level) || 0
+            });
+          });
+        });
+
+        ranked.sort((a, b) => a.name.localeCompare(b.name));
+
+        let labels = ranked.map((entry) => entry.name);
+        const lower = new Set(labels.map((label) => label.toLowerCase()));
+        if (lower.has('prioritization') && lower.has('prioritization & okrs')) {
+          labels = labels.filter((label) => label.toLowerCase() !== 'prioritization');
+        }
+
+        return labels;
+      }
+
+      function buildZoomGridLayout(labels, columns = ZOOM_GRID_COLUMNS) {
+        const safeColumns = Math.max(1, Number(columns) || 1);
+        const itemCount = labels.length;
+        const rows = Math.max(1, Math.ceil(itemCount / safeColumns));
+        const cells = [];
+        for (let row = 1; row <= rows; row += 1) {
+          for (let col = 1; col <= safeColumns; col += 1) {
+            cells.push({ row, col });
+          }
+        }
+
+        // Deterministic shuffle so layout looks random but remains stable across renders.
+        let seed = 9301;
+        const nextRandom = () => {
+          seed = (seed * 49297 + 233280) % 233280;
+          return seed / 233280;
+        };
+        for (let i = cells.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(nextRandom() * (i + 1));
+          const temp = cells[i];
+          cells[i] = cells[j];
+          cells[j] = temp;
+        }
+
+        const items = labels.map((label, index) => {
+          const cell = cells[index] || {
+            row: Math.floor(index / safeColumns) + 1,
+            col: (index % safeColumns) + 1
+          };
+          const base = itemCount > 1 ? (index / (itemCount - 1)) * 72 : 36;
+          const jitter = (nextRandom() - 0.5) * 12;
+          const start = Math.max(-8, Math.min(86, base + jitter));
+          const span = 12 + (nextRandom() * 10);
+          const end = Math.max(start + 10, Math.min(102, start + span));
+
+          return {
+            label,
+            row: cell.row,
+            col: cell.col,
+            rangeStart: `${start.toFixed(2)}%`,
+            rangeEnd: `${end.toFixed(2)}%`
+          };
+        });
+
+        return {
+          columns: safeColumns,
+          rows,
+          items
+        };
+      }
 
       // Update head meta and structured data from portfolio JSON
       function updateMetaFromData(data) {
@@ -387,7 +474,7 @@ import './styles.css';
       }
 
       // TimelineItem Component
-      function TimelineItem({ job, index, darkMode }) {
+      function TimelineItem({ job, index, darkMode, isStageActive = false, prefersReducedMotion = false }) {
         const isLeft = index % 2 === 0;
         const [isVisible, setIsVisible] = React.useState(false);
         const [lockedOpen, setLockedOpen] = React.useState(false);
@@ -421,22 +508,24 @@ import './styles.css';
         return (
           <div 
             ref={itemRef}
-            className="timeline-item-wrapper"
+            className={`timeline-item-wrapper ${isStageActive ? 'is-stage-active' : 'is-stage-dim'}`}
             style={{ 
               display: 'flex',
               justifyContent: isLeft ? 'flex-start' : 'flex-end',
               marginBottom: '3rem',
               position: 'relative',
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? 'translateX(0)' : (isLeft ? 'translateX(-50px)' : 'translateX(50px)'),
+              opacity: isVisible ? (prefersReducedMotion || isStageActive ? 1 : 0.86) : 0,
+              transform: isVisible
+                ? (prefersReducedMotion ? 'translateX(0)' : (isStageActive ? 'translateX(0) scale(1.01)' : 'translateX(0) scale(0.985)'))
+                : (isLeft ? 'translateX(-50px)' : 'translateX(50px)'),
               transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
               transitionDelay: `${index * 0.1}s`
             }}
           >
             {/* Timeline dot */}
-            <div className="timeline-dot" />
+            <div className={`timeline-dot ${isStageActive ? 'is-active' : ''}`} />
 
-            <div className="timeline-content" style={{
+            <div className="timeline-content" data-timeline-card="true" style={{
               width: '45%',
               position: 'relative'
             }}>
@@ -454,7 +543,7 @@ import './styles.css';
               
               <Card animated={true}>
                 <div 
-                  className={`interactive-card ${expanded ? 'timeline-item-expanded' : ''}`} 
+                  className={`interactive-card timeline-stage-card ${expanded ? 'timeline-item-expanded' : ''} ${isStageActive ? 'is-stage-active' : ''}`} 
                   style={{ 
                     padding: '2rem', 
                     borderRadius: '16px',
@@ -829,6 +918,9 @@ import './styles.css';
         // ===== INTERACTIVE FEATURES STATE =====
         const [scrollProgress, setScrollProgress] = useState(0);
         const [showBackToTop, setShowBackToTop] = useState(false);
+        const [prefersReducedMotion, setPrefersReducedMotion] = useState(() =>
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        );
 
         // Apply dark mode class to body
         useEffect(() => {
@@ -839,6 +931,24 @@ import './styles.css';
           }
           localStorage.setItem('darkMode', darkMode);
         }, [darkMode]);
+
+        useEffect(() => {
+          const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+          const handleMotionChange = () => setPrefersReducedMotion(media.matches);
+          handleMotionChange();
+          media.addEventListener('change', handleMotionChange);
+          return () => media.removeEventListener('change', handleMotionChange);
+        }, []);
+
+        useEffect(() => {
+          const root = document.documentElement;
+          if (!prefersReducedMotion) {
+            root.classList.add('home-scroll-snap');
+          } else {
+            root.classList.remove('home-scroll-snap');
+          }
+          return () => root.classList.remove('home-scroll-snap');
+        }, [prefersReducedMotion]);
 
         useEffect(() => {
           fetch('./portfolio-data.json')
@@ -1091,7 +1201,7 @@ import './styles.css';
         const selectedTestimonials = (data.testimonials || [])
           .filter((testimonial) => testimonial.featured !== false)
           .sort((a, b) => (a.order ?? Number.MAX_SAFE_INTEGER) - (b.order ?? Number.MAX_SAFE_INTEGER))
-          .slice(0, 3);
+          .slice(0, 8);
 
         const featuredExperience = (data.experience || []).slice(0, 4);
 
@@ -1117,12 +1227,20 @@ import './styles.css';
             <div className="portfolio-container">
               <Navigation data={data} darkMode={darkMode} toggleDarkMode={() => setDarkMode(!darkMode)} />
               <main id="main-content">
-                <HeroSection personal={data.personal} data={data} social={data.social} />
-                <AboutSection data={data.personal} highlights={data.highlights} darkMode={darkMode} />
+                <HeroIntroSection
+                  personal={data.personal}
+                  data={data}
+                  social={data.social}
+                  skills={data.skills}
+                  highlights={data.highlights}
+                  darkMode={darkMode}
+                  prefersReducedMotion={prefersReducedMotion}
+                />
                 <ExperienceSection
                   experience={featuredExperience}
                   totalExperienceCount={(data.experience || []).length}
                   darkMode={darkMode}
+                  prefersReducedMotion={prefersReducedMotion}
                 />
                 <ProjectsSection
                   projects={data.projects}
@@ -1392,13 +1510,7 @@ import './styles.css';
       // ============================================
       // HERO SECTION
       // ============================================
-      function HeroSection({ personal, data, social }) {
-        const [visible, setVisible] = useState(false);
-
-        useEffect(() => {
-          setVisible(true);
-        }, []);
-
+      function HeroMainContent({ personal, data, social }) {
         const getIconForLink = (name) => {
           const nameLower = name.toLowerCase();
           if (nameLower.includes('linkedin')) return 'linkedin';
@@ -1408,154 +1520,118 @@ import './styles.css';
         };
 
         return (
-          <section className="animated-hero-bg" style={{
-            minHeight: '100vh',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            padding: '2rem',
-            textAlign: 'center',
+          <div style={{
+            maxWidth: '900px',
             position: 'relative',
-            overflow: 'hidden'
+            zIndex: 1
           }}>
-            {/* Animated background circles */}
+            {/* Headshot */}
             <div style={{
-              position: 'absolute',
-              width: '500px',
-              height: '500px',
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(var(--brand-rgb), 0.12) 0%, transparent 70%)',
-              top: '-200px',
-              right: '-200px',
-              animation: 'float 6s ease-in-out infinite'
-            }} />
-            <div style={{
-              position: 'absolute',
-              width: '400px',
-              height: '400px',
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(var(--brand-rgb), 0.08) 0%, transparent 70%)',
-              bottom: '-150px',
-              left: '-150px',
-              animation: 'float 8s ease-in-out infinite'
-            }} />
-
-            <div style={{ 
-              maxWidth: '900px', 
-              position: 'relative', 
-              zIndex: 1,
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'all 1s ease-out'
+              marginBottom: '2rem',
+              animation: 'fadeInUp 1s ease-out',
+              display: 'flex',
+              justifyContent: 'center'
             }}>
-              {/* Headshot */}
-              <div style={{
-                marginBottom: '2rem',
-                animation: 'fadeInUp 1s ease-out',
-                display: 'flex',
-                justifyContent: 'center'
+              <ImageWithSkeleton
+                src={personal?.image}
+                alt={personal?.name || 'Profile photo'}
+                fallbackLabel="Profile image unavailable"
+                loading="lazy"
+                width={180}
+                height={180}
+                style={{
+                  width: '180px',
+                  height: '180px',
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                  border: '5px solid rgba(74, 144, 226, 0.3)',
+                  boxShadow: '0 10px 40px rgba(74, 144, 226, 0.3)',
+                  transition: 'transform 0.3s'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              />
+            </div>
+
+            <h1 className="hero-name">
+              <span style={{
+                background: 'var(--brand-gradient-strong)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
               }}>
-                <ImageWithSkeleton
-                  src={personal?.image}
-                  alt={personal?.name || 'Profile photo'}
-                  fallbackLabel="Profile image unavailable"
-                  loading="lazy"
-                  width={180}
-                  height={180}
-                  style={{
-                    width: '180px',
-                    height: '180px',
-                    borderRadius: '50%',
-                    objectFit: 'cover',
-                    border: '5px solid rgba(74, 144, 226, 0.3)',
-                    boxShadow: '0 10px 40px rgba(74, 144, 226, 0.3)',
-                    transition: 'transform 0.3s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                />
-              </div>
-              
-              
-              
+                {personal?.name}
+              </span>
+            </h1>
 
-              <h1 className="hero-name">
-                <span style={{
-                  background: 'var(--brand-gradient-strong)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
-                }}>
-                  {personal?.name}
-                </span>
-              </h1>
+            <h2 className="hero-title">
+              Building Scalable AI to Solve Global Challenges
+            </h2>
 
-              <h2 className="hero-title">
-                Building Scalable AI to Solve Global Challenges
-              </h2>
+            <p className="hero-summary">
+              Product Lead focused on enterprise AI and advanced analytics. I partner with stakeholders to define the right problem, prioritize roadmap tradeoffs, and ship products that improve speed, quality, and decision-making, with the art of connecting data to dollars.
+            </p>
 
-              <p className="hero-summary">
-                Product Lead focused on enterprise AI and advanced analytics. I partner with stakeholders to define the right problem, prioritize roadmap tradeoffs, and ship products that improve speed, quality, and decision-making, with the art of connecting data to dollars.
-              </p>
+            {/* Affiliation logo belt (experience + degrees) */}
+            {(() => {
+              const items = [];
+              (data.experience || []).forEach((e) => { if (e.logo) items.push({ src: e.logo, url: e.url, title: e.company }); });
+              (data.education?.degrees || []).forEach((d) => { if (d.logo) items.push({ src: d.logo, url: d.url, title: d.institution }); });
 
-              {/* Affiliation logo belt (experience + degrees) */}
-              {(() => {
-                const items = [];
-                (data.experience || []).forEach(e => { if (e.logo) items.push({ src: e.logo, url: e.url, title: e.company }); });
-                (data.education?.degrees || []).forEach(d => { if (d.logo) items.push({ src: d.logo, url: d.url, title: d.institution }); });
+              const seen = new Set();
+              const unique = items.filter((it) => {
+                if (seen.has(it.src)) return false;
+                seen.add(it.src);
+                return true;
+              });
 
-                // Deduplicate by src while preserving order
-                const seen = new Set();
-                const unique = items.filter(it => { if (seen.has(it.src)) return false; seen.add(it.src); return true; });
-
-                if (!unique.length) {
-                  return (
-                    <p
-                      style={{
-                        margin: '1rem auto 0',
-                        color: 'rgba(255,255,255,0.72)',
-                        fontSize: '0.92rem'
-                      }}
-                    >
-                      Affiliation logos will appear here as they are added.
-                    </p>
-                  );
-                }
-
-                const trackItems = unique.concat(unique);
-
+              if (!unique.length) {
                 return (
-                  <div className="logo-belt" aria-label="Affiliations">
-                    <div className="logo-track" role="list">
-                      {trackItems.map((it, idx) => (
-                        <div className="logo-item" role="listitem" key={`logo-${idx}`}>
-                          {it.url ? (
-                            <a href={it.url} target="_blank" rel="noopener noreferrer" className="logo-pill" title={it.title || ''} onClick={() => Analytics.trackExternalLink(it.url, it.title || 'affiliation')}>
-                              <ImageWithSkeleton src={it.src} alt={it.title ? `${it.title} organization logo` : 'Organization logo'} width={140} height={48} style={{ maxHeight: '48px', maxWidth: '140px' }} />
-                            </a>
-                          ) : (
-                            <div className="logo-pill" title={it.title || ''}>
-                              <ImageWithSkeleton src={it.src} alt={it.title ? `${it.title} organization logo` : 'Organization logo'} width={140} height={48} style={{ maxHeight: '48px', maxWidth: '140px' }} />
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  <p
+                    style={{
+                      margin: '1rem auto 0',
+                      color: 'rgba(255,255,255,0.72)',
+                      fontSize: '0.92rem'
+                    }}
+                  >
+                    Affiliation logos will appear here as they are added.
+                  </p>
                 );
-              })()}
+              }
 
-              <div style={{ 
-                display: 'flex', 
-                gap: '1rem', 
-                justifyContent: 'center', 
-                flexWrap: 'wrap', 
-                marginBottom: '2.2rem' 
-              }}>
-                {social?.length ? social.map((link, index) => {
-                  const isGitHub = link.name.toLowerCase().includes('github');
-                  return (
+              const trackItems = unique.concat(unique);
+
+              return (
+                <div className="logo-belt" aria-label="Affiliations">
+                  <div className="logo-track" role="list">
+                    {trackItems.map((it, idx) => (
+                      <div className="logo-item" role="listitem" key={`logo-${idx}`}>
+                        {it.url ? (
+                          <a href={it.url} target="_blank" rel="noopener noreferrer" className="logo-pill" title={it.title || ''} onClick={() => Analytics.trackExternalLink(it.url, it.title || 'affiliation')}>
+                            <ImageWithSkeleton src={it.src} alt={it.title ? `${it.title} organization logo` : 'Organization logo'} width={140} height={48} style={{ maxHeight: '48px', maxWidth: '140px' }} />
+                          </a>
+                        ) : (
+                          <div className="logo-pill" title={it.title || ''}>
+                            <ImageWithSkeleton src={it.src} alt={it.title ? `${it.title} organization logo` : 'Organization logo'} width={140} height={48} style={{ maxHeight: '48px', maxWidth: '140px' }} />
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+
+            <div style={{
+              display: 'flex',
+              gap: '1rem',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              marginBottom: '2.2rem'
+            }}>
+              {social?.length ? social.map((link, index) => {
+                const isGitHub = link.name.toLowerCase().includes('github');
+                return (
                   <a
                     key={link.name}
                     href={link.url}
@@ -1572,7 +1648,7 @@ import './styles.css';
                       display: 'inline-flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      background: index === 0 
+                      background: index === 0
                         ? 'var(--brand-gradient)'
                         : isGitHub ? 'white' : 'rgba(44, 82, 130, 0.15)',
                       border: index === 0 ? 'none' : isGitHub ? '2px solid rgba(44, 82, 130, 0.2)' : '2px solid rgba(44, 82, 130, 0.3)',
@@ -1606,106 +1682,69 @@ import './styles.css';
                   >
                     <LucideIcon name={getIconForLink(link.name)} size={22} color={isGitHub ? '#1a1a1a' : 'white'} />
                   </a>
-                  );
-                }) : (
-                  <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.92rem' }}>
-                    Social links will appear here once added.
-                  </span>
-                )}
-                <a
-                  href="./documents/resume.pdf"
-                  download="AyushGhosh_Resume.pdf"
-                  onClick={() => Analytics.trackClick('Download Resume', 'hero-button')}
-                  title="Download Resume"
-                  aria-label="Download resume PDF"
-                  className="btn-ripple gradient-animate"
-                  style={{
-                    padding: '1rem',
-                    width: '50px',
-                    height: '50px',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'linear-gradient(135deg, #f39c12, #e67e22)',
-                    border: 'none',
-                    borderRadius: '50%',
-                    color: 'white',
-                    textDecoration: 'none',
-                    transition: 'all 0.3s',
-                    fontWeight: 600,
-                    fontSize: '1rem',
-                    boxShadow: '0 6px 20px rgba(243, 156, 18, 0.3)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px) scale(1.05)';
-                    e.currentTarget.style.boxShadow = '0 10px 30px rgba(243, 156, 18, 0.5)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(243, 156, 18, 0.3)';
-                  }}
-                >
-                  <LucideIcon name="download" size={22} color="white" />
-                </a>
-                {/* <a
-                  href="#perspectives"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById('perspectives')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  style={{
-                    padding: '1rem 2rem',
-                    background: 'rgba(44, 82, 130, 0.15)',
-                    border: '2px solid rgba(44, 82, 130, 0.3)',
-                    borderRadius: '12px',
-                    color: 'white',
-                    textDecoration: 'none',
-                    transition: 'all 0.3s',
-                    fontWeight: 600,
-                    fontSize: '1rem',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    cursor: 'pointer'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(44, 82, 130, 0.25)';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(44, 82, 130, 0.15)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  📝 Read My Insights
-                </a> */}
-              </div>
-
-              <div style={{ 
-                fontSize: '0.9rem', 
-                color: 'rgba(255,255,255,0.5)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '0.5rem'
-              }}>
-                {data.location && (
-                  <>
-                    <LucideIcon name="map-pin" size={16} color="rgba(255,255,255,0.5)" />
-                    <span>{data.location}</span>
-                  </>
-                )}
-              </div>
+                );
+              }) : (
+                <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.92rem' }}>
+                  Social links will appear here once added.
+                </span>
+              )}
+              <a
+                href="./documents/resume.pdf"
+                download="AyushGhosh_Resume.pdf"
+                onClick={() => Analytics.trackClick('Download Resume', 'hero-button')}
+                title="Download Resume"
+                aria-label="Download resume PDF"
+                className="btn-ripple gradient-animate"
+                style={{
+                  padding: '1rem',
+                  width: '50px',
+                  height: '50px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: 'linear-gradient(135deg, #f39c12, #e67e22)',
+                  border: 'none',
+                  borderRadius: '50%',
+                  color: 'white',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s',
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                  boxShadow: '0 6px 20px rgba(243, 156, 18, 0.3)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px) scale(1.05)';
+                  e.currentTarget.style.boxShadow = '0 10px 30px rgba(243, 156, 18, 0.5)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(243, 156, 18, 0.3)';
+                }}
+              >
+                <LucideIcon name="download" size={22} color="white" />
+              </a>
             </div>
-          </section>
+
+            <div style={{
+              fontSize: '0.9rem',
+              color: 'rgba(255,255,255,0.5)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem'
+            }}>
+              {data.location && (
+                <>
+                  <LucideIcon name="map-pin" size={16} color="rgba(255,255,255,0.5)" />
+                  <span>{data.location}</span>
+                </>
+              )}
+            </div>
+          </div>
         );
       }
 
-      // ============================================
-      // ABOUT SECTION
-      // ============================================
-      function AboutSection({ data, highlights, darkMode }) {
-        // Icon mapping to Lucide icon names
+      function AboutImmersiveContent({ highlights, darkMode }) {
         const iconMap = {
           'brain': 'brain',
           'users': 'users',
@@ -1716,118 +1755,267 @@ import './styles.css';
           'lightbulb': 'lightbulb',
           'target': 'target'
         };
-        
+
         return (
-          <section id="about" className="section-bg-mesh" style={{ 
-            padding: '8rem 2rem', 
-            background: 'var(--bg-secondary)'
-          }}>
-            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-              <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-                <h2 style={{ 
-                  fontSize: 'clamp(2rem, 4vw, 3rem)', 
-                  marginBottom: '1rem',
-                  color: 'var(--text-primary)',
-                  fontWeight: 800
-                }}>
-                  About <span className="text-gradient" style={{
-                    background: 'var(--brand-gradient)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text'
-                  }}>Me</span>
-                </h2>
-                <p style={{ 
-                  fontSize: '1.1rem', 
-                  color: getColor('textSecondary', darkMode),
-                  maxWidth: '600px',
-                  margin: '0 auto'
-                }}>
-                  Transforming ideas into impactful solutions
-                </p>
-              </div>
-              <div style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-                gap: '2rem',
-                alignItems: 'stretch'
+          <div className="immersive-about-content">
+            <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+              <h2 style={{
+                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                marginBottom: '1rem',
+                color: 'var(--text-primary)',
+                fontWeight: 800
               }}>
-                {(highlights || []).map((highlight, index) => (
-                  <FadeInItem key={index} delay={index * 0.1}>
-                    <div style={{
-                      padding: '2.5rem',
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      backdropFilter: 'blur(10px)',
-                      borderRadius: '20px',
-                      textAlign: 'center',
-                      transition: 'all 0.3s',
-                      boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-                      border: '1px solid var(--border-color)',
-                      position: 'relative',
-                      overflow: 'hidden',
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column'
-                    }}
-                    className="card-shadow"
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-8px)';
-                      e.currentTarget.style.boxShadow = '0 12px 35px rgba(74, 144, 226, 0.15)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
-                    }}
-                    >
-                    <div style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      height: '4px',
-                      background: 'var(--brand-gradient-soft)'
-                    }} />
-                    <div style={{
-                      width: '70px',
-                      height: '70px',
-                      margin: '0 auto 1.5rem',
-                      borderRadius: '20px',
-                      background: 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.14), rgba(var(--brand-rgb), 0.06))',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}>
-                      <LucideIcon name={iconMap[highlight.icon] || 'sparkles'} size={32} color={getColor('accentBlue', darkMode)} />
-                    </div>
-                    <h3 style={{ 
-                      fontSize: '1.5rem', 
-                      marginBottom: '1rem',
-                      color: getColor('textPrimary', darkMode),
-                      fontWeight: 700
-                    }}>
-                      {highlight.title}
-                    </h3>
-                    <p style={{ 
-                      color: getColor('textSecondary', darkMode), 
-                      lineHeight: '1.7',
-                      fontSize: '1rem',
-                      margin: 0,
-                      flexGrow: 1
-                    }}>
-                      {highlight.description}
-                    </p>
-                    </div>
-                  </FadeInItem>
-                ))}
+                About <span className="text-gradient" style={{
+                  background: 'var(--brand-gradient)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}>Me</span>
+              </h2>
+              <p style={{
+                fontSize: '1.1rem',
+                color: getColor('textSecondary', darkMode),
+                maxWidth: '600px',
+                margin: '0 auto'
+              }}>
+                Transforming ideas into impactful solutions
+              </p>
+            </div>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: '1.4rem',
+              alignItems: 'stretch'
+            }}>
+              {(highlights || []).map((highlight, index) => (
+                  <div key={index} style={{
+                    padding: '2rem',
+                    background: darkMode ? 'rgba(255, 255, 255, 0.03)' : 'rgba(255, 255, 255, 0.62)',
+                    backdropFilter: 'blur(10px)',
+                    borderRadius: '18px',
+                    textAlign: 'center',
+                    transition: 'all 0.3s',
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                    border: '1px solid var(--border-color)',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column'
+                  }}
+                  className="card-shadow"
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-8px)';
+                    e.currentTarget.style.boxShadow = '0 12px 35px rgba(74, 144, 226, 0.15)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
+                  }}
+                  >
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '4px',
+                    background: 'var(--brand-gradient-soft)'
+                  }} />
+                  <div style={{
+                    width: '64px',
+                    height: '64px',
+                    margin: '0 auto 1.2rem',
+                    borderRadius: '18px',
+                    background: 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.14), rgba(var(--brand-rgb), 0.06))',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    <LucideIcon name={iconMap[highlight.icon] || 'sparkles'} size={30} color={getColor('accentBlue', darkMode)} />
+                  </div>
+                  <h3 style={{
+                    fontSize: '1.4rem',
+                    marginBottom: '0.8rem',
+                    color: getColor('textPrimary', darkMode),
+                    fontWeight: 700
+                  }}>
+                    {highlight.title}
+                  </h3>
+                  <p style={{
+                    color: getColor('textSecondary', darkMode),
+                    lineHeight: '1.7',
+                    fontSize: '1rem',
+                    margin: 0,
+                    flexGrow: 1
+                  }}>
+                    {highlight.description}
+                  </p>
+                  </div>
+              ))}
+            </div>
+            {!(highlights && highlights.length) && (
+              <div style={{ marginTop: '1rem' }}>
+                <EmptyStateCard
+                  title="No highlights available"
+                  description="Add highlight entries in portfolio-data.json to populate this section."
+                />
               </div>
-              {!(highlights && highlights.length) && (
-                <div style={{ marginTop: '1rem' }}>
-                  <EmptyStateCard
-                    title="No highlights available"
-                    description="Add highlight entries in portfolio-data.json to populate this section."
-                  />
+            )}
+          </div>
+        );
+      }
+
+      function HeroIntroSection({ personal, data, social, skills, highlights, darkMode, prefersReducedMotion = false }) {
+        const sectionRef = useRef(null);
+        const skillKeywords = useMemo(() => getZoomGridKeywords(skills), [skills]);
+        const gridLayout = useMemo(() => buildZoomGridLayout(skillKeywords), [skillKeywords]);
+        const gridNodes = useMemo(
+          () => gridLayout.items.map((item, index) => (
+            <div
+              key={`${item.label}-${index}`}
+              className="grid-item"
+              style={{
+                gridRow: item.row,
+                gridColumn: item.col,
+                '--zr-start': item.rangeStart,
+                '--zr-end': item.rangeEnd
+              }}
+            >
+              {item.label}
+            </div>
+          )),
+          [gridLayout.items]
+        );
+
+        useEffect(() => {
+          const section = sectionRef.current;
+          if (!section) return undefined;
+
+          const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+          const setVisualVars = (progressValue) => {
+            const heroFade = clamp((progressValue - 0.1) / 0.3);
+            const heroOpacity = 1 - heroFade;
+            const heroShift = -heroFade * 26;
+            const heroScale = 1 - heroFade * 0.03;
+            const gridIntro = clamp((progressValue - 0.24) / 0.2);
+            const gridOutro = 1 - clamp((progressValue - 0.82) / 0.16);
+            const gridOpacity = gridIntro * gridOutro;
+            const gridShift = (1 - gridOpacity) * 20;
+            const aboutIntro = clamp((progressValue - 0.66) / 0.2);
+            const aboutOpacity = aboutIntro;
+            const aboutShift = (1 - aboutOpacity) * 24;
+            const aboutScale = 0.9 + (aboutOpacity * 0.1);
+            const veilOpacity = clamp((progressValue - 0.62) / 0.2) * 0.42;
+
+            section.style.setProperty('--immersive-progress', progressValue.toFixed(4));
+            section.style.setProperty('--hero-opacity', heroOpacity.toFixed(4));
+            section.style.setProperty('--hero-shift', `${heroShift.toFixed(2)}px`);
+            section.style.setProperty('--hero-scale', heroScale.toFixed(4));
+            section.style.setProperty('--hero-interactions', heroOpacity > 0.22 ? 'auto' : 'none');
+            section.style.setProperty('--grid-opacity', gridOpacity.toFixed(4));
+            section.style.setProperty('--grid-shift', `${gridShift.toFixed(2)}px`);
+            section.style.setProperty('--about-opacity', aboutOpacity.toFixed(4));
+            section.style.setProperty('--about-shift', `${aboutShift.toFixed(2)}px`);
+            section.style.setProperty('--about-scale', aboutScale.toFixed(4));
+            section.style.setProperty('--about-interactions', aboutOpacity > 0.56 ? 'auto' : 'none');
+            section.style.setProperty('--veil-opacity', veilOpacity.toFixed(4));
+          };
+
+          let rafId = null;
+          let lastProgress = -1;
+
+          const updateProgress = () => {
+            const scrollableDistance = Math.max(section.offsetHeight - window.innerHeight, 1);
+            const rawProgress = -section.getBoundingClientRect().top / scrollableDistance;
+            const nextProgress = clamp(rawProgress);
+            if (Math.abs(lastProgress - nextProgress) < 0.0015) return;
+            lastProgress = nextProgress;
+            setVisualVars(nextProgress);
+          };
+
+          const onScroll = () => {
+            if (rafId !== null) return;
+            rafId = window.requestAnimationFrame(() => {
+              rafId = null;
+              updateProgress();
+            });
+          };
+
+          updateProgress();
+          window.addEventListener('scroll', onScroll, { passive: true });
+          window.addEventListener('resize', onScroll);
+
+          return () => {
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', onScroll);
+            if (rafId !== null) {
+              window.cancelAnimationFrame(rafId);
+            }
+          };
+        }, [prefersReducedMotion]);
+
+        return (
+          <section
+            ref={sectionRef}
+            className={`animated-hero-bg immersive-hero-shell${prefersReducedMotion ? ' is-reduced-motion' : ''}`}
+            aria-label="Intro and hero"
+            style={{
+              color: 'white'
+            }}
+          >
+            <div className="immersive-hero-sticky">
+              <div style={{
+                position: 'absolute',
+                width: '500px',
+                height: '500px',
+                borderRadius: '50%',
+                background: 'radial-gradient(circle, rgba(var(--brand-rgb), 0.12) 0%, transparent 70%)',
+                top: '-220px',
+                right: '-220px',
+                animation: prefersReducedMotion ? 'none' : 'float 6s ease-in-out infinite'
+              }} />
+              <div style={{
+                position: 'absolute',
+                width: '420px',
+                height: '420px',
+                borderRadius: '50%',
+                background: 'radial-gradient(circle, rgba(var(--brand-rgb), 0.1) 0%, transparent 72%)',
+                bottom: '-170px',
+                left: '-170px',
+                animation: prefersReducedMotion ? 'none' : 'float 8s ease-in-out infinite'
+              }} />
+
+              <div className="immersive-main-layer">
+                <HeroMainContent personal={personal} data={data} social={social} />
+              </div>
+
+              <div
+                className="immersive-grid-layer"
+              >
+                <div className="zoom-grid-header">
+                  <p className="zoom-grid-kicker">Capabilities in Motion</p>
+                  <p className="zoom-grid-tagline">Product, strategy, and AI execution working as one connected system.</p>
                 </div>
-              )}
+
+                <div
+                  className="stuck-grid immersive-stuck-grid"
+                  aria-hidden="true"
+                  style={{
+                    gridTemplateColumns: `repeat(${gridLayout.columns}, minmax(0, 1fr))`,
+                    gridTemplateRows: `repeat(${gridLayout.rows}, minmax(0, 1fr))`
+                  }}
+                >
+                  {gridNodes}
+                </div>
+              </div>
+
+              <div className="immersive-about-layer" id="about">
+                <div className="immersive-about-shell">
+                  <AboutImmersiveContent highlights={highlights} darkMode={darkMode} />
+                </div>
+              </div>
+
+              <div className="immersive-hero-veil" />
             </div>
           </section>
         );
@@ -1983,9 +2171,85 @@ import './styles.css';
       // ============================================
       // EXPERIENCE SECTION
       // ============================================
-      function ExperienceSection({ experience, totalExperienceCount = 0, darkMode }) {
+      function ExperienceSection({ experience, totalExperienceCount = 0, darkMode, prefersReducedMotion = false }) {
+        const timelineRef = useRef(null);
+        const [activeTimelineIndex, setActiveTimelineIndex] = useState(0);
+        const [isCompactViewport, setIsCompactViewport] = useState(() => window.innerWidth <= 767);
+
+        useEffect(() => {
+          const handleResize = () => setIsCompactViewport(window.innerWidth <= 767);
+          handleResize();
+          window.addEventListener('resize', handleResize);
+          return () => window.removeEventListener('resize', handleResize);
+        }, []);
+
+        const shouldRunStage = !prefersReducedMotion && !isCompactViewport;
+
+        useEffect(() => {
+          if (!Array.isArray(experience) || experience.length === 0) {
+            setActiveTimelineIndex(0);
+            return undefined;
+          }
+
+          if (!shouldRunStage) {
+            setActiveTimelineIndex(0);
+            return undefined;
+          }
+
+          let rafId = null;
+
+          const updateActiveRole = () => {
+            const root = timelineRef.current;
+            if (!root) return;
+
+            const cards = Array.from(root.querySelectorAll('[data-timeline-card="true"]'));
+            if (!cards.length) return;
+
+            const probeLine = window.innerHeight * 0.48;
+            let nextIndex = 0;
+            let bestDistance = Number.POSITIVE_INFINITY;
+
+            cards.forEach((card, index) => {
+              const rect = card.getBoundingClientRect();
+              if (rect.bottom < 70 || rect.top > window.innerHeight - 70) return;
+              const center = rect.top + rect.height / 2;
+              const distance = Math.abs(center - probeLine);
+              if (distance < bestDistance) {
+                bestDistance = distance;
+                nextIndex = index;
+              }
+            });
+
+            setActiveTimelineIndex((prev) => (prev === nextIndex ? prev : nextIndex));
+          };
+
+          const scheduleUpdate = () => {
+            if (rafId !== null) return;
+            rafId = window.requestAnimationFrame(() => {
+              rafId = null;
+              updateActiveRole();
+            });
+          };
+
+          updateActiveRole();
+          window.addEventListener('scroll', scheduleUpdate, { passive: true });
+          window.addEventListener('resize', scheduleUpdate);
+
+          return () => {
+            window.removeEventListener('scroll', scheduleUpdate);
+            window.removeEventListener('resize', scheduleUpdate);
+            if (rafId !== null) {
+              window.cancelAnimationFrame(rafId);
+            }
+          };
+        }, [experience, shouldRunStage]);
+
+        const timelineProgress = Array.isArray(experience) && experience.length
+          ? Math.max(0.08, (activeTimelineIndex + 1) / experience.length)
+          : 0;
+
         return (
-          <section id="experience" className="section-bg-mesh" style={{ 
+          <section id="experience" className="section-bg-mesh experience-stage-shell" style={{ 
             padding: '8rem 2rem', 
             background: 'var(--bg-primary)',
             position: 'relative'
@@ -1998,13 +2262,22 @@ import './styles.css';
               />
 
               {/* Timeline */}
-              <div style={{ position: 'relative' }}>
+              <div className="experience-timeline" ref={timelineRef} style={{ position: 'relative' }}>
                 {/* Center line */}
-                <div className="timeline-center-line" />
+                <div className="timeline-center-line" aria-hidden="true">
+                  <span style={{ transform: `scaleY(${shouldRunStage ? timelineProgress : 1})` }} />
+                </div>
                 
                 {experience?.length ? (
                   experience.map((job, index) => (
-                    <TimelineItem key={index} job={job} index={index} darkMode={darkMode} />
+                    <TimelineItem
+                      key={index}
+                      job={job}
+                      index={index}
+                      darkMode={darkMode}
+                      isStageActive={!shouldRunStage || activeTimelineIndex === index}
+                      prefersReducedMotion={!shouldRunStage}
+                    />
                   ))
                 ) : (
                   <EmptyStateCard
@@ -2279,6 +2552,56 @@ import './styles.css';
       // ============================================
       function TestimonialsSection({ testimonials, darkMode }) {
         const [activeTestimonialId, setActiveTestimonialId] = useState(null);
+        const reelRef = useRef(null);
+        const motionClasses = ['rec-slower', 'rec-faster', 'rec-vertical', 'rec-slower1', 'rec-faster1', 'rec-slower2', 'rec-slower-down', 'rec-fastest', 'rec-last'];
+
+        useEffect(() => {
+          const scroller = reelRef.current;
+          if (!scroller) return;
+
+          const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+          const onWheel = (event) => {
+            const maxScroll = Math.max(scroller.scrollWidth - scroller.clientWidth, 0);
+            if (maxScroll <= 0) return;
+
+            let delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+            if (event.shiftKey && Math.abs(event.deltaY) > 0) {
+              delta = event.deltaY;
+            }
+
+            if (event.deltaMode === 1) delta *= 16;
+            if (event.deltaMode === 2) delta *= scroller.clientWidth;
+            if (Math.abs(delta) < 0.4) return;
+
+            const edgeTolerance = 2;
+            const atStart = scroller.scrollLeft <= edgeTolerance;
+            const atEnd = scroller.scrollLeft >= (maxScroll - edgeTolerance);
+            const movingForward = delta > 0;
+            const canConsumeScroll = (movingForward && !atEnd) || (!movingForward && !atStart);
+
+            // Let page scroll vertically before/after the horizontal reel range.
+            if (!canConsumeScroll) return;
+
+            event.preventDefault();
+            scroller.scrollLeft = clamp(scroller.scrollLeft + (delta * 1.1), 0, maxScroll);
+          };
+
+          scroller.addEventListener('wheel', onWheel, { passive: false });
+          return () => {
+            scroller.removeEventListener('wheel', onWheel);
+          };
+        }, [testimonials]);
+
+        const handleReelKeyDown = (event) => {
+          const scroller = event.currentTarget;
+          if (event.key === 'ArrowRight') {
+            event.preventDefault();
+            scroller.scrollLeft += 260;
+          } else if (event.key === 'ArrowLeft') {
+            event.preventDefault();
+            scroller.scrollLeft -= 260;
+          }
+        };
 
         return (
           <section id="testimonials" style={{ 
@@ -2286,7 +2609,7 @@ import './styles.css';
             background: 'var(--bg-primary)'
                   }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-              <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+              <div style={{ textAlign: 'center', marginBottom: '2.2rem' }}>
                 <h2 style={{ 
                   fontSize: 'clamp(2rem, 4vw, 2.5rem)', 
                   marginBottom: '1rem',
@@ -2309,150 +2632,92 @@ import './styles.css';
                   Selected LinkedIn recommendations from collaborators and leaders
                 </p>
               </div>
-              
-              <div style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-                gap: '2rem'
-              }}>
-                {(testimonials || []).map((testimonial, index) => {
-                  const testimonialId = testimonial.id ?? index;
-                  const showDetails = activeTestimonialId === testimonialId;
-                  const quote = testimonial.quote || 'Recommendation text will be added soon.';
-                  const recommenderName = testimonial.name || 'Recommender name unavailable';
-                  const recommenderTitle = testimonial.title || 'Role details unavailable';
 
-                  return (
-                  <FadeInItem key={testimonialId} delay={index * 0.1}>
-                    <div
-                      tabIndex={0}
-                      role="button"
-                      aria-expanded={showDetails}
-                      aria-label={`Toggle recommendation from ${recommenderName}`}
-                      style={{
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        backdropFilter: 'blur(10px)',
-                        padding: '2rem',
-                        borderRadius: '16px',
-                        boxShadow: '0 8px 30px rgba(44, 82, 130, 0.12)',
-                        position: 'relative',
-                        transition: 'all 0.3s ease',
-                        border: '1px solid var(--border-color)'
-                      }}
-                      onFocus={() => setActiveTestimonialId(testimonialId)}
-                      onBlur={(event) => {
-                        if (!event.currentTarget.contains(event.relatedTarget)) {
-                          setActiveTestimonialId(null);
-                        }
-                      }}
-                      onClick={() => setActiveTestimonialId((prev) => (prev === testimonialId ? null : testimonialId))}
-                      onKeyDown={(event) => {
-                        if (event.key === 'Enter' || event.key === ' ') {
-                          event.preventDefault();
-                          setActiveTestimonialId((prev) => (prev === testimonialId ? null : testimonialId));
-                        }
-                      }}
-                      onMouseEnter={(e) => {
-                        setActiveTestimonialId(testimonialId);
-                        e.currentTarget.style.transform = 'translateY(-8px)';
-                        e.currentTarget.style.boxShadow = '0 12px 40px rgba(44, 82, 130, 0.18)';
-                      }}
-                      onMouseLeave={(e) => {
-                        setActiveTestimonialId(null);
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '0 8px 30px rgba(44, 82, 130, 0.12)';
-                      }}
+              {!!(testimonials && testimonials.length) && (
+                <div className="recommendations-external">
+                  <div
+                    ref={reelRef}
+                    className="recommendations-horizontal-scroll-wrapper"
+                    role="list"
+                    tabIndex={0}
+                    aria-label="Recommendations horizontal scroll. Use mouse wheel, trackpad, or arrow keys to move."
+                    onKeyDown={handleReelKeyDown}
                   >
-                    {/* Quote Icon */}
-                    <div style={{
-                      position: 'absolute',
-                      top: '1.5rem',
-                      right: '1.5rem',
-                      fontSize: '3rem',
-                      color: 'var(--border-color)',
-                      lineHeight: 1,
-                      fontFamily: 'Georgia, serif'
-                    }}>
-                      "
-                    </div>
-                    
-                    {/* Quote Text */}
-                    <p style={{
-                      fontSize: '1rem',
-                      lineHeight: '1.8',
-                      color: getColor('textPrimary', darkMode),
-                      marginBottom: '1.5rem',
-                      fontStyle: 'italic',
-                      position: 'relative',
-                      zIndex: 1
-                    }}>
-                      {quote}
-                    </p>
-                    
-                    {/* Person Info */}
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '1rem',
-                      paddingTop: showDetails ? '1rem' : '0',
-                      borderTop: showDetails ? '1px solid var(--border-color)' : 'none',
-                      opacity: showDetails ? 1 : 0,
-                      maxHeight: showDetails ? '200px' : '0',
-                      overflow: 'hidden',
-                      pointerEvents: showDetails ? 'auto' : 'none',
-                      transition: 'all 0.4s ease',
-                    }}>
-                      <ImageWithSkeleton
-                        src={testimonial.image}
-                        alt={testimonial.name || 'Recommender photo'}
-                        fallbackLabel="No photo"
-                        loading="lazy"
-                        width={50}
-                        height={50}
-                        style={{
-                          width: '50px',
-                          height: '50px',
-                          borderRadius: '50%',
-                          objectFit: 'cover',
-                          border: '2px solid rgba(44, 82, 130, 0.2)',
-                          animation: 'fadeInScale 0.4s ease'
-                        }}
-                      />
-                      <div style={{
-                        animation: showDetails ? 'fadeInScale 0.4s ease 0.1s forwards' : 'none',
-                        opacity: showDetails ? 1 : 0
-                      }}>
-                        <h4 style={{
-                          margin: 0,
-                          fontSize: '1.05rem',
-                          color: getColor('accentDarkBlue', darkMode),
-                          fontWeight: 700
-                        }}>
-                          {recommenderName}
-                        </h4>
-                        <p style={{
-                          margin: '0.25rem 0 0 0',
-                          fontSize: '0.9rem',
-                          color: getColor('accentDarkBlue', darkMode)
-                        }}>
-                          {recommenderTitle}
-                        </p>
-                        {testimonial.company && (
-                          <p style={{
-                            margin: '0.15rem 0 0 0',
-                            fontSize: '0.85rem',
-                            color: getColor('accentDarkBlue', darkMode)
-                          }}>
-                            {testimonial.company}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                    </div>
-                  </FadeInItem>
-                  );
-                })}
-              </div>
+                    {(testimonials || []).map((testimonial, index) => {
+                      const motionClass = motionClasses[index % motionClasses.length];
+                      const testimonialId = testimonial.id ?? index;
+                      const showDetails = activeTestimonialId === testimonialId;
+                      const quote = testimonial.quote || 'Recommendation text will be added soon.';
+                      const recommenderName = testimonial.name || 'Recommender name unavailable';
+                      const recommenderTitle = testimonial.title || 'Role details unavailable';
+                      const metaId = `recommendation-meta-${testimonialId}`;
+
+                      return (
+                        <div key={testimonialId} role="listitem" className={`recommendation-item-wrapper ${motionClass}`}>
+                          <div
+                            tabIndex={0}
+                            role="button"
+                            aria-controls={metaId}
+                            aria-expanded={showDetails}
+                            aria-label={`Toggle recommendation from ${recommenderName}`}
+                            className={`recommendation-card ${showDetails ? 'is-expanded' : ''}`}
+                            style={{
+                              '--rec-accent': getColor('accentDarkBlue', darkMode)
+                            }}
+                            onFocus={() => setActiveTestimonialId(testimonialId)}
+                            onBlur={(event) => {
+                              if (!event.currentTarget.contains(event.relatedTarget)) {
+                                setActiveTestimonialId(null);
+                              }
+                            }}
+                            onMouseEnter={() => setActiveTestimonialId(testimonialId)}
+                            onMouseLeave={() => setActiveTestimonialId(null)}
+                            onClick={() => setActiveTestimonialId((prev) => (prev === testimonialId ? null : testimonialId))}
+                            onKeyDown={(event) => {
+                              if (event.key === 'Enter' || event.key === ' ') {
+                                event.preventDefault();
+                                setActiveTestimonialId((prev) => (prev === testimonialId ? null : testimonialId));
+                              }
+                              if (event.key === 'Escape') {
+                                setActiveTestimonialId(null);
+                              }
+                            }}
+                          >
+                            <span className="recommendation-quote-mark" aria-hidden="true">"</span>
+                            <p className="recommendation-quote">{quote}</p>
+                            <div id={metaId} className={`recommendation-meta ${showDetails ? 'is-visible' : ''}`}>
+                              <ImageWithSkeleton
+                                src={testimonial.image}
+                                alt={testimonial.name || 'Recommender photo'}
+                                fallbackLabel="No photo"
+                                loading="lazy"
+                                width={52}
+                                height={52}
+                                className="recommendation-avatar"
+                                style={{
+                                  width: '52px',
+                                  height: '52px',
+                                  borderRadius: '50%',
+                                  objectFit: 'cover',
+                                  border: '2px solid color-mix(in srgb, var(--rec-accent) 28%, transparent)'
+                                }}
+                              />
+                              <div className="recommendation-meta-text">
+                                <h4>{recommenderName}</h4>
+                                <p>{recommenderTitle}</p>
+                                {testimonial.company && (
+                                  <p className="recommendation-company">{testimonial.company}</p>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
               {!(testimonials && testimonials.length) && (
                 <div style={{ marginTop: '1rem' }}>
                   <EmptyStateCard
