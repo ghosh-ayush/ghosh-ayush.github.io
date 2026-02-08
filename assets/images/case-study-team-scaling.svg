@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-label="Team promotion and talent scaling case study thumbnail">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1f2937"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <rect x="120" y="130" width="960" height="460" rx="24" fill="#0f172a" opacity="0.8" stroke="#93c5fd"/>
+  <text x="170" y="245" fill="#eff6ff" font-family="Arial, sans-serif" font-size="50" font-weight="700">Team Promotion &amp; Talent Scaling</text>
+  <text x="170" y="315" fill="#bfdbfe" font-family="Arial, sans-serif" font-size="34">High-performing org design as a product</text>
+  <text x="170" y="385" fill="#dbeafe" font-family="Arial, sans-serif" font-size="26">Capacity planning • Attrition risk reduction • Leadership leverage</text>
+</svg>

@@ -1193,7 +1193,22 @@ import './styles.css';
         const selectedTestimonials = (data.testimonials || [])
           .filter((testimonial) => testimonial.featured !== false)
           .sort((a, b) => (a.order ?? Number.MAX_SAFE_INTEGER) - (b.order ?? Number.MAX_SAFE_INTEGER))
-          .slice(0, 6);
+          .slice(0, 3);
+
+        const featuredExperience = (data.experience || []).slice(0, 4);
+
+        const featuredEducation = {
+          ...(data.education || {}),
+          degrees: (data.education?.degrees || []).slice(0, 3)
+        };
+
+        const featuredCaseStudies = (() => {
+          const homepageCaseStudyIds = new Set([
+            'tesla-warranty-roi',
+            'sculptor-ops-efficiency'
+          ]);
+          return (data.caseStudies || []).filter((caseStudy) => homepageCaseStudyIds.has(caseStudy.id));
+        })();
 
         return (
           <ErrorBoundary>
@@ -1206,9 +1221,22 @@ import './styles.css';
               <main id="main-content">
                 <HeroSection personal={data.personal} data={data} social={data.social} />
                 <AboutSection data={data.personal} highlights={data.highlights} darkMode={darkMode} />
-                <ExperienceSection experience={data.experience} darkMode={darkMode} />
-                <ProjectsSection projects={data.projects} caseStudies={data.caseStudies} darkMode={darkMode} />
-                <EducationSection education={data.education} darkMode={darkMode} />
+                <ExperienceSection
+                  experience={featuredExperience}
+                  totalExperienceCount={(data.experience || []).length}
+                  darkMode={darkMode}
+                />
+                <ProjectsSection
+                  projects={data.projects}
+                  caseStudies={featuredCaseStudies}
+                  totalCaseStudyCount={(data.caseStudies || []).length}
+                  darkMode={darkMode}
+                />
+                <EducationSection
+                  education={featuredEducation}
+                  totalDegreeCount={(data.education?.degrees || []).length}
+                  darkMode={darkMode}
+                />
                 <SkillsSection skills={data.skills} darkMode={darkMode} />
                 <TestimonialsSection testimonials={selectedTestimonials} darkMode={darkMode} />
                 <ContactSection personal={data.personal} social={data.social} />
@@ -1882,6 +1910,38 @@ import './styles.css';
       // ============================================
       function SkillsSection({ skills, darkMode }) {
         if (!skills) return null;
+        const normalizeItems = (items) => {
+          if (Array.isArray(items)) return items;
+          if (typeof items === 'string') return items.split(',').map((s) => s.trim()).filter(Boolean);
+          return [];
+        };
+
+        const skillPool = [...(skills.nontechnical || []), ...(skills.technical || [])]
+          .flatMap((category) => normalizeItems(category.items))
+          .map((item, order) => {
+            if (typeof item === 'string') return { name: item, level: 5, order };
+            return {
+              name: item?.name || '',
+              level: Number.isFinite(item?.level) ? item.level : 5,
+              order
+            };
+          })
+          .filter((skill) => skill.name);
+
+        const dedupedSkills = Array.from(
+          skillPool.reduce((map, skill) => {
+            const key = skill.name.toLowerCase();
+            const existing = map.get(key);
+            if (!existing || skill.level > existing.level || (skill.level === existing.level && skill.order < existing.order)) {
+              map.set(key, skill);
+            }
+            return map;
+          }, new Map()).values()
+        );
+
+        const coreSkills = dedupedSkills
+          .sort((a, b) => (b.level - a.level) || (a.order - b.order))
+          .slice(0, 20);
 
         return (
           <section id="skills" style={{ 
@@ -1893,238 +1953,75 @@ import './styles.css';
               <SectionHeader
                 title="Core"
                 highlight="Skills"
-                subtitle="Product leadership and technical execution capabilities"
               />
-              
-              {/* Non-Technical Skills */}
-              {skills.nontechnical && skills.nontechnical.length > 0 && (
-                <>
-                  <div style={{ textAlign: 'left', marginBottom: '2rem' }}>
-                    <h3 style={{ 
-                      fontSize: 'clamp(1.4rem, 2.4vw, 1.9rem)', 
-                      marginBottom: '0.5rem',
-                      color: 'var(--text-primary)',
-                      fontWeight: 800
-                    }}>
-                      Product <span className="text-gradient">Leadership & Strategy</span>
-                    </h3>
-                    <p style={{ 
-                      fontSize: '1rem', 
-                      color: 'var(--text-secondary)',
-                      maxWidth: '700px',
-                      margin: 0
-                    }}>
-                      Core competencies in product management and team leadership
-                    </p>
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '4rem', alignItems: 'stretch' }}>
-                    {skills.nontechnical.map((category, idx) => {
-                      let items = [];
-                      if (Array.isArray(category.items)) {
-                        items = category.items;
-                      } else if (category.items && typeof category.items === 'string') {
-                        items = category.items.split(',').map(s => s.trim()).filter(s => s);
-                      }
-                      
-                      return (
-                        <div key={idx} style={{
-                          padding: '2rem',
-                          background: 'var(--bg-primary)',
-                          borderRadius: '16px',
-                          boxShadow: '0 4px 20px var(--card-shadow)',
-                          border: '1px solid var(--border-color)',
-                          transition: 'all 0.3s',
-                          height: '100%',
-                          display: 'flex',
-                          flexDirection: 'column'
-                        }} className="card-shadow fade-on-scroll">
-                          <h3 style={{ 
-                            fontSize: '1.3rem', 
-                            marginBottom: '1.5rem',
-                            color: 'var(--text-primary)',
-                            fontWeight: 700
-                          }}>
-                            {category.category}
-                          </h3>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                            {items.map((item, i) => {
-                              const skillName = typeof item === 'string' ? item : item.name;
-                              const skillLevel = typeof item === 'object' ? item.level : null;
-                              const fillPercent = skillLevel ? (skillLevel / 10) * 100 : 0;
-                              
-                              return (
-                                <div 
-                                  key={i} 
-                                  className="skill-badge"
-                                  style={{
-                                    position: 'relative',
-                                    padding: '0.5rem 1rem',
-                                    borderRadius: '8px',
-                                    fontSize: '0.9rem',
-                                    cursor: 'pointer',
-                                    border: '1px solid rgba(74, 144, 226, 0.2)',
-                                    overflow: 'hidden',
-                                    background: 'rgba(74, 144, 226, 0.1)',
-                                    color: getColor('accentMediumBlue', darkMode),
-                                    transition: 'all 0.3s',
-                                    minWidth: 'fit-content'
-                                  }}
-                                  onMouseEnter={(e) => {
-                                    const fillEl = e.currentTarget.querySelector('.skill-fill');
-                                    if (fillEl) {
-                                      fillEl.style.width = `${fillPercent}%`;
-                                    }
-                                  }}
-                                  onMouseLeave={(e) => {
-                                    const fillEl = e.currentTarget.querySelector('.skill-fill');
-                                    if (fillEl) {
-                                      fillEl.style.width = '0%';
-                                    }
-                                  }}
-                                >
-                                  <div 
-                                    className="skill-fill"
-                                    style={{
-                                      position: 'absolute',
-                                      top: 0,
-                                      left: 0,
-                                      height: '100%',
-                                      width: '0%',
-                                      background: 'rgba(74, 144, 226, 0.3)',
-                                      borderRadius: '8px',
-                                      transition: 'width 0.6s ease-out',
-                                      zIndex: 0,
-                                      pointerEvents: 'none'
-                                    }}
-                                  />
-                                  <span style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    {skillName}
-                                  </span>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </>
-              )}
 
-              {/* Technical Skills */}
-              {skills.technical && skills.technical.length > 0 && (
-                <>
-                  <div style={{ textAlign: 'left', marginBottom: '2rem' }}>
-                    <h3 style={{ 
-                      fontSize: 'clamp(1.4rem, 2.4vw, 1.9rem)', 
-                      marginBottom: '0.5rem',
-                      color: 'var(--text-primary)',
-                      fontWeight: 800
-                    }}>
-                      Technical <span className="text-gradient">Foundation</span>
-                    </h3>
-                    <p style={{ 
-                      fontSize: '1rem', 
-                      color: 'var(--text-secondary)',
-                      maxWidth: '700px',
-                      margin: 0
-                    }}>
-                      Technologies and tools I work with
-                    </p>
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', alignItems: 'stretch' }}>
-                    {skills.technical.map((category, idx) => {
-                      let items = [];
-                      if (Array.isArray(category.items)) {
-                        items = category.items;
-                      } else if (category.items && typeof category.items === 'string') {
-                        items = category.items.split(',').map(s => s.trim()).filter(s => s);
-                      }
-                      
-                      return (
-                        <div key={idx} style={{
-                          padding: '2rem',
-                          background: 'var(--bg-primary)',
-                          borderRadius: '16px',
-                          boxShadow: '0 4px 20px var(--card-shadow)',
-                          border: '1px solid var(--border-color)',
-                          transition: 'all 0.3s',
+              <div style={{ margin: '0 auto 2.2rem', maxWidth: '760px', textAlign: 'center' }}>
+                <div style={{ marginTop: '0.8rem', display: 'flex', gap: '0.55rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                  {coreSkills.map((skill, index) => (
+                    <div
+                      key={`section-core-skill-${index}`}
+                      className="skill-badge"
+                      style={{
+                        position: 'relative',
+                        padding: '0.42rem 0.72rem',
+                        borderRadius: '999px',
+                        border: `1px solid ${getColor('accentDarkBlue', darkMode)}40`,
+                        background: `${getColor('accentDarkBlue', darkMode)}12`,
+                        color: 'var(--text-primary)',
+                        fontSize: '0.84rem',
+                        fontWeight: 600,
+                        overflow: 'hidden',
+                        cursor: 'default'
+                      }}
+                      onMouseEnter={(e) => {
+                        const fillPercent = Math.max(0, Math.min(100, (skill.level / 10) * 100));
+                        const fillEl = e.currentTarget.querySelector('.skill-fill');
+                        if (fillEl) {
+                          fillEl.style.width = `${fillPercent}%`;
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        const fillEl = e.currentTarget.querySelector('.skill-fill');
+                        if (fillEl) {
+                          fillEl.style.width = '0%';
+                        }
+                      }}
+                    >
+                      <div
+                        className="skill-fill"
+                        style={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
                           height: '100%',
-                          display: 'flex',
-                          flexDirection: 'column'
-                        }} className="card-shadow fade-on-scroll">
-                          <h3 style={{ 
-                            fontSize: '1.3rem', 
-                            marginBottom: '1.5rem',
-                            color: 'var(--text-primary)',
-                            fontWeight: 700
-                          }}>
-                            {category.category}
-                          </h3>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                            {items.map((item, i) => {
-                              const skillName = typeof item === 'string' ? item : item.name;
-                              const skillLevel = typeof item === 'object' ? item.level : null;
-                              const fillPercent = skillLevel ? (skillLevel / 10) * 100 : 0;
-                              
-                              return (
-                                <div 
-                                  key={i} 
-                                  className="skill-badge"
-                                  style={{
-                                    position: 'relative',
-                                    padding: '0.5rem 1rem',
-                                    borderRadius: '8px',
-                                    fontSize: '0.9rem',
-                                    cursor: 'pointer',
-                                    border: '1px solid rgba(44, 82, 130, 0.2)',
-                                    overflow: 'hidden',
-                                    background: 'rgba(44, 82, 130, 0.1)',
-                                    color: getColor('accentDarkBlue', darkMode),
-                                    transition: 'all 0.3s',
-                                    minWidth: 'fit-content'
-                                  }}
-                                  onMouseEnter={(e) => {
-                                    const fillEl = e.currentTarget.querySelector('.skill-fill');
-                                    if (fillEl) {
-                                      fillEl.style.width = `${fillPercent}%`;
-                                    }
-                                  }}
-                                  onMouseLeave={(e) => {
-                                    const fillEl = e.currentTarget.querySelector('.skill-fill');
-                                    if (fillEl) {
-                                      fillEl.style.width = '0%';
-                                    }
-                                  }}
-                                >
-                                  <div 
-                                    className="skill-fill"
-                                    style={{
-                                      position: 'absolute',
-                                      top: 0,
-                                      left: 0,
-                                      height: '100%',
-                                      width: '0%',
-                                      background: 'rgba(44, 82, 130, 0.3)',
-                                      borderRadius: '8px',
-                                      transition: 'width 0.6s ease-out',
-                                      zIndex: 0,
-                                      pointerEvents: 'none'
-                                    }}
-                                  />
-                                  <span style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    {skillName}
-                                  </span>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </>
-              )}
+                          width: '0%',
+                          background: `${getColor('accentDarkBlue', darkMode)}35`,
+                          borderRadius: '999px',
+                          transition: 'width 0.55s ease-out',
+                          zIndex: 0,
+                          pointerEvents: 'none'
+                        }}
+                      />
+                      <span style={{ position: 'relative', zIndex: 1 }}>{skill.name}</span>
+                    </div>
+                  ))}
+                </div>
+                <a
+                  href="/skills.html"
+                  onClick={() => Analytics.trackClick('View full skills map', 'skills-section')}
+                  style={{
+                    display: 'inline-block',
+                    marginTop: '0.9rem',
+                    color: getColor('accentDarkBlue', darkMode),
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                    borderBottom: `1px solid ${getColor('accentDarkBlue', darkMode)}80`,
+                    paddingBottom: '2px'
+                  }}
+                >
+                  View full skills map →
+                </a>
+              </div>
             </div>
           </section>
         );
@@ -2133,7 +2030,7 @@ import './styles.css';
       // ============================================
       // EXPERIENCE SECTION
       // ============================================
-      function ExperienceSection({ experience, darkMode }) {
+      function ExperienceSection({ experience, totalExperienceCount = 0, darkMode }) {
         return (
           <section id="experience" className="section-bg-mesh" style={{ 
             padding: '8rem 2rem', 
@@ -2165,6 +2062,32 @@ import './styles.css';
                   <TimelineItem key={index} job={job} index={index} darkMode={darkMode} />
                 ))}
               </div>
+
+              {totalExperienceCount > (experience?.length || 0) && (
+                <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+                  <a
+                    href="/experience.html"
+                    className="btn-ripple cta-animate is-visible"
+                    onClick={() => Analytics.trackClick('View full experience', 'experience-section')}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      padding: '0.8rem 1.4rem',
+                      borderRadius: '10px',
+                      textDecoration: 'none',
+                      fontWeight: 700,
+                      fontSize: '0.95rem',
+                      border: `1px solid ${getColor('accentBlue', darkMode)}55`,
+                      color: getColor('accentBlue', darkMode),
+                      background: `${getColor('accentBlue', darkMode)}15`,
+                      transition: 'all 0.3s'
+                    }}
+                  >
+                    View full experience →
+                  </a>
+                </div>
+              )}
             </div>
           </section>
         );
@@ -2234,9 +2157,11 @@ import './styles.css';
                       >
                         <div style={{ marginBottom: '1rem' }}>
                           <p style={{ margin: 0, color: getColor('accentBlue', darkMode), fontWeight: 700, fontSize: '0.9rem' }}>{study.company}</p>
-                          <p style={{ margin: '0.3rem 0 0', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                            {study.role} {study.timeline ? `| ${study.timeline}` : ''}
-                          </p>
+                          {study.timeline && (
+                            <p style={{ margin: '0.3rem 0 0', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                              {study.timeline}
+                            </p>
+                          )}
                         </div>
                         <div style={{ display: 'grid', gap: '0.85rem' }}>
                           <div>
@@ -2287,9 +2212,12 @@ import './styles.css';
       // ============================================
       // EDUCATION SECTION
       // ============================================
-      function EducationSection({ education, darkMode }) {
+      function EducationSection({
+        education,
+        totalDegreeCount = 0,
+        darkMode
+      }) {
         const [hoveredDegreeIndex, setHoveredDegreeIndex] = useState(null);
-        const [hoveredCertIndex, setHoveredCertIndex] = useState(null);
 
         return (
           <section id="education" style={{ 
@@ -2298,14 +2226,12 @@ import './styles.css';
           }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
               <SectionHeader 
-                title="Education &"
-                highlight="Certifications"
-                subtitle="Academic background and professional development"
+                title="Academic"
+                highlight="Degrees"
+                subtitle="Educational foundation and advanced coursework"
               />
               
-              {/* Degrees */}
-              <h3 style={{ fontSize: '2rem', marginBottom: '2rem', color: getColor('accentBlue', darkMode) }}>Degrees</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', marginBottom: '4rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
                 {education?.degrees?.map((degree, index) => {
                   const showCourses = hoveredDegreeIndex === index;
                   
@@ -2316,197 +2242,174 @@ import './styles.css';
                       onMouseLeave={() => setHoveredDegreeIndex(null)}
                       style={{
                         padding: '2rem',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        backdropFilter: 'blur(10px)',
-                        borderRadius: '12px',
+                        background: 'var(--bg-primary)',
+                        borderRadius: '16px',
                         cursor: 'default',
                         transition: 'all 0.3s ease',
-                        transform: 'translateY(0)',
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                        border: '1px solid var(--border-color)'
+                        transform: showCourses ? 'translateY(-6px)' : 'translateY(0)',
+                        boxShadow: showCourses
+                          ? '0 14px 30px rgba(44, 82, 130, 0.16)'
+                          : '0 8px 20px rgba(16, 24, 40, 0.08)',
+                        border: `1px solid ${showCourses ? `${getColor('accentBlue', darkMode)}55` : 'var(--border-color)'}`,
+                        position: 'relative',
+                        overflow: 'hidden',
+                        minHeight: '100%'
                       }}
                     >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
-                      {degree.logo && (
-                        <ImageWithSkeleton
-                          src={degree.logo} 
-                          alt={degree.institution}
-                          loading="lazy"
-                          style={{
-                            width: '45px',
-                            height: '45px',
-                            objectFit: 'contain',
-                            borderRadius: '6px',
-                            background: 'rgba(74, 144, 226, 0.1)',
-                            padding: '5px'
-                          }}
-                        />
-                      )}
-                      <div>
-                        <h4 style={{ margin: 0, fontSize: '1.25rem', color: 'var(--text-primary)' }}>
-                          {degree.degree}
-                        </h4>
-                        <a
-                          href={degree.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            margin: '0.25rem 0',
-                            color: getColor('accentDarkBlue', darkMode),
-                            fontWeight: 600,
-                            textDecoration: 'none',
-                            display: 'inline-block'
-                          }}
-                        >
-                          {degree.institution}
-                        </a>
-                        <div style={{ 
-                          margin: '0.25rem 0 0 0', 
-                          color: getColor('textSecondary', darkMode), 
-                          fontSize: '0.9rem',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '1rem',
-                          flexWrap: 'wrap'
-                        }}>
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          width: '100%',
+                          height: '4px',
+                          background: `linear-gradient(90deg, ${getColor('accentBlue', darkMode)}, ${getColor('accentDarkBlue', darkMode)})`
+                        }}
+                      />
+
+                      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
+                        {degree.logo && (
+                          <div
+                            style={{
+                              width: '52px',
+                              height: '52px',
+                              borderRadius: '12px',
+                              background: `${getColor('accentBlue', darkMode)}18`,
+                              border: `1px solid ${getColor('accentBlue', darkMode)}33`,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              flexShrink: 0
+                            }}
+                          >
+                            <ImageWithSkeleton
+                              src={degree.logo}
+                              alt={degree.institution}
+                              loading="lazy"
+                              style={{
+                                width: '40px',
+                                height: '40px',
+                                objectFit: 'contain',
+                                borderRadius: '8px'
+                              }}
+                            />
+                          </div>
+                        )}
+
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <p style={{ margin: 0, fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase', color: getColor('textSecondary', darkMode), fontWeight: 700 }}>
+                            Degree
+                          </p>
+                          <h4 style={{ margin: '0.35rem 0 0', fontSize: '1.2rem', color: 'var(--text-primary)', lineHeight: 1.35 }}>
+                            {degree.degree}
+                          </h4>
+                          <a
+                            href={degree.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              marginTop: '0.45rem',
+                              color: getColor('accentDarkBlue', darkMode),
+                              fontWeight: 700,
+                              textDecoration: 'none',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '0.35rem'
+                            }}
+                          >
+                            {degree.institution}
+                            <LucideIcon name="external-link" size={13} color={getColor('accentDarkBlue', darkMode)} />
+                          </a>
+                        </div>
+                      </div>
+
+                      <div style={{ 
+                        margin: '0.25rem 0 0 0', 
+                        color: getColor('textSecondary', darkMode), 
+                        fontSize: '0.9rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.9rem',
+                        flexWrap: 'wrap'
+                      }}>
+                        {degree.location && (
                           <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                             <LucideIcon name="map-pin" size={14} color={getColor('textSecondary', darkMode)} />
                             {degree.location}
                           </span>
+                        )}
+                        {(degree.startDate || degree.endDate) && (
                           <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                             <LucideIcon name="calendar" size={14} color={getColor('textSecondary', darkMode)} />
                             {degree.startDate} - {degree.endDate}
                           </span>
-                        </div>
+                        )}
                       </div>
-                    </div>
-                    {degree.courses && degree.courses.length > 0 && (
-                      <div style={{ 
-                        marginTop: '1rem', 
-                        paddingTop: '1rem', 
-                        borderTop: '1px solid var(--border-color)',
-                        opacity: showCourses ? 1 : 0,
-                        maxHeight: showCourses ? '1000px' : '0',
-                        overflow: 'hidden',
-                        transition: 'all 0.4s ease',
-                      }}>
-                        <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.9rem', color: getColor('textSecondary', darkMode), fontWeight: 600 }}>
-                          Relevant Coursework:
-                        </p>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                          {degree.courses.map((course, i) => (
-                            <span key={i} style={{
-                              padding: '0.35rem 0.75rem',
-                              background: 'rgba(44, 82, 130, 0.08)',
-                              color: getColor('accentDarkBlue', darkMode),
-                              borderRadius: '4px',
-                              fontSize: '0.85rem',
-                              border: '1px solid rgba(44, 82, 130, 0.15)',
-                              animation: showCourses ? `fadeInScale 0.3s ease ${i * 0.05}s forwards` : 'none',
-                              opacity: showCourses ? 1 : 0
-                            }}>
-                              {course}
-                            </span>
-                          ))}
+
+                      {degree.courses && degree.courses.length > 0 && (
+                        <div style={{ 
+                          marginTop: '1rem', 
+                          paddingTop: '1rem', 
+                          borderTop: '1px solid var(--border-color)'
+                        }}>
+                          <p style={{ margin: 0, fontSize: '0.82rem', color: getColor('textSecondary', darkMode), fontWeight: 700 }}>
+                            {showCourses ? 'Relevant Coursework' : 'Hover to view relevant coursework'}
+                          </p>
+                          <div style={{
+                            marginTop: '0.7rem',
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            gap: '0.45rem',
+                            opacity: showCourses ? 1 : 0,
+                            maxHeight: showCourses ? '220px' : '0',
+                            overflow: 'hidden',
+                            transition: 'all 0.35s ease'
+                          }}>
+                            {degree.courses.map((course, i) => (
+                              <span key={i} style={{
+                                padding: '0.35rem 0.7rem',
+                                background: `${getColor('accentDarkBlue', darkMode)}14`,
+                                color: getColor('accentDarkBlue', darkMode),
+                                borderRadius: '999px',
+                                fontSize: '0.82rem',
+                                border: `1px solid ${getColor('accentDarkBlue', darkMode)}33`,
+                                animation: showCourses ? `fadeInScale 0.25s ease ${i * 0.04}s forwards` : 'none',
+                                opacity: showCourses ? 1 : 0
+                              }}>
+                                {course}
+                              </span>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
                     </div>
                   </FadeInItem>
                   );
                 })}
               </div>
 
-              {/* Certifications */}
-              <h3 style={{ fontSize: '2rem', marginBottom: '2rem', color: getColor('accentDarkBlue', darkMode) }}>Certifications</h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
-                {education?.certifications?.map((cert, index) => {
-                  const showLink = hoveredCertIndex === index && Boolean(cert.url);
-                  
-                  return (
-                  <FadeInItem key={index} delay={index * 0.1}>
-                    <div 
-                      onMouseEnter={() => setHoveredCertIndex(index)}
-                      onMouseLeave={() => setHoveredCertIndex(null)}
-                      style={{
-                        padding: '1.5rem',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        backdropFilter: 'blur(10px)',
-                        borderRadius: '8px',
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '1rem',
-                        transition: 'all 0.3s',
-                        cursor: 'default',
-                        position: 'relative',
-                      border: '1px solid var(--border-color)'
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                      {cert.logo && (
-                        <ImageWithSkeleton
-                          src={cert.logo} 
-                          alt={cert.issuer}
-                          loading="lazy"
-                          style={{
-                            width: '45px',
-                            height: '45px',
-                            objectFit: 'contain',
-                            borderRadius: '6px',
-                            background: 'rgba(74, 144, 226, 0.1)',
-                            padding: '5px',
-                            flexShrink: 0
-                          }}
-                        />
-                      )}
-                      <div>
-                        <h5 style={{ margin: 0, fontSize: '1rem', color: getColor('textPrimary', darkMode) }}>
-                          {cert.title}
-                        </h5>
-                        <p style={{ margin: '0.25rem 0 0 0', color: getColor('textSecondary', darkMode), fontSize: '0.85rem' }}>
-                          {cert.issuer}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    {/* Certificate link */}
-                    {showLink && cert.url && cert.url !== '#' && (
-                      <a
-                        href={cert.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                          padding: '0.5rem 1rem',
-                          background: 'rgba(74, 144, 226, 0.1)',
-                          color: getColor('accentBlue', darkMode),
-                          borderRadius: '6px',
-                          textDecoration: 'none',
-                          fontSize: '0.9rem',
-                          fontWeight: 600,
-                          border: '1px solid rgba(74, 144, 226, 0.3)',
-                          transition: 'all 0.2s',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '0.5rem',
-                          cursor: 'pointer'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = 'rgba(74, 144, 226, 0.2)';
-                          e.currentTarget.style.borderColor = 'rgba(74, 144, 226, 0.5)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = 'rgba(74, 144, 226, 0.1)';
-                          e.currentTarget.style.borderColor = 'rgba(74, 144, 226, 0.3)';
-                        }}
-                      >
-                        🔗 View Certificate
-                      </a>
-                    )}
-                    </div>
-                  </FadeInItem>
-                  );
-                })}
+              <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+                <a
+                  href="/credentials.html"
+                  className="btn-ripple cta-animate is-visible"
+                  onClick={() => Analytics.trackClick('View full credentials', 'education-section')}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    padding: '0.8rem 1.4rem',
+                    borderRadius: '10px',
+                    textDecoration: 'none',
+                    fontWeight: 700,
+                    fontSize: '0.95rem',
+                    border: `1px solid ${getColor('accentDarkBlue', darkMode)}55`,
+                    color: getColor('accentDarkBlue', darkMode),
+                    background: `${getColor('accentDarkBlue', darkMode)}15`,
+                    transition: 'all 0.3s'
+                  }}
+                >
+                  View full credentials →
+                </a>
               </div>
             </div>
           </section>
@@ -2831,7 +2734,7 @@ import './styles.css';
       // ============================================
       // PROJECTS SECTION
       // ============================================
-      function ProjectsSection({ projects, caseStudies, darkMode }) {
+      function ProjectsSection({ projects, caseStudies, totalCaseStudyCount = 0, darkMode }) {
         const [activeCardId, setActiveCardId] = useState(null);
 
         const mergedItems = [
@@ -2855,6 +2758,8 @@ import './styles.css';
           }))
         ];
 
+        const displayedCaseStudyCount = (caseStudies || []).length;
+
         return (
           <section id="projects" className="section-bg-mesh alt" style={{ 
             padding: '8rem 2rem', 
@@ -2864,7 +2769,7 @@ import './styles.css';
               <SectionHeader 
                 title="Projects &"
                 highlight="Case Studies"
-                subtitle="Selected projects, publication, and product case studies"
+                subtitle="Selected projects, publication, and featured product case studies"
               />
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem' }}>
                 {mergedItems.map((item, index) => {
@@ -3086,6 +2991,31 @@ import './styles.css';
                   );
                 })}
               </div>
+              {totalCaseStudyCount > displayedCaseStudyCount && (
+                <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+                  <a
+                    href="/case-studies.html"
+                    className="btn-ripple cta-animate is-visible"
+                    onClick={() => Analytics.trackClick('View all projects', 'projects-section')}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      padding: '0.8rem 1.4rem',
+                      borderRadius: '10px',
+                      textDecoration: 'none',
+                      fontWeight: 700,
+                      fontSize: '0.95rem',
+                      border: `1px solid ${getColor('accentBlue', darkMode)}55`,
+                      color: getColor('accentBlue', darkMode),
+                      background: `${getColor('accentBlue', darkMode)}15`,
+                      transition: 'all 0.3s'
+                    }}
+                  >
+                    View all projects →
+                  </a>
+                </div>
+              )}
             </div>
           </section>
         );
