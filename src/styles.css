@@ -64,6 +64,11 @@
         min-height: 100vh;
       }
 
+      .portfolio-main-shell {
+        position: relative;
+        isolation: isolate;
+      }
+
       /* Smooth scrolling */
       html {
         scroll-behavior: smooth;
@@ -231,6 +236,36 @@
           transform: none;
           transition: none;
         }
+
+        .animated-hero-bg,
+        .hero-orb,
+        .hero-content-shell,
+        .project-scroll-stage,
+        .project-scroll-stage .card-content,
+        .timeline-item-wrapper,
+        .timeline-dot,
+        .timeline-center-line > span,
+        .section-progress-item,
+        .section-progress-meter span {
+          animation: none !important;
+          transition: none !important;
+          transform: none !important;
+        }
+
+        .project-stage-shell .project-scroll-stage,
+        .project-stage-shell .project-scroll-stage:not(.is-stage-active),
+        .project-stage-shell .project-scroll-stage.is-stage-active {
+          opacity: 1 !important;
+          box-shadow: 0 4px 20px var(--card-shadow) !important;
+          border-color: var(--border-color) !important;
+        }
+
+        .experience-stage-shell .timeline-item-wrapper,
+        .experience-stage-shell .timeline-item-wrapper.is-stage-dim,
+        .experience-stage-shell .timeline-item-wrapper.is-stage-active {
+          opacity: 1 !important;
+          filter: none !important;
+        }
       }
 
       /* Card shadows */
@@ -314,18 +349,35 @@
       /* Project/publication/case-study cards should not tilt in 3D */
       .project-card {
         perspective: none;
+        --project-stage-transform: none;
       }
 
       .project-card .card-content {
         transform-style: flat;
+        transform: var(--project-stage-transform, none);
       }
 
       .project-card:hover .card-content {
-        transform: none;
+        transform: var(--project-stage-transform, none);
       }
 
       .project-card:hover {
         transform: translateY(-8px);
+      }
+
+      .project-stage-shell .project-scroll-stage {
+        transition: box-shadow 0.35s ease, border-color 0.35s ease, opacity 0.35s ease;
+      }
+
+      .project-stage-shell .project-scroll-stage:not(.is-stage-active) {
+        opacity: 0.92;
+      }
+
+      .project-stage-shell .project-scroll-stage.is-stage-active {
+        --project-stage-transform: translateY(-4px) scale(1.01);
+        opacity: 1;
+        border-color: rgba(var(--brand-rgb), 0.5) !important;
+        box-shadow: 0 18px 44px rgba(var(--brand-rgb), 0.18), 0 0 0 1px rgba(var(--brand-rgb), 0.2) !important;
       }
 
       /* 2. Sticky Navigation with Backdrop Blur */
@@ -349,7 +401,7 @@
       .hamburger {
         width: 44px;
         height: 44px;
-        display: inline-flex;
+        display: none;
         align-items: center;
         justify-content: center;
         border-radius: 10px;
@@ -396,9 +448,12 @@
       .drawer-overlay.open { opacity: 1; pointer-events: auto; }
 
       /* Show hamburger only on small screens */
+      @media (max-width: 1080px) {
+        .hamburger { display: inline-flex; }
+      }
+
       @media (max-width: 767px) {
         .desktop-nav-links { display: none !important; }
-        .hamburger { display: inline-flex; }
         /* When mobile drawer is open, visually hide the top nav (keep hamburger functional)
            so the drawer doesn't duplicate the header. */
         body.menu-open .sticky-nav {
@@ -557,15 +612,30 @@
       }
 
       /* Timeline responsive helpers */
+      .experience-timeline {
+        position: relative;
+      }
+
       .timeline-center-line {
         position: absolute;
         left: 50%;
         top: 0;
         bottom: 0;
         width: 3px;
-        background: linear-gradient(180deg, var(--brand-1), var(--brand-2));
+        background: linear-gradient(180deg, rgba(var(--brand-rgb), 0.15), rgba(var(--brand-rgb), 0.07));
         transform: translateX(-50%);
         display: block;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .timeline-center-line > span {
+        position: absolute;
+        inset: 0;
+        background: var(--brand-gradient-strong);
+        transform-origin: top center;
+        transform: scaleY(0);
+        transition: transform 0.35s ease;
       }
 
       .timeline-dot {
@@ -580,14 +650,41 @@
         transform: translateX(-50%);
         z-index: 10;
         box-shadow: 0 0 0 4px rgba(var(--brand-rgb), 0.1);
+        transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      }
+
+      .timeline-dot.is-active {
+        transform: translateX(-50%) scale(1.16);
+        box-shadow: 0 0 0 5px rgba(var(--brand-rgb), 0.2), 0 0 24px rgba(var(--brand-rgb), 0.38);
+      }
+
+      .timeline-stage-card {
+        transition: box-shadow 0.28s ease, border-color 0.28s ease, background 0.28s ease;
+      }
+
+      .timeline-stage-card.is-stage-active {
+        border-color: rgba(var(--brand-rgb), 0.45);
+        box-shadow: 0 18px 42px rgba(var(--brand-rgb), 0.16), 0 0 0 1px rgba(var(--brand-rgb), 0.16);
+      }
+
+      .experience-stage-shell .timeline-item-wrapper.is-stage-dim .timeline-content {
+        filter: saturate(0.9);
+      }
+
+      .experience-stage-shell .timeline-item-wrapper {
+        transition: opacity 0.32s ease, transform 0.32s ease;
       }
 
       @media (max-width: 767px) {
         .timeline-center-line { display: none; }
         .timeline-dot { left: 16px; transform: none; }
+        .timeline-dot.is-active { transform: scale(1.08); }
         .timeline-item-wrapper { justify-content: center !important; }
         .timeline-content { width: 100% !important; padding-left: 48px; }
         .timeline-arrow { display: none !important; }
+        .experience-stage-shell .timeline-item-wrapper.is-stage-dim .timeline-content {
+          filter: none;
+        }
       }
       
 
@@ -682,6 +779,100 @@
         background: var(--brand-gradient-soft);
         z-index: 9999;
         transition: width 0.1s ease;
+      }
+
+      .section-progress-rail {
+        position: fixed;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 980;
+        display: grid;
+        gap: 0.42rem;
+        width: min(190px, 24vw);
+      }
+
+      .section-progress-item {
+        border: 1px solid rgba(var(--brand-rgb), 0.22);
+        background: rgba(255, 255, 255, 0.78);
+        color: var(--text-primary);
+        backdrop-filter: blur(8px);
+        border-radius: 10px;
+        padding: 0.38rem 0.46rem;
+        display: grid;
+        grid-template-columns: 1.25rem minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        column-gap: 0.42rem;
+        row-gap: 0.22rem;
+        text-align: left;
+        cursor: pointer;
+        transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+      }
+
+      body.dark-mode .section-progress-item {
+        background: rgba(12, 18, 31, 0.74);
+        border-color: rgba(109, 179, 255, 0.25);
+      }
+
+      .section-progress-item:hover {
+        transform: translateX(-2px);
+        border-color: rgba(var(--brand-rgb), 0.5);
+        box-shadow: 0 8px 22px rgba(22, 30, 46, 0.18);
+      }
+
+      .section-progress-item.is-active {
+        border-color: rgba(var(--brand-rgb), 0.65);
+        box-shadow: 0 8px 22px rgba(var(--brand-rgb), 0.24);
+      }
+
+      .section-progress-index {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.67rem;
+        font-weight: 800;
+        background: rgba(var(--brand-rgb), 0.18);
+        color: var(--accent-accessible);
+      }
+
+      .section-progress-item.is-active .section-progress-index {
+        background: var(--brand-gradient);
+        color: #ffffff;
+      }
+
+      .section-progress-label {
+        grid-column: 2;
+        grid-row: 1;
+        font-size: 0.73rem;
+        letter-spacing: 0.01em;
+        text-transform: capitalize;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .section-progress-meter {
+        grid-column: 2;
+        grid-row: 2;
+        width: 100%;
+        height: 4px;
+        border-radius: 999px;
+        background: rgba(var(--brand-rgb), 0.14);
+        overflow: hidden;
+      }
+
+      .section-progress-meter span {
+        display: block;
+        width: 100%;
+        height: 100%;
+        transform-origin: left center;
+        transform: scaleX(0);
+        background: var(--brand-gradient-soft);
+        transition: transform 0.22s ease;
       }
 
       /* 9. Floating Action Button */
@@ -913,6 +1104,49 @@
         );
         background-size: 400% 400%;
         animation: gradient-move 15s ease infinite;
+      }
+
+      .animated-hero-bg {
+        --hero-scroll-progress: 0;
+      }
+
+      .animated-hero-bg::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(circle at 70% 18%, rgba(var(--brand-rgb), calc(0.22 - var(--hero-scroll-progress) * 0.08)), transparent 45%),
+          radial-gradient(circle at 18% 86%, rgba(255, 255, 255, calc(0.14 - var(--hero-scroll-progress) * 0.05)), transparent 52%);
+        opacity: calc(1 - var(--hero-scroll-progress) * 0.3);
+        transition: opacity 0.25s ease;
+      }
+
+      .hero-orb {
+        will-change: transform, opacity;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+      }
+
+      .hero-orb-a {
+        transform: translate3d(
+          calc(var(--hero-scroll-progress, 0) * -64px),
+          calc(var(--hero-scroll-progress, 0) * 40px),
+          0
+        ) scale(calc(1 + var(--hero-scroll-progress, 0) * 0.2));
+        opacity: calc(1 - var(--hero-scroll-progress, 0) * 0.35);
+      }
+
+      .hero-orb-b {
+        transform: translate3d(
+          calc(var(--hero-scroll-progress, 0) * 56px),
+          calc(var(--hero-scroll-progress, 0) * -34px),
+          0
+        ) scale(calc(1 + var(--hero-scroll-progress, 0) * 0.16));
+        opacity: calc(1 - var(--hero-scroll-progress, 0) * 0.3);
+      }
+
+      .hero-content-shell {
+        will-change: transform, opacity;
       }
 
       /* Ensure hero text wraps on small screens */
@@ -1985,6 +2219,10 @@
       }
 
       @media (max-width: 1080px) {
+        .section-progress-rail {
+          display: none;
+        }
+
         .skills-network-shell {
           height: min(70vh, 650px);
         }
