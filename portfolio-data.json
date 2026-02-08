@@ -8,6 +8,7 @@
     "phone": "+1-612-999-4142",
     "image": "/assets/images/headshot.jpg"
   },
+  "siteUrl": "https://ghosh-ayush.github.io",
   "social": [
     {
       "name": "LinkedIn",
@@ -238,7 +239,7 @@
     {
       "id": "hindalco",
       "company": "HINDALCO",
-      "logo": "/assets/images/hindalco-logo.png",
+      "logo": "/assets/images/hindalco-logo-optimized.png",
       "position": "Process Engineer (Intern)",
       "location": "Sonebhadra, India",
       "startDate": "Dec 2018",
@@ -334,7 +335,7 @@
         "issuer": "Minnesota West Community and Technical College",
         "logo": "/assets/images/msu-logo.png",
         "date": "Sep 2023",
-        "url": "#"
+        "url": "https://www.minnwest.edu"
       },
       {
         "id": "asem",
@@ -342,7 +343,7 @@
         "issuer": "American Society for Engineering Management",
         "logo": "/assets/images/asem-logo.png",
         "date": "Oct 2024",
-        "url": "#"
+        "url": "https://www.asem.org/Certification"
       },
       {
         "id": "duke",
@@ -415,9 +416,9 @@
       "id": "mobile-ui",
       "title": "Mobile App UI/UX",
       "description": "Designed 15+ Figma/Balsamiq Mobile app screens based on user research; validated UX through stakeholder walkthroughs, reducing rework by 30%.",
-      "image": "/assets/images/mobile-ui.png",
+      "image": "/assets/images/mobile-ui.svg",
       "tags": ["Figma", "Balsamiq", "User research"],
-      "link": "#"
+      "link": "/documents/pm-case-studies.pdf#page=1"
     },
     {
       "id": "awd",
@@ -439,9 +440,89 @@
       "id": "ai-resume",
       "title": "AI Resume Generator",
       "description": "Built a RAG pipeline using LangChain and FAISS for vector similarity search, achieving 92% relevance on test queries. Implemented GPT-4 integration to generate ATS-optimized resumes and cover letters from job descriptions, reducing manual drafting time by 80%.",
-      "image": "/assets/images/ai-resume.png",
+      "image": "/assets/images/ai-resume.svg",
       "tags": ["LangChain", "FAISS", "GPT-4"],
-      "link": "#"
+      "link": "/documents/pm-case-studies.pdf#page=2"
+    }
+  ],
+  "caseStudies": [
+    {
+      "id": "socai-0to1",
+      "company": "SOCAi Labs",
+      "role": "Founding Product Lead",
+      "timeline": "Dec 2025 - Present",
+      "title": "0->1 AI Dermatology Platform",
+      "image": "/assets/images/case-study-socai.svg",
+      "summary": "Built the MVP roadmap and pilot metrics for a scalable AI diagnostic workflow.",
+      "problem": "Clinical teams needed a scalable way to triage visual diagnostics with consistent quality across regions and varying specialist availability.",
+      "strategy": [
+        "Prioritized a constrained MVP focused on highest-frequency triage use cases.",
+        "Defined success metrics around clinician throughput, quality consistency, and pilot partner activation.",
+        "Sequenced roadmap into validation milestones before broad feature expansion."
+      ],
+      "execution": [
+        "Ran customer discovery with early enterprise partners and translated findings into product requirements.",
+        "Aligned clinical, engineering, and data workflows around one release cadence.",
+        "Built instrumentation plan to measure engagement, cycle time, and model-assisted decision quality."
+      ],
+      "outcome": [
+        "Established product-market fit signals for early enterprise pilots.",
+        "Created a repeatable framework for scaling from prototype to regulated workflow adoption."
+      ],
+      "tradeoffs": "Deferred lower-impact UX customization to prioritize high-confidence diagnostic workflow reliability and measurable pilot outcomes.",
+      "nextStep": "Expand to role-based workflow personalization while preserving evaluation rigor and auditability."
+    },
+    {
+      "id": "sculptor-rag",
+      "company": "Sculptor Capital Management",
+      "role": "AI PM (Data Science)",
+      "timeline": "Jun 2025 - Dec 2025",
+      "title": "Executive Intelligence RAG Assistant",
+      "image": "/assets/images/case-study-sculptor.svg",
+      "summary": "Reduced analyst prep effort by turning fragmented data into decision-ready executive briefs.",
+      "problem": "Leadership teams spent substantial analyst time preparing recurring market and performance briefs from fragmented datasets.",
+      "strategy": [
+        "Scoped to one high-frequency decision workflow before broad AI assistant ambitions.",
+        "Balanced retrieval precision with response speed to support executive usage patterns.",
+        "Set adoption targets jointly with business and data leaders."
+      ],
+      "execution": [
+        "Owned roadmap for ingestion, retrieval quality, and summarization reliability.",
+        "Partnered with data engineering to modernize Databricks workflows for faster iteration.",
+        "Deployed dashboards to track usage and decision-cycle impact."
+      ],
+      "outcome": [
+        "Reduced analyst preparation time by 25%.",
+        "Accelerated model iteration by 30% and improved executive decision cycle by 20%."
+      ],
+      "tradeoffs": "Chose narrower source coverage initially to improve answer reliability and build stakeholder trust.",
+      "nextStep": "Introduce personalized briefing templates and scenario comparison workflows for portfolio teams."
+    },
+    {
+      "id": "humannity-telemetry",
+      "company": "Humannity MedTec",
+      "role": "Software Engineer II (Data & Cloud)",
+      "timeline": "Sep 2023 - May 2025",
+      "title": "Clinical Telemetry & Support Platform",
+      "image": "/assets/images/case-study-humannity.svg",
+      "summary": "Improved reliability and support workflows with a unified telemetry and operations platform.",
+      "problem": "Device telemetry and support workflows lacked unified visibility, creating delayed issue resolution and inconsistent patient support experiences.",
+      "strategy": [
+        "Prioritized reliability and support workflows over non-essential feature breadth.",
+        "Defined KPIs for uptime, support MTTR, and pipeline latency.",
+        "Aligned roadmap to reduce operational friction for support and clinical teams."
+      ],
+      "execution": [
+        "Led telemetry sync roadmap with reliability targets and release checkpoints.",
+        "Shipped a centralized clinical dashboard for support operations.",
+        "Improved analytics pipelines and coordinated Agile execution for cross-functional teams."
+      ],
+      "outcome": [
+        "Achieved 99% uptime for telemetry sync workflows.",
+        "Reduced support MTTR by 40% and improved sprint velocity by 20%."
+      ],
+      "tradeoffs": "Deprioritized edge-case automation early to stabilize core reliability and incident response quality.",
+      "nextStep": "Layer predictive risk scoring to proactively surface patient and device issues."
     }
   ],
   "testimonials": [

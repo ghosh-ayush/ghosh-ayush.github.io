@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-label="Mobile App UI/UX project card">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <g opacity="0.2">
+    <circle cx="170" cy="110" r="120" fill="#93c5fd"/>
+    <circle cx="1060" cy="640" r="180" fill="#a78bfa"/>
+  </g>
+  <g transform="translate(120 110)">
+    <rect x="0" y="0" width="220" height="440" rx="28" fill="#0b1120" stroke="#60a5fa" stroke-width="3"/>
+    <rect x="20" y="30" width="180" height="24" rx="8" fill="#1f2937"/>
+    <rect x="20" y="76" width="130" height="14" rx="7" fill="#334155"/>
+    <rect x="20" y="110" width="180" height="72" rx="16" fill="url(#accent)"/>
+    <rect x="20" y="204" width="180" height="14" rx="7" fill="#334155"/>
+    <rect x="20" y="230" width="120" height="14" rx="7" fill="#334155"/>
+    <rect x="20" y="270" width="84" height="32" rx="16" fill="#0ea5e9"/>
+  </g>
+  <g transform="translate(390 150)">
+    <rect x="0" y="0" width="650" height="370" rx="24" fill="#0b1220" stroke="#1e3a8a" stroke-width="2"/>
+    <rect x="24" y="24" width="260" height="20" rx="10" fill="#334155"/>
+    <rect x="24" y="62" width="540" height="120" rx="16" fill="#111827"/>
+    <rect x="24" y="200" width="170" height="140" rx="16" fill="#111827"/>
+    <rect x="210" y="200" width="170" height="140" rx="16" fill="#111827"/>
+    <rect x="396" y="200" width="170" height="140" rx="16" fill="#111827"/>
+  </g>
+  <text x="390" y="600" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="54" font-weight="700">Mobile App UI/UX</text>
+  <text x="390" y="650" fill="#bfdbfe" font-family="Arial, sans-serif" font-size="30">User research, flow redesign, and stakeholder validation</text>
+</svg>
