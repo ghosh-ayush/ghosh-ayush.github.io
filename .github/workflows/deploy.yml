@@ -1,19 +1,37 @@
-name: Build and deploy to GitHub Pages
+name: Build and publish site
+
+# GitHub Pages for this repo is set to "Deploy from a branch" (master, root), so
+# the built site must be committed at the repo root. This workflow rebuilds it on
+# every source push and commits the result, so you never have to remember to run
+# `npm run deploy` by hand.
+#
+# Pushes made with GITHUB_TOKEN do not trigger workflows, so this cannot loop.
+#
+# If Pages is ever switched to Source = "GitHub Actions", replace the commit step
+# with actions/upload-pages-artifact + actions/deploy-pages and stop committing
+# build output. That is the cleaner setup; see README.
 
 on:
   push:
     branches: [master]
+    paths:
+      # Only rebuild when source changes, not when this workflow commits output.
+      - 'app/**'
+      - 'src/**'
+      - 'public/**'
+      - 'scripts/**'
+      - 'portfolio-data.json'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'vite.config.js'
+      - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
-# Allow GITHUB_TOKEN to publish to Pages.
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
-# Let an in-flight deploy finish rather than cancelling it mid-publish.
 concurrency:
-  group: pages
+  group: publish-site
   cancel-in-progress: false
 
 jobs:
@@ -29,20 +47,18 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run build
+      - run: npm run deploy
 
-      - uses: actions/configure-pages@v5
+      - name: Commit built site
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
+          git add -A index.html assets documents favicon.svg 404.html robots.txt sitemap.xml .nojekyll
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          if git diff --cached --quiet; then
+            echo "Build output unchanged; nothing to commit."
+          else
+            git commit -m "chore: rebuild site [skip ci]"
+            git push
+          fi

@@ -9,8 +9,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/prerender.mjs",
+    "deploy": "npm run build && node scripts/publish-root.mjs",
     "preview": "vite preview --port 4173",
-    "optimize:images": "node scripts/optimize-images.mjs"
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "og:card": "node scripts/make-og-card.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
